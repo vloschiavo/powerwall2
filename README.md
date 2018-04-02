@@ -24,7 +24,7 @@ You can find the serial number of the gateway ( the linux server that switches p
 
 ![Gateway Location](https://github.com/vloschiavo/powerwall2/raw/master/img/equipment.jpg "Gateway location")
 
-[ Original image taken from Tesla's website here](https://www.tesla.com/support/energy/install/powerwall/powerwall-installations)
+[ Original image taken from www.tesla.com here](https://www.tesla.com/support/energy/install/powerwall/powerwall-installations)
 
 ___
 ### Information
