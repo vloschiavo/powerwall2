@@ -18,6 +18,7 @@ You should see something like this:
 You can hit the _"Run Wizard"_ button here and go through the setup.
 
 `username: <leave this blank as it's ignored (and/or logged)>`
+
 `password: S + <gateway serial number>`
 
 You can find the serial number of the gateway ( the linux server that switches power) on the inside of the metal access door to the gateway. Don't unscrew anything as the box is switching high voltage & current behind the screwed pannels. See image:
@@ -35,6 +36,7 @@ Calling the below URLs does not require authentication.  Each will return JSON o
 _GET /api/meters/aggregates_
 
 request: `curl http://192.168.xxx.xxx/api/meters/aggregates`
+
 response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_meters_aggregates.json
 )
 
@@ -61,6 +63,7 @@ _GET /api/system_status/soe_
 
 This returns the aggregate charge state in percent of the powerwall(s).
 request: `curl http://192.168.xxx.xxx/api/system_status/soe`
+
 response:	`{"percentage":69.1675560298826}`
 
 ---
@@ -71,6 +74,7 @@ Use this URL to determine:
 2. How long the powerwall has been set to the running state {in seconds}
 3. Is the powerwall gateway connected to Tesla's servers {true|false}}
 request: `curl http://192.168.xxx.xxx/api/sitemaster`
+
 response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
 
 ---
@@ -78,6 +82,7 @@ response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
 _GET /api/powerwalls_
 Use this URL to determine how many power walls you have, their serial numbers, and if they are in sync (assuming more than one powerwall).
 request: `curl http://192.168.xxx.xxx/api/powerwalls`
+
 response:	`{"powerwalls":[{"PackagePartNumber":"1234567-01-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1012345-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
 
 ---
@@ -85,6 +90,7 @@ response:	`{"powerwalls":[{"PackagePartNumber":"1234567-01-E","PackageSerialNumb
 _GET /api/customer/registration_
 Use this URL to determine registration status.  The below shows the results from a system that is fully configured and running.
 request: `curl http://192.168.xxx.xxx/api/customer/registration`
+
 response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"emailed_registration":true,"skipped_registration":false,"timed_out_registration":false}`
 
 ---
@@ -93,13 +99,16 @@ _GET /api/system_status/grid_status_
 Determine if the Grid is up or down.
 
 request: `curl http://192.168.xxx.xxx/api/customer/registration`
+
 response: `{"grid_status":"SystemGridConnected"}`
 {SystemGridConnected} = Grid is up.
 {?} = Grid is down.  (I haven't seen a grid down situation yet - have any of you seen the value for a grid down?)  
 
 ---
 _GET /api/system/update/status_
+
 request: `curl http://192.168.xxx.xxx/api/system/update/status`
+
 response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
 
 1. update_failed / status nonactionable = I tried to do an upgrade but I have the latest firmware version already installed.
@@ -108,18 +117,24 @@ response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"curren
 	
 ---	
 _GET /api/site_info_
+
 request: `curl http://192.168.xxx.xxx/api/site_info`
+
 response: `Response: {"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles","min_site_meter_power_kW":-1000000000,"max_site_meter_power_kW":1000000000,"nominal_system_energy_kWh":13.5,"grid_code":"60Hz_240V_s_UL1741SA:2016_California","grid_voltage_setting":240,"grid_freq_setting":60,"grid_phase_setting":"Split","country":"United States","state":"California","region":"UL1741SA"}`
 
 ---
 
 _GET /api/site_info/site_name_
+
 request: `curl http://192.168.xxx.xxx/api/site_info/site_name`
+
 response: `{"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles"}`
 
 ---
 _GET /api/status_
+
 request: `curl http://192.168.xxx.xxx/api/status`
+
 response: `{"start_time":"2018-03-16 19:08:46 +0800","up_time_seconds":"402h8m19.937911668s","is_new":false,"version":"1.15.0\n","git_hash":"dc337851c6cad15a7e9c7223d60fff719eb8da4d\n"}`
 
 Useful here: Gateway Version:  "version":"1.15.0\n"
@@ -131,6 +146,7 @@ _GET /api/logout_
 The Gateway Web UI uses this url to logout of the wizard.  I assume you can also use this to expire an auth token...(some testing is required).
 
 Request: `curl -i 192.168.xxx.xxx/api/logout`
+
 Response: `HTTP/1.1 204 No Content
 Access-Control-Allow-Credentials: false
 Access-Control-Allow-Headers: X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Accept-Encoding, Authorization
@@ -144,6 +160,7 @@ _GET /api/system_status/grid_faults_
 Not sure what this does...does it list the recent grid failure dates/times?
 
 Request: `curl 192.168.xxx.xxx/api/system_status/grid_faults`
+
 Response: `[]`
 
 ---
@@ -151,13 +168,16 @@ _GET /api/sitemaster/stop_
 
 This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
 Request: `curl http://192.168.xxx.xxx/api/sitemaster/stop`
+
 Response:  
 
 ---
 _GET /api/sitemaster/run_
 
 This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
+
 Request: `http://192.168.xxx.xxx/api/sitemaster/run`
+
 Response:  
 
 ---
@@ -166,7 +186,9 @@ _GET /api/config/completed_
 This applies configuration changes.
 
 This is a GET request and doesn't require an authentication token.
+
 Request: `curl /api/config/completed`
+
 Response:
 
 ___
@@ -183,6 +205,7 @@ See: the _/api/sitemaster/run_ section above.
 Here is an example login using a blank username (none needed) and a serial number of T123456789.  The password is S+Serial number: ST123456789.
 
 Request: `curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' "http://192.168.xxx.xxx/api/login/Basic"`
+
 Response: `{"email":null,"firstname":"Tesla","lastname":"Energy","roles":["Provider_Engineer"],"token":"OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==","provider":"Basic"}`
 
 Save the token for use with the below calls.
@@ -200,6 +223,7 @@ _Note 3: Once a value is changed and committed it is immediately in effect._
 The below request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value) using the token retrieved from the authentication example. 
 
 request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":20}' 'http://192.168.xxx.xxx/api/operation'`
+
 response: `{"mode":"self_consumption","backup_reserve_percent":24}`
 
 Valid Modes:
