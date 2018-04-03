@@ -236,7 +236,7 @@ Valid Modes:
 1. `self_consumption`
 2. `backup`
 
-There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess. Mine is currently set to null.  You can omit this key/value pair from the POST.
+There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess (Time of use?). Mine is currently set to null (probably because time of use isn't enabled on my system yet (as of April 2018).  You can omit this key/value pair from the POST.
 
 `{max_pv_export_power_kW: null, mode: "self_consumption", backup_reserve_percent: 24}`
 
