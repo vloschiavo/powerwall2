@@ -2,9 +2,9 @@ Tesla Powerwall 2 - Local Gateway API documentation
 ======
 _(Based on firmware version 1.15.0)_
 
-This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other urls I've been able to reverse engineer from my local gatway.
+This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other functions we've been able to reverse engineer from the local gateway.  (This is not the [ Tesla Owner API](https://timdorr.docs.apiary.io/#)).
 
-Powerwall Web UI
+Powerwall 2 Web UI
 ---
 The web UI provides ~~an instantaneous~~ 250-500ms average(?) power flow diagram an access to the wizard.
 Hit your local gateway IP with a browser, i.e. _http://192.168.xxx.xxx/
@@ -15,7 +15,7 @@ You should see something like this:
 
 ---
 **Wizard**
-You can hit the _"Run Wizard"_ button here and go through the setup.
+You can hit the _"Run Wizard"_ button here and go through the setup (be careful what you change in the wizard).
 
 `username: <leave this blank as it's ignored (and/or logged)>`
 
@@ -62,6 +62,7 @@ This returns the current readings from the meters that measure solar, grid, batt
 _GET /api/system_status/soe_
 
 This returns the aggregate charge state in percent of the powerwall(s).
+
 request: `curl http://192.168.xxx.xxx/api/system_status/soe`
 
 response:	`{"percentage":69.1675560298826}`
@@ -73,6 +74,7 @@ Use this URL to determine:
 1. Powerwall state {running|stopped}
 2. How long the powerwall has been set to the running state {in seconds}
 3. Is the powerwall gateway connected to Tesla's servers {true|false}}
+
 request: `curl http://192.168.xxx.xxx/api/sitemaster`
 
 response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
@@ -81,6 +83,7 @@ response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
 
 _GET /api/powerwalls_
 Use this URL to determine how many power walls you have, their serial numbers, and if they are in sync (assuming more than one powerwall).
+
 request: `curl http://192.168.xxx.xxx/api/powerwalls`
 
 response:	`{"powerwalls":[{"PackagePartNumber":"1234567-01-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1012345-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
@@ -89,6 +92,7 @@ response:	`{"powerwalls":[{"PackagePartNumber":"1234567-01-E","PackageSerialNumb
 
 _GET /api/customer/registration_
 Use this URL to determine registration status.  The below shows the results from a system that is fully configured and running.
+
 request: `curl http://192.168.xxx.xxx/api/customer/registration`
 
 response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"emailed_registration":true,"skipped_registration":false,"timed_out_registration":false}`
@@ -101,6 +105,7 @@ Determine if the Grid is up or down.
 request: `curl http://192.168.xxx.xxx/api/customer/registration`
 
 response: `{"grid_status":"SystemGridConnected"}`
+
 {SystemGridConnected} = Grid is up.
 {?} = Grid is down.  (I haven't seen a grid down situation yet - have any of you seen the value for a grid down?)  
 
@@ -167,6 +172,7 @@ Response: `[]`
 _GET /api/sitemaster/stop_
 
 This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
+
 Request: `curl http://192.168.xxx.xxx/api/sitemaster/stop`
 
 Response:  
@@ -264,27 +270,3 @@ Other
 
 /api/siteinfo/timezone - `404 - not working at the moment. Requires auth?`
 
-
-Cut and pasted from the Forums:  
----
-Thank you to all of you who have figured these things out!
-
-You can set the operation mode and reserve percentage using the local API used by the wizard if you want. To do it, you need to authenticate using /api/login/Basic and then use the token that's returned as a bearer token in the request.
-
-The endpoint is /api/operation and take JSON post data such as the following: {"backup_reserve_percent": 100, "mode":"self_consumption"}
-
-This just queues the change up. To commit it, do a GET of /api/config/completed.
-
-I just received my Powerwalls and my app hasn't been provisioned yet, so I've just been playing with the local API so far.
-
-One other thing I forgot to mention: it looks like the stop and start buttons from the local web UI just generate a GET to /api/sitemaster/stop and /api/sitemaster/run, respectively. No credentials seem to be needed, so if all you're trying to automate is stopping the powerwall, it seems relatively straightforward. The drawback of course is that a stopped gateway won't do any monitoring.
-
-Login:
-Same as for the wizard. Username appears to be ignored (probably just logged), password is S + serial number of the gateway.
-
-curl -i -X POST \
--d \
-'{"username":"", "password":"SXXXXXXXXXXX", "force_sm_off":false}' \
-'http://gateway-ip-address/api/login/Basic'
-
-One other note: unlike how I understand the server interface works, using the local API the changes seem to happen right away (after the config/done call).
