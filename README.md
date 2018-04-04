@@ -316,6 +316,21 @@ Request:
 
 ---
 
+
+_GET /api/solars/brands/SolarEdge%20Technologies_
+
+Informational: Get a list of SolarEdge models - used in the wizard.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars/brands/SolarEdge%20Technologies`
+
+Response
+
+[ SolarEdge Models - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solar_edge_models.json)
+
+---
+
 _GET /api/generators_
 
 Note: I don't have a generator tied to my system.
@@ -331,29 +346,79 @@ Response:
 ---
 
 
+_GET /api/customer_
+
+Informational:
+
+Request: 
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/customer`
+
+Response:
+
+`{"city":"New York","state":"New York ","zip":"10010","country":"US","registered":true,"privacy_notice":true,"limited_warranty":true,"emailed_registration":true}`
 
 ---
-Others to be documented:
-
-/api/generators/disconnect_types
-
-/api/solars/brands/SolarEdge%20Technologies
-
-/api/meters
-
-/api/meters/readings
-
-/api/installer - `{company: "Tesla Timbuktu", customer_id: "01234567", phone: "8885551212"}`
-
-/api/customer
-
-/api/config - `{vin: "0123456-00-E--T1234567890"}`
 
 
+_GET /api/config_
 
-___
-Other
+Informational - I'm not sure what this is...
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/config`
+
+Response:
+
+`{vin: "0123456-00-E--T1234567890"}`
+
+
+---
+__Others to be documented:__
+
+_GET /api/generators/disconnect_types_
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/generators/disconnect_types`
+
+
+Response:
+
+`["DownstreamATS"]`
+
 ---
 
-/api/siteinfo/timezone - `404 - not working at the moment. Requires auth?`
+_GET /api/meters_
 
+Request: 
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/meters`
+
+Response:
+
+`[{"serial":"OBB3172012345","short_id":"49123","connected":true,"cts":[{"type":"solar","valid":[false,false,true,true],"inverted":[false,false,false,false]},{"type":"site","valid":[true,true,false,false],"inverted":[false,false,false,false]}]}]`
+
+---
+
+
+_GET /api/installer_
+
+Details of the company that did the installation of the powerwall as well as your customer ID in their system.  This can be configured in the Wizard.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/installer`
+
+Response:
+
+ `{company: "Tesla Timbuktu", customer_id: "01234567", phone: "8885551212"}`
+
+
+
+---
+
+__Others to document__
+
+/api/meters/readings - this just hangs ?
