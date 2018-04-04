@@ -210,9 +210,13 @@ See: the _/api/sitemaster/run_ section above.
 
 Here is an example login using a blank username (none needed) and a serial number of T123456789.  The password is S+Serial number: ST123456789.
 
-Request: `curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' http://192.168.xxx.xxx/api/login/Basic`
+Request: 
 
-Response: `{"email":null,"firstname":"Tesla","lastname":"Energy","roles":["Provider_Engineer"],"token":"OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==","provider":"Basic"}`
+`curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' http://192.168.xxx.xxx/api/login/Basic`
+
+Response: 
+
+`{"email":null,"firstname":"Tesla","lastname":"Energy","roles":["Provider_Engineer"],"token":"OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==","provider":"Basic"}`
 
 Save the token for use with the below calls.
 
@@ -222,7 +226,9 @@ In windows, the above example works by:
 1. changing the single quotes to double quotes
 2. escape the double quotes inside the -d section
 
-Windows Example Request: `curl -s -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"\",\"password\":\"ST123456789\",\"force_sm_off\":false}" http://192.168.xxx.xxx/api/login/Basic`
+Windows Example Request: 
+
+`curl -s -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"\",\"password\":\"ST123456789\",\"force_sm_off\":false}" http://192.168.xxx.xxx/api/login/Basic`
 
 
 ---
