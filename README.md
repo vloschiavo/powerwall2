@@ -264,19 +264,86 @@ Tested values:
 
 ---
 
+_GET /api/powerwalls/status_
+Informational:
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/powerwalls/status`
+
+Response:
+`{"code":409,"error":"Sitemaster is current running","message":"Sitemaster is current running"}`
+
+---
+_GET /api/site_info/grid_codes_
+Informational: setting options used in the wizard
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/site_info/grid_codes`
+
+Response: 
+
+[ Grid Codes Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_site_info_grid_codes.json)
+
+---
+
+_GET /api/solars_
+Informational: responds with the solar inverter brand, model, and max power rating as stored on the gateway.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars`
+
+Reply:
+
+`[{"brand":"SolarEdge Technologies","model":"SE5000 (240V) w/ -ER-US or A-US","power_rating_watts":6000}]`
+
+---
+
+_GET /api/solars/brands_
+Informational: responds with the Solar inverter Brand options for the wizard.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
+
+[ Solar Brands - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_solars_brands.json)
+
+---
+
+_GET /api/generators_
+
+Note: I don't have a generator tied to my system.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/generators`
+
+Response:
+
+`{"disconnect_type":"None","generators":[]}`
+
+---
+
+
+
+---
 Others to be documented:
-/api/powerwalls/status
-/api/site_info/grid_codes
-/api/solars
-/api/solars/brands
-/api/generators
+
 /api/generators/disconnect_types
+
 /api/solars/brands/SolarEdge%20Technologies
+
 /api/meters
+
 /api/meters/readings
+
 /api/installer - `{company: "Tesla Timbuktu", customer_id: "01234567", phone: "8885551212"}`
+
 /api/customer
+
 /api/config - `{vin: "0123456-00-E--T1234567890"}`
+
 
 
 ___
