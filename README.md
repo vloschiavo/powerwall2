@@ -265,12 +265,15 @@ Tested values:
 ---
 
 _GET /api/powerwalls/status_
+
 Informational:
+
 Request:
 
 `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/powerwalls/status`
 
 Response:
+
 `{"code":409,"error":"Sitemaster is current running","message":"Sitemaster is current running"}`
 
 ---
@@ -288,6 +291,7 @@ Response:
 ---
 
 _GET /api/solars_
+
 Informational: responds with the solar inverter brand, model, and max power rating as stored on the gateway.
 
 Request:
@@ -301,6 +305,7 @@ Reply:
 ---
 
 _GET /api/solars/brands_
+
 Informational: responds with the Solar inverter Brand options for the wizard.
 
 Request:
