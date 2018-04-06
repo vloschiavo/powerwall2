@@ -232,7 +232,7 @@ Windows Example Request:
 
 
 ---
-_POST /api/operation_
+_GET & POST /api/operation_
 Change the Powerwall mode and Reserve Percentage
 
 _Note 1: Making changes to the Powerwalls via the Mobile application can take some time to go into effect.  There's a rumor that states that the changes happen around 30 minutes past the hour. (Probably based on a cron job in Tesla's servers)._
@@ -243,13 +243,14 @@ _Note 3: Once a value is changed and committed it is immediately in effect._
 
 The below request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value) using the token retrieved from the authentication example. 
 
-request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":20}' http://192.168.xxx.xxx/api/operation`
+request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":24.6}' http://192.168.xxx.xxx/api/operation`
 
-response: `{"mode":"self_consumption","backup_reserve_percent":24}`
+response: `{"mode":"self_consumption","backup_reserve_percent":24.6}`
 
 Valid Modes:
 1. `self_consumption`
 2. `backup`
+3. `autonomous` (as reported by dlieu on the teslamotorsclub.com forums)
 
 There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess (Time of use?). Mine is currently set to null (probably because time of use isn't enabled on my system yet (as of April 2018).  You can omit this key/value pair from the POST.
 
@@ -258,7 +259,12 @@ There also is an option to set the max PV Export power in kW.  I'm not 100% sure
 Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
 
 Tested values:
+5% = 10%
 20% = 24%
+16% = 20%
+16% = 20.6%
+20% = 24%
+21% = 24.6%
 30% = 33%
 100% = 100%.
 
@@ -422,3 +428,15 @@ Response:
 __Others to document__
 
 /api/meters/readings - this just hangs ?
+
+---
+
+dlieu:
+"i've decoded and have been using most of the api and decode to the degree Wizard does and wrote CLI to control PW2 pre-TBC. i can show all the status the gateway web ui does, and switch between various operations and reserves.
+
+One important thing to add is that api/operation is not only POST but also GET which reports about the same thing. The reserve is actually double (not just int), so one can put reserve at say 66.6%.
+
+In time based control the mode = "autonomous". It is coming from GET however the api to configure autonomous via POST produces 50x -- most likely the configuration api for autonomous is significantly expanded and it is not possible to infer via wizard alone since wizard does not attempt to configure it. And i am too lazy to investigate gateway traffic sniffing beyond the wizard itself. I am interested to find out the spec for autonomous (aka TBC) configuration. but since standard TBC works for my needs, i guess i am not too eager to dig myself."
+
+
+
