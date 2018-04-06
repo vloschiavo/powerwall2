@@ -241,6 +241,16 @@ _Note 2: Setting a value is not sufficient to make the change.  You must "save" 
 
 _Note 3: Once a value is changed and committed it is immediately in effect._
 
+
+_GET_
+
+request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/operation`
+
+response: `{"mode":"self_consumption","backup_reserve_percent":15}`
+
+
+_POST_
+
 The below request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value) using the token retrieved from the authentication example. 
 
 request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":24.6}' http://192.168.xxx.xxx/api/operation`
