@@ -346,6 +346,7 @@ There also is an option to set the max PV Export power in kW.  I'm not 100% sure
 Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
 
 ___**Tested values:**___
+
 | APP Setting | API Setting |
 | :-------------: |:-------------:|
 | 5%	| 10%		| 
@@ -355,6 +356,7 @@ ___**Tested values:**___
 | 21%	| 24.6% 	|
 | 30%	| 33%		|
 | 100%	| 100%		|
+
 
 ---
 
