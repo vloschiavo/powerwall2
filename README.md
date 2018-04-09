@@ -246,7 +246,7 @@ _GET /api/sitemaster/run_
 
 This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
 
-Request: `http://192.168.xxx.xxx/api/sitemaster/run`
+Request: `curl http://192.168.xxx.xxx/api/sitemaster/run`
 
 Response:  
 Returns HTTPS Status 202 if request is accepted
