@@ -6,7 +6,7 @@ This is a list of api URLs and some random thoughts I've been able to pull toget
 
 Powerwall 2 Web UI
 ---
-The web UI provides ~~an instantaneous~~ 250-500ms average(?) power flow diagram an access to the wizard.
+The web UI provides ~~an instantaneous~~ a 250-500ms average(?) power flow diagram an access to the wizard.
 Hit your local gateway IP with a browser, i.e. _http://192.168.xxx.xxx/
 
 You should see something like this:
@@ -57,6 +57,8 @@ This returns the current readings from the meters that measure solar, grid, batt
 6. "frequency" - Unknown - my numbers show 0 for this.
 7. "generator" - Unknown I don't have a generator - my numbers show 0 for this.
 
+When site master or the Powerwalls are off, the response is: HTTP Status 502
+
 ---
 **State of Charge / State of Energy**
 _GET /api/system_status/soe_
@@ -66,6 +68,8 @@ This returns the aggregate charge state in percent of the powerwall(s).
 request: `curl http://192.168.xxx.xxx/api/system_status/soe`
 
 response:	`{"percentage":69.1675560298826}`
+
+When site master or the Powerwalls are off, the response is: HTTP Status 502
 
 ---
 
@@ -79,6 +83,8 @@ request: `curl http://192.168.xxx.xxx/api/sitemaster`
 
 response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
 
+When site master or the Powerwalls are off, the response is:  `{"running":false,"uptime":"log:","connected_to_tesla":false}`
+
 ---
 
 _GET /api/powerwalls_
@@ -86,7 +92,10 @@ Use this URL to determine how many power walls you have, their serial numbers, a
 
 request: `curl http://192.168.xxx.xxx/api/powerwalls`
 
-response:	`{"powerwalls":[{"PackagePartNumber":"1234567-01-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1012345-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
+response:	`{"powerwalls":[{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
+
+I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
+
 
 ---
 
@@ -102,12 +111,13 @@ response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"
 _GET /api/system_status/grid_status_
 Determine if the Grid is up or down.
 
-request: `curl http://192.168.xxx.xxx/api/customer/registration`
+request: `curl http://192.168.xxx.xxx/ai/system_status/grid_status`
 
-response: `{"grid_status":"SystemGridConnected"}`
+response: 
 
-{SystemGridConnected} = Grid is up.
-{?} = Grid is down.  (I haven't seen a grid down situation yet - have any of you seen the value for a grid down?)  
+`{"grid_status":"SystemGridConnected"}` = grid is up
+
+`{"grid_status":"SystemIslandedActive"}` = grid is down
 
 ---
 _GET /api/system/update/status_
@@ -120,6 +130,52 @@ response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"curren
 2. current_time in EPOC.
 	-1422697552910 = **GMT**: Monday, April 2, 2018 8:09:17.447 PM
 	
+	  
+possible values of "state" property, according to the code:
+
+-   "/clear_update_status", // Checking for firmware update is in progress (need to keep sending request until state is changed)  
+    
+-   "/update_succeeded", // Success  
+    
+-   "/update_failed", // Update failed, or not required  
+    
+-   "/update_staged", // Staging update?  
+    
+-   "/download",  // Downloading update  
+    
+-   "/update_downloaded", // Ready to update  
+    
+-   "/update_unknown"  
+
+possible values of "status" property according to the code:
+
+-   "ignoring", // possibly some uninterruptable action is in progress?  
+    
+-   "error",  
+    
+-   "nonactionable" // everything is OK  
+    
+
+  
+
+Use case:  One user is making this request to check new firmware available, and run the upgrade, approximately 30 minutes before switching to discharging (self_consumption mode with 5% reserve). Assumption is - we better upgrade firmware while battery is in standby mode, rather then letting gateway upgrade itself later, because it will stop battery possibly during peak hours for an upgrade. He noticed his gateway has self-upgraded during peak hours, resulting around 15 minutes stop of battery, which was an unpleasant surprise and extra cost. So, his idea was to force a new firmware check (and upgrade) when battery is not used:
+
+  
+-   7:15am  check for new fimware and run an upgrade if firmware is available  
+    
+-   7:55am  - start discharging (self_consumption, 5% reserve)  
+    
+-   10:05pm  - start charging (backup, 100% reserve)  
+    
+
+Southern California Edison has TOU plan with the following details:
+
+-   8am-2pm,  8pm-10pm  - offpeak  
+    
+-   2pm-8pm  - peak  
+    
+-   10pm-8am  - super offpeak
+
 ---	
 _GET /api/site_info_
 
@@ -159,6 +215,8 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS
 Access-Control-Allow-Origin: *
 Access-Control-Max-Age: 86400`
 
+returns HTTP Status 204, no content, if request is accepted
+
 ---
 _GET /api/system_status/grid_faults_
 
@@ -177,6 +235,10 @@ Request: `curl http://192.168.xxx.xxx/api/sitemaster/stop`
 
 Response:  
 
+returns HTTP Status 500 if powerwall cannot be stopped at this moment with the following JSON: 
+
+`{"code":500,"error":"Cannot Start Wizard","message":"Unable to stop sitemaster"}`
+
 ---
 _GET /api/sitemaster/run_
 
@@ -185,6 +247,8 @@ This starts the powerwalls & gateway.  Use this after getting an authentication 
 Request: `http://192.168.xxx.xxx/api/sitemaster/run`
 
 Response:  
+Returns HTTPS Status 202 if request is accepted
+
 
 ---
 _GET /api/config/completed_
@@ -196,6 +260,8 @@ This is a GET request and doesn't require an authentication token.
 Request: `curl /api/config/completed`
 
 Response:
+Returns HTTP Status 202 if input accepted
+
 
 ___
 Note: __*** The below API calls require authentication ***__
@@ -260,7 +326,18 @@ response: `{"mode":"self_consumption","backup_reserve_percent":24.6}`
 Valid Modes:
 1. `self_consumption`
 2. `backup`
-3. `autonomous` (as reported by dlieu on the teslamotorsclub.com forums)
+3. `autonomous` (aka Time of Use (TOU) as reported by dlieu on the teslamotorsclub.com forums)
+4. `scheduler`  aka Aggregation - This seems like it is not supported now. 
+
+The JavaScript constant in the code of mobile client for Android has the following options:
+
+```
+OperationModes = 
+{SELF_CONSUMPTION: "self_consumption",
+TIME_OF_USE: "autonomous",
+BACKUP: "backup",
+AGGREGATION: "scheduler"}
+```
 
 There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess (Time of use?). Mine is currently set to null (probably because time of use isn't enabled on my system yet (as of April 2018).  You can omit this key/value pair from the POST.
 
@@ -268,15 +345,16 @@ There also is an option to set the max PV Export power in kW.  I'm not 100% sure
 
 Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
 
-Tested values:
-5% = 10%
-20% = 24%
-16% = 20%
-16% = 20.6%
-20% = 24%
-21% = 24.6%
-30% = 33%
-100% = 100%.
+___**Tested values:**___
+| APP Setting | API Setting |
+| :-------------: |:-------------:|
+| 5%	| 10%		| 
+| 16%	| 20%		|
+| 16%	| 20.6%		|
+| 20%	| 24%		|
+| 21%	| 24.6% 	|
+| 30%	| 33%		|
+| 100%	| 100%		|
 
 ---
 
@@ -431,13 +509,291 @@ Response:
 
  `{company: "Tesla Timbuktu", customer_id: "01234567", phone: "8885551212"}`
 
+Alternative Response:
+`{"company":"Tesla Orange County","customer_id":"1234567","phone":"1231234567","email":"...","run_sitemaster":true}`
+
+
 
 
 ---
 
 __Others to document__
 
-/api/meters/readings - this just hangs ?
+POST /api/sitemaster/run_for_commissioning
+
+GET /api/customer/registration
+{"privacy_notice":true,"limited_warranty":true,"grid_services":false,"marketing":true,"registered":true,"emailed_registration":true,"skipped_registration":false,"timed_out_registration":false}
+
+POST /api/customer/registration/skip
+
+GET /api/installer/companies
+[{
+		"company" : "1 Willpower Ltd",
+		"customer_id" : "AN-0000059"
+	}, {
+		"company" : "1000 Energie",
+		"customer_id" : "AN-0000062"
+        }, {
+                ... <LONG_LIST>
+}]
+
+POST /api/networks/wifi_scan
+
+POST /api/networks
+"Content-Type": "application/json"
+{
+        interface: K.InterfaceTypes.WIFI,
+        network_name: ???,
+	security_type: ???
+}
+
+POST /api/networks/<...>/disable
+POST /api/networks/<...>/enable
+
+POST /api/system/networks/conn_tests
+
+while test is running the request returns:
+{"results":null,"timestamp":"0001-01-01T00:00:00Z"}
+
+when test is complete it returns:
+{
+	"results" : {
+		"Config Syncer Test" : {
+			"pass" : true,
+			"error" : ""
+		},
+		"Google GET Test" : {
+			"pass" : true,
+			"error" : ""
+		},
+		"Hermes Status Test" : {
+			"pass" : true,
+			"error" : ""
+		},
+		"Synergy Data Test" : {
+			"pass" : true,
+			"error" : ""
+		}
+	},
+	"timestamp" : "2018-02-22T17:12:56.296673681-08:00"
+}
+
+Also need to research:
+??? /api/system/networks/ping_test
+
+POST /api/logging
+{
+	level: ???,
+	log: ???
+}
+
+POST /api/customer/registration/emailed
+
+POST /api/customer/registration/legal
+"Content-Type": "application/json"
+response:
+{
+	marketing: ???,
+	privacy_notice: ???,
+	limited_warranty: ???,
+	grid_services: ???
+}
+
+GET /api/networks
+returns all configured network adapters in gateway which seems running Linux:
+
+can0 - very interesting unknown adapter (CAN-bus for the car??)
+eth0 - ethernet
+rpine0 - seems cellular network adapter (3G)
+wifi0 - wireless adapter to connect to home network
+wifi1 - configured as access point (TEG-XXXX)
+
+[{
+		"id" : 2,
+		"name" : "can0",
+		"connected" : true,
+		"is_dhcp" : true,
+		"ip_address" : "",
+		"subnet" : "",
+		"config" : null
+	}, {
+		"id" : 3,
+		"name" : "eth0",
+		"connected" : true,
+		"is_dhcp" : true,
+		"ip_address" : "",
+		"subnet" : "",
+		"config" : null
+	}, {
+		"id" : 170,
+		"name" : "rpine0",
+		"connected" : true,
+		"is_dhcp" : true,
+		"ip_address" : "",
+		"subnet" : "",
+		"config" : null
+	}, {
+		"id" : 171,
+		"name" : "wifi0",
+		"connected" : true,
+		"is_dhcp" : true,
+		"ip_address" : "<IP_ADDRESS>",
+		"subnet" : "255.255.255.0",
+		"config" : {
+			"network_name" : "<AP_NAME>",
+			"interface" : "WifiType",
+			"security_type" : "WPA2_Personal",
+			"dhcp" : true,
+			"enabled" : true
+		}
+	}, {
+		"id" : 172,
+		"name" : "wifi1",
+		"connected" : true,
+		"is_dhcp" : true,
+		"ip_address" : "192.168.91.1",
+		"subnet" : "255.255.255.0",
+		"config" : null
+	}
+]
+
+GET /api/system/networks
+[{
+		"network_name" : "default_gsm",
+		"interface" : "GsmType",
+		"security_type" : "NONE",
+		"dhcp" : null
+	}, {
+		"network_name" : "default_eth",
+		"interface" : "EthType",
+		"security_type" : "NONE",
+		"dhcp" : true
+	}, {
+		"network_name" : "<AP_NAME>",
+		"interface" : "WifiType",
+		"security_type" : "WPA2_Personal",
+		"dhcp" : true,
+		"enabled" : true
+	}
+]
+
+GET /api/networks/wifi_security_types
+["NONE","WEP","WPAorWPA2_Personal"]
+
+POST /api/meters/ABC1234567890/verify
+"Content-Type": "application/json"
+request's body: {"short_id":"12345","serial":" ABC1234567890 "}
+
+GET /api/meters/readings
+{
+	"ABC1234567890" : {
+		"error" : "",
+		"data" : {
+			"IP" : "Neurio-12345",
+			"sensorId" : "0x<EIGHT_BYTES_HERE_IN_HEX_FORMAT>",
+			"firmwareVersion" : "Tesla-0.0.7",
+			"f_Hz" : 60,
+			"cts" : [{
+					"ct" : 1,
+					"v_V" : 120.1,
+					"p_W" : 345.07,
+					"q_VAR" : -179.66,
+					"eExp_Ws" : 12601671,
+					"eImp_Ws" : 579265920
+				}, {
+					"ct" : 2,
+					"v_V" : 120.81,
+					"p_W" : 68.48,
+					"q_VAR" : -109.03,
+					"eExp_Ws" : 76422454,
+					"eImp_Ws" : 447595772
+				}, {
+					"ct" : 3,
+					"v_V" : 120.88,
+					"p_W" : -0.2,
+					"q_VAR" : 0,
+					"eExp_Ws" : 258718,
+					"eImp_Ws" : 32548
+				}, {
+					"ct" : 4,
+					"v_V" : 120.1,
+					"p_W" : -0.06,
+					"q_VAR" : -0.17,
+					"eExp_Ws" : 112940,
+					"eImp_Ws" : 88921
+				}
+			]
+		}
+	}
+}
+
+GET /api/system/testing
+{
+	"running" : false,
+	"status" : "TestPassed",
+	"charge_tests" : [0, -1000, -2000, -1000, 0],
+	"meter_results" : [[{
+				"Power" : 575.6900024414062,
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}, {
+				"Power" : 71.94999694824219,
+				"CT" : 2,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}
+		], [{
+				"Power" : 595.2100219726562,
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}, {
+				"Power" : 71.5199966430664,
+				"CT" : 2,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}
+		], [{
+				"Power" : 1064.7099609375,
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}, {
+				"Power" : 540.1099853515625,
+				"CT" : 2,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}
+		], [{
+				"Power" : 1283.739990234375,
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}, {
+				"Power" : 779.1300048828125,
+				"CT" : 2,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}
+		], [{
+				"Power" : 562.5499877929688,
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}, {
+				"Power" : 69.66999816894531,
+				"CT" : 2,
+				"Serial" : " ABC1234567890",
+				"Type" : "site"
+			}
+		]],
+	"inverter_results" : null,
+	"hysteresis" : 0.05,
+	"error" : "",
+	"errors" : null,
+	"tests" : null
+}
 
 ---
 
