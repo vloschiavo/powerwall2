@@ -119,6 +119,8 @@ response:
 
 `{"grid_status":"SystemIslandedActive"}` = grid is down
 
+`{"grid_status":"SystemTransitionToGrid"}` = grid is restored but not yet in sync.
+
 ---
 _GET /api/system/update/status_
 
