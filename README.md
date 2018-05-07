@@ -111,7 +111,7 @@ response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"
 _GET /api/system_status/grid_status_
 Determine if the Grid is up or down.
 
-request: `curl http://192.168.xxx.xxx/ai/system_status/grid_status`
+request: `curl http://192.168.xxx.xxx/api/system_status/grid_status`
 
 response: 
 
