@@ -59,6 +59,23 @@ This returns the current readings from the meters that measure solar, grid, batt
 
 When site master or the Powerwalls are off, the response is: HTTP Status 502
 
+_GET /api/meters/site_
+
+Detailed information about the site specific meter.
+
+request: `curl http://192.168.xxx.xxx/api/meters/site`
+
+response: [see sample response here](samples/api-meters-site.json)
+
+_GET /api/meters/solar_
+
+Detailed information about the solar specific meter.
+
+request: `curl http://192.168.xxx.xxx/api/meters/solar`
+
+response: [see sample response here](samples/api-meters-solar.json)
+
+
 ---
 **State of Charge / State of Energy**
 _GET /api/system_status/soe_
