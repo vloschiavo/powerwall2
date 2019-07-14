@@ -4,10 +4,18 @@ _(Based on firmware version 1.15.0)_
 
 This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other functions we've been able to reverse engineer from the local gateway.  (This is not the [ Tesla Owner API](https://timdorr.docs.apiary.io/#)).
 
+A note about HTTPS and SSL Certificates
+---
+In a recent update to the Powerwall firmware non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed meaning that web browsers and tools like curl will not accept it without it either being included as a trusted certificate on the computer making the request or a specific action by the user to override the error. 
+
+1) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
+2) With curl the `--insecure` or `-k` option will ignore SSL certificate errors.
+3) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
+
 Powerwall 2 Web UI
 ---
 The web UI provides ~~an instantaneous~~ a 250-500ms average(?) power flow diagram an access to the wizard.
-Hit your local gateway IP with a browser, i.e. _http://192.168.xxx.xxx/
+Hit your local gateway IP with a browser, i.e. _https://192.168.xxx.xxx/
 
 You should see something like this:
 
@@ -35,7 +43,7 @@ Calling the below URLs does not require authentication.  Each will return JSON o
 
 _GET /api/meters/aggregates_
 
-request: `curl http://192.168.xxx.xxx/api/meters/aggregates`
+request: `curl https://192.168.xxx.xxx/api/meters/aggregates`
 
 response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_meters_aggregates.json
 )
@@ -63,7 +71,7 @@ _GET /api/meters/site_
 
 Detailed information about the site specific meter.
 
-request: `curl http://192.168.xxx.xxx/api/meters/site`
+request: `curl https://192.168.xxx.xxx/api/meters/site`
 
 response: [see sample response here](samples/api-meters-site.json)
 
@@ -71,7 +79,7 @@ _GET /api/meters/solar_
 
 Detailed information about the solar specific meter.
 
-request: `curl http://192.168.xxx.xxx/api/meters/solar`
+request: `curl https://192.168.xxx.xxx/api/meters/solar`
 
 response: [see sample response here](samples/api-meters-solar.json)
 
@@ -82,7 +90,7 @@ _GET /api/system_status/soe_
 
 This returns the aggregate charge state in percent of the powerwall(s).
 
-request: `curl http://192.168.xxx.xxx/api/system_status/soe`
+request: `curl https://192.168.xxx.xxx/api/system_status/soe`
 
 response:	`{"percentage":69.1675560298826}`
 
@@ -96,7 +104,7 @@ Use this URL to determine:
 2. How long the powerwall has been set to the running state {in seconds}
 3. Is the powerwall gateway connected to Tesla's servers {true|false}}
 
-request: `curl http://192.168.xxx.xxx/api/sitemaster`
+request: `curl https://192.168.xxx.xxx/api/sitemaster`
 
 response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
 
@@ -107,7 +115,7 @@ When site master or the Powerwalls are off, the response is:  `{"running":false,
 _GET /api/powerwalls_
 Use this URL to determine how many power walls you have, their serial numbers, and if they are in sync (assuming more than one powerwall).
 
-request: `curl http://192.168.xxx.xxx/api/powerwalls`
+request: `curl https://192.168.xxx.xxx/api/powerwalls`
 
 response:	`{"powerwalls":[{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
 
@@ -119,7 +127,7 @@ I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber i
 _GET /api/customer/registration_
 Use this URL to determine registration status.  The below shows the results from a system that is fully configured and running.
 
-request: `curl http://192.168.xxx.xxx/api/customer/registration`
+request: `curl https://192.168.xxx.xxx/api/customer/registration`
 
 response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"emailed_registration":true,"skipped_registration":false,"timed_out_registration":false}`
 
@@ -128,7 +136,7 @@ response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"
 _GET /api/system_status/grid_status_
 Determine if the Grid is up or down.
 
-request: `curl http://192.168.xxx.xxx/api/system_status/grid_status`
+request: `curl https://192.168.xxx.xxx/api/system_status/grid_status`
 
 response: 
 
@@ -141,7 +149,7 @@ response:
 ---
 _GET /api/system/update/status_
 
-request: `curl http://192.168.xxx.xxx/api/system/update/status`
+request: `curl https://192.168.xxx.xxx/api/system/update/status`
 
 response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
 
@@ -198,7 +206,7 @@ Southern California Edison has TOU plan with the following details:
 ---	
 _GET /api/site_info_
 
-request: `curl http://192.168.xxx.xxx/api/site_info`
+request: `curl https://192.168.xxx.xxx/api/site_info`
 
 response: `Response: {"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles","min_site_meter_power_kW":-1000000000,"max_site_meter_power_kW":1000000000,"nominal_system_energy_kWh":13.5,"grid_code":"60Hz_240V_s_UL1741SA:2016_California","grid_voltage_setting":240,"grid_freq_setting":60,"grid_phase_setting":"Split","country":"United States","state":"California","region":"UL1741SA"}`
 
@@ -206,14 +214,14 @@ response: `Response: {"site_name":"Home Energy Gateway","timezone":"America/Los_
 
 _GET /api/site_info/site_name_
 
-request: `curl http://192.168.xxx.xxx/api/site_info/site_name`
+request: `curl https://192.168.xxx.xxx/api/site_info/site_name`
 
 response: `{"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles"}`
 
 ---
 _GET /api/status_
 
-request: `curl http://192.168.xxx.xxx/api/status`
+request: `curl https://192.168.xxx.xxx/api/status`
 
 response: `{"start_time":"2018-03-16 19:08:46 +0800","up_time_seconds":"402h8m19.937911668s","is_new":false,"version":"1.15.0\n","git_hash":"dc337851c6cad15a7e9c7223d60fff719eb8da4d\n"}`
 
@@ -250,7 +258,7 @@ _GET /api/sitemaster/stop_
 
 This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
 
-Request: `curl http://192.168.xxx.xxx/api/sitemaster/stop`
+Request: `curl https://192.168.xxx.xxx/api/sitemaster/stop`
 
 Response:  
 
@@ -263,7 +271,7 @@ _GET /api/sitemaster/run_
 
 This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
 
-Request: `curl http://192.168.xxx.xxx/api/sitemaster/run`
+Request: `curl https://192.168.xxx.xxx/api/sitemaster/run`
 
 Response:  
 Returns HTTPS Status 202 if request is accepted
@@ -297,7 +305,7 @@ Here is an example login using a blank username (none needed) and a serial numbe
 
 Request: 
 
-`curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' http://192.168.xxx.xxx/api/login/Basic`
+`curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' https://192.168.xxx.xxx/api/login/Basic`
 
 Response: 
 
@@ -313,7 +321,7 @@ In windows, the above example works by:
 
 Windows Example Request: 
 
-`curl -s -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"\",\"password\":\"ST123456789\",\"force_sm_off\":false}" http://192.168.xxx.xxx/api/login/Basic`
+`curl -s -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"\",\"password\":\"ST123456789\",\"force_sm_off\":false}" https://192.168.xxx.xxx/api/login/Basic`
 
 
 ---
@@ -329,7 +337,7 @@ _Note 3: Once a value is changed and committed it is immediately in effect._
 
 _GET_
 
-request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/operation`
+request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/operation`
 
 response: `{"mode":"self_consumption","backup_reserve_percent":15}`
 
@@ -338,7 +346,7 @@ _POST_
 
 The below request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value) using the token retrieved from the authentication example. 
 
-request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":24.6}' http://192.168.xxx.xxx/api/operation`
+request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":24.6}' https://192.168.xxx.xxx/api/operation`
 
 response: `{"mode":"self_consumption","backup_reserve_percent":24.6}`
 
@@ -385,7 +393,7 @@ Informational:
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/powerwalls/status`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/powerwalls/status`
 
 Response:
 
@@ -397,7 +405,7 @@ Informational: setting options used in the wizard
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/site_info/grid_codes`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/site_info/grid_codes`
 
 Response: 
 
@@ -411,7 +419,7 @@ Informational: responds with the solar inverter brand, model, and max power rati
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars`
 
 Reply:
 
@@ -425,7 +433,7 @@ Informational: responds with the Solar inverter Brand options for the wizard.
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
 
 [ Solar Brands - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_solars_brands.json)
 
@@ -438,7 +446,7 @@ Informational: Get a list of SolarEdge models - used in the wizard.
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/solars/brands/SolarEdge%20Technologies`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands/SolarEdge%20Technologies`
 
 Response
 
@@ -452,7 +460,7 @@ Note: I don't have a generator tied to my system.
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/generators`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" httsp://192.168.xxx.xxx/api/generators`
 
 Response:
 
@@ -467,7 +475,7 @@ Informational:
 
 Request: 
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/customer`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/customer`
 
 Response:
 
@@ -482,7 +490,7 @@ Informational - I'm not sure what this is...
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/config`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/config`
 
 Response:
 
@@ -496,7 +504,7 @@ _GET /api/generators/disconnect_types_
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/generators/disconnect_types`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/generators/disconnect_types`
 
 
 Response:
@@ -509,7 +517,7 @@ _GET /api/meters_
 
 Request: 
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/meters`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/meters`
 
 Response:
 
@@ -524,7 +532,7 @@ Details of the company that did the installation of the powerwall as well as you
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" http://192.168.xxx.xxx/api/installer`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/installer`
 
 Response:
 
