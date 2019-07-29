@@ -1,1 +1,188 @@
-[{"brand":"SolarEdge Technologies","model":"SE 10000A-US (208V)","description":"10 kW 1-Phase (208Vac) Utility Interactive Inverter","power_rating_watts":9930},{"brand":"SolarEdge Technologies","model":"SE 10000A-US (240V)","description":"10 kW 1-Phase (240Vac) Utility Interactive Inverter","power_rating_watts":9940},{"brand":"SolarEdge Technologies","model":"SE 10000A-US (277V)","description":"10 kW 1-Phase (277Vac) Utility Interactive Inverter","power_rating_watts":9950},{"brand":"SolarEdge Technologies","model":"SE 11400A-US (240V)","description":"10 kW 3-Phase (480Vac) Utility-Interactive Inverter","power_rating_watts":10000},{"brand":"SolarEdge Technologies","model":"SE 11400A-US (277V)","description":"11.4 kW 1-Phase (240Vac) Utility Interactive Inverter","power_rating_watts":11390},{"brand":"SolarEdge Technologies","model":"SE 7600A-US (208V)","description":"11.4 kW 1-Phase (277Vac) Utility Interactive Inverter","power_rating_watts":11340},{"brand":"SolarEdge Technologies","model":"SE 7600A-US (240V)","description":"14.4 kW 3-Phase (208Vac) Utility-Interactive Inverter","power_rating_watts":14510},{"brand":"SolarEdge Technologies","model":"SE 7600A-US (277V)","description":"20 kW 3-Phase (480Vac) Utility-Interactive Inverter","power_rating_watts":20000},{"brand":"SolarEdge Technologies","model":"SE10K","description":"3 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":3000},{"brand":"SolarEdge Technologies","model":"SE14.4KUS","description":"3 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":3000},{"brand":"SolarEdge Technologies","model":"SE20K","description":"3.0 KW 240Vac Utility-Interactive Inverter","power_rating_watts":2962},{"brand":"SolarEdge Technologies","model":"SE3000 (208V) w/ -ER-US or A-US","description":"3.3 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":3300},{"brand":"SolarEdge Technologies","model":"SE3000 (240V) w/ -ER-US or A-US","description":"3.3 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":3300},{"brand":"SolarEdge Technologies","model":"SE3000H-US","description":"3.8 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":3800},{"brand":"SolarEdge Technologies","model":"SE33.3KUS","description":"3.8 KW 240Vac Utility-Interactive Inverter","power_rating_watts":3747},{"brand":"SolarEdge Technologies","model":"SE3300 (208V) w/ -ER-US or A-US","description":"3.8 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":3800},{"brand":"SolarEdge Technologies","model":"SE3300 (240V) w/ -ER-US or A-US","description":"33.3 kW 3-Phase (480Vac) Utility-Interactive Inverter","power_rating_watts":33400},{"brand":"SolarEdge Technologies","model":"SE3800 (208V) w/ -ER-US or A-US","description":"4 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":4000},{"brand":"SolarEdge Technologies","model":"SE3800 (240V) w/ -ER-US or A-US","description":"4 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":4000},{"brand":"SolarEdge Technologies","model":"SE3800H-US","description":"5 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":5000},{"brand":"SolarEdge Technologies","model":"SE4000 (208V) w/ -ER-US or A-US","description":"5 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":5000},{"brand":"SolarEdge Technologies","model":"SE4000 (240V) w/ -ER-US or A-US","description":"5 kW 277Vac, Utility-Interactive Inverter","power_rating_watts":5000},{"brand":"SolarEdge Technologies","model":"SE5000 (208V) w/ -ER-US or A-US","description":"5.3 kW 208Vac, Utility-Interactive Inverter","power_rating_watts":5300},{"brand":"SolarEdge Technologies","model":"SE5000 (240V) w/ -ER-US or A-US","description":"6 kW 240Vac, Utility-Interactive Inverter","power_rating_watts":6000},{"brand":"SolarEdge Technologies","model":"SE5000 (277V) w/ -ER-US or A-US","description":"6 kW 277Vac, Utility-Interactive Inverter","power_rating_watts":6000},{"brand":"SolarEdge Technologies","model":"SE6000 (208V) w/ -ER-US or A-US","description":"7 kW 277Vac, Utility-Interactive Inverter","power_rating_watts":7000},{"brand":"SolarEdge Technologies","model":"SE6000 (240V) w/ -ER-US or A-US","description":"7.6 kW 1-Phase (208Vac) Utility Interactive Inverter","power_rating_watts":7560},{"brand":"SolarEdge Technologies","model":"SE6000 (277V) w/ -ER-US or A-US","description":"7.6 kW 1-Phase (240Vac) Utility Interactive Inverter","power_rating_watts":7630},{"brand":"SolarEdge Technologies","model":"SE7000 (277V) w/ -ER-US or A-US","description":"7.6 kW 1-Phase (240Vac) Utility Interactive Inverter","power_rating_watts":7625},{"brand":"SolarEdge Technologies","model":"SE7600 (240V)","description":"7.6 kW 1-Phase (277Vac) Utility Interactive Inverter","power_rating_watts":7600},{"brand":"SolarEdge Technologies","model":"SE9K","description":"9 kW 3-Phase (208Vac) Utility-Interactive Inverter","power_rating_watts":9000}]
+[
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 10000A-US (208V)",
+      "description":"10 kW 1-Phase (208Vac) Utility Interactive Inverter",
+      "power_rating_watts":9930
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 10000A-US (240V)",
+      "description":"10 kW 1-Phase (240Vac) Utility Interactive Inverter",
+      "power_rating_watts":9940
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 10000A-US (277V)",
+      "description":"10 kW 1-Phase (277Vac) Utility Interactive Inverter",
+      "power_rating_watts":9950
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 11400A-US (240V)",
+      "description":"10 kW 3-Phase (480Vac) Utility-Interactive Inverter",
+      "power_rating_watts":10000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 11400A-US (277V)",
+      "description":"11.4 kW 1-Phase (240Vac) Utility Interactive Inverter",
+      "power_rating_watts":11390
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 7600A-US (208V)",
+      "description":"11.4 kW 1-Phase (277Vac) Utility Interactive Inverter",
+      "power_rating_watts":11340
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 7600A-US (240V)",
+      "description":"14.4 kW 3-Phase (208Vac) Utility-Interactive Inverter",
+      "power_rating_watts":14510
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE 7600A-US (277V)",
+      "description":"20 kW 3-Phase (480Vac) Utility-Interactive Inverter",
+      "power_rating_watts":20000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE10K",
+      "description":"3 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE14.4KUS",
+      "description":"3 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE20K",
+      "description":"3.0 KW 240Vac Utility-Interactive Inverter",
+      "power_rating_watts":2962
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3000 (208V) w/ -ER-US or A-US",
+      "description":"3.3 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3300
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3000 (240V) w/ -ER-US or A-US",
+      "description":"3.3 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3300
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3000H-US",
+      "description":"3.8 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3800
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE33.3KUS",
+      "description":"3.8 KW 240Vac Utility-Interactive Inverter",
+      "power_rating_watts":3747
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3300 (208V) w/ -ER-US or A-US",
+      "description":"3.8 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":3800
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3300 (240V) w/ -ER-US or A-US",
+      "description":"33.3 kW 3-Phase (480Vac) Utility-Interactive Inverter",
+      "power_rating_watts":33400
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3800 (208V) w/ -ER-US or A-US",
+      "description":"4 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":4000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3800 (240V) w/ -ER-US or A-US",
+      "description":"4 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":4000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE3800H-US",
+      "description":"5 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":5000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE4000 (208V) w/ -ER-US or A-US",
+      "description":"5 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":5000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE4000 (240V) w/ -ER-US or A-US",
+      "description":"5 kW 277Vac, Utility-Interactive Inverter",
+      "power_rating_watts":5000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE5000 (208V) w/ -ER-US or A-US",
+      "description":"5.3 kW 208Vac, Utility-Interactive Inverter",
+      "power_rating_watts":5300
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE5000 (240V) w/ -ER-US or A-US",
+      "description":"6 kW 240Vac, Utility-Interactive Inverter",
+      "power_rating_watts":6000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE5000 (277V) w/ -ER-US or A-US",
+      "description":"6 kW 277Vac, Utility-Interactive Inverter",
+      "power_rating_watts":6000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE6000 (208V) w/ -ER-US or A-US",
+      "description":"7 kW 277Vac, Utility-Interactive Inverter",
+      "power_rating_watts":7000
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE6000 (240V) w/ -ER-US or A-US",
+      "description":"7.6 kW 1-Phase (208Vac) Utility Interactive Inverter",
+      "power_rating_watts":7560
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE6000 (277V) w/ -ER-US or A-US",
+      "description":"7.6 kW 1-Phase (240Vac) Utility Interactive Inverter",
+      "power_rating_watts":7630
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE7000 (277V) w/ -ER-US or A-US",
+      "description":"7.6 kW 1-Phase (240Vac) Utility Interactive Inverter",
+      "power_rating_watts":7625
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE7600 (240V)",
+      "description":"7.6 kW 1-Phase (277Vac) Utility Interactive Inverter",
+      "power_rating_watts":7600
+   },
+   {
+      "brand":"SolarEdge Technologies",
+      "model":"SE9K",
+      "description":"9 kW 3-Phase (208Vac) Utility-Interactive Inverter",
+      "power_rating_watts":9000
+   }
+]
