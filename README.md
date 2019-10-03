@@ -2,51 +2,55 @@ Tesla Powerwall 2 - Local Gateway API documentation
 ======
 
 _(This documentation is currently in flux: portions are updated and portions aren't updated.  Use at your own risk)_
-_(I am in process of updating this documentation to work with firmware version 1.40.2)_
-_(Please be paitent as I have an unrelated day job!  Please help me update this: Pull requests are welcome! :)  )_
 
-This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other functions we've been able to reverse engineer from the local gateway.  (This is not the [ Tesla Owner API] which you can find here: (https://timdorr.docs.apiary.io/#)).
+_(I am in process of updating this documentation to work with firmware version 1.40.2)_
+
+___*** Please be patient as I have an unrelated day job! ***___
+
+**Please help me update this: Pull requests are welcome!**
+
+This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://timdorr.docs.apiary.io/#).
 
 A note about HTTPS and SSL Certificates
 ---
 In a recent update to the Powerwall firmware (v1.20+) non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed.  This results in web browsers and tools like curl not accept it without it either being included as a trusted certificate or a specific action by the user to override the error. 
 
-A) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
+You have three ways around a certificate error:
 
-B) With curl the `--insecure` or `-k` option will ignore SSL certificate errors.
+1) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
 
-or 
+2) With curl the `--insecure` or `-k` option will ignore the SSL certificate.  This is ok, but it doesn't authenticate the device you are connecting to.
 
-C) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
+3) A better way is to export the Powerwall public certificate and add it to the local machine's trusted certificate list or just use the certificate in your curl request.
 
-I recommend option C above.  Here's what worked for me:
+__I recommend option 3 above.__
+
+_Here's what worked for me:_
 
 Step 1: DNS
-Enable DNS on your local network for one of the following DNS names in the certificate under the "Certificate Subject Alt Name".  On my gateway the names are:
 
-teg
+Enable DNS lookups, on your local network, for one of the following DNS names in the certificate under the "Certificate Subject Alt Name".  On my gateway these names are:
+1) teg
+2) powerwall
+3) powerpack
 
-powerwall
+You can add this to your local DNS server as an A Record or /etc/hosts file or other DNS name resolution service.  
 
-powerpack
+For /etc/hosts add an entry that looks like this if your Powerwall gateway's IP was 192.168.99.99:
 
-
-You can add this to your local DNS server or /etc/hosts file or other DNS name resolution service.  
-For /etc/hosts add an entry that lools like this if your powerwall gateway's IP was 192.168.99.99:
-192.168.99.99	powerwall
+`192.168.99.99	powerwall`
 
 Step 2: Get the certificate
-echo quit | openssl s_client -showcerts -servername powerwall -connect powerwall:443 > cacert.pem
+`echo quit | openssl s_client -showcerts -servername powerwall -connect powerwall:443 > cacert.pem`
 
-This grabs the certificate from the powerwall using the DNS entry you setup in step1.
+This grabs the certificate from the powerwall using the DNS entry you setup in step 1.
 
 Step 3: use the certificate in your curl statements
-e.g. curl --cacert cacert.pem https://powerwall/api/meters/aggregates
+e.g. `curl --cacert cacert.pem https://powerwall/api/meters/aggregates`
 
-If you get this error: curl: (51) SSL: no alternative certificate subject name matches target host name
-Then the name you chose (teg or powerwall or powerpack) doesn't match what's in the certificate file and you'll need to do some googling to figure out the solution.
+If you get this error: `curl: (51) SSL: no alternative certificate subject name matches target host name` then the name you chose (teg or powerwall or powerpack) doesn't match what's in the certificate file and you'll need to check the certificate and perhaps do some googling to figure out the solution.
 
-For the rest of the documentation, I will assume you copied the certificate and are using method C with the Powerwall's public certificate.
+For the rest of the documentation, I will assume you copied the certificate and are using method C with the Powerwall's public certificate.  If you didn't, just leave out the certificate `--cacert cacert.pem` portion and add `-k`.
 
 
 Powerwall 2 Web UI
@@ -56,7 +60,7 @@ Hit your local gateway IP with a browser, i.e. _https://powerwall/
 
 You should see something like this:
 
-![GatewayUI](https://github.com/vloschiavo/powerwall2/raw/master/img/TeslaPowerwallGatewayUI.png "Gateway Web UI")
+![GatewayUI](https://github.com/vloschiavo/powerwall2/raw/master/img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
 
 ---
 **Wizard**
@@ -618,9 +622,7 @@ POST /api/networks
         interface: K.InterfaceTypes.WIFI,
         network_name: ???,
 	security_type: ???
-}
-
-POST /api/networks/<...>/disable
+}ST /api/networks/<...>/disable
 POST /api/networks/<...>/enable
 
 POST /api/system/networks/conn_tests
@@ -829,8 +831,7 @@ GET /api/system/testing
 			}
 		], [{
 				"Power" : 1064.7099609375,
-				"CT" : 1,
-				"Serial" : " ABC1234567890",
+				"CT" :				"Serial" : " ABC1234567890",
 				"Type" : "site"
 			}, {
 				"Power" : 540.1099853515625,
@@ -869,13 +870,4 @@ GET /api/system/testing
 }
 
 ---
-
-dlieu:
-"i've decoded and have been using most of the api and decode to the degree Wizard does and wrote CLI to control PW2 pre-TBC. i can show all the status the gateway web ui does, and switch between various operations and reserves.
-
-One important thing to add is that api/operation is not only POST but also GET which reports about the same thing. The reserve is actually double (not just int), so one can put reserve at say 66.6%.
-
-In time based control the mode = "autonomous". It is coming from GET however the api to configure autonomous via POST produces 50x -- most likely the configuration api for autonomous is significantly expanded and it is not possible to infer via wizard alone since wizard does not attempt to configure it. And i am too lazy to investigate gateway traffic sniffing beyond the wizard itself. I am interested to find out the spec for autonomous (aka TBC) configuration. but since standard TBC works for my needs, i guess i am not too eager to dig myself."
-
-
 
