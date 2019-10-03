@@ -119,7 +119,7 @@ Detailed information about the site specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
 
-response: [see sample response here](samples/api-meters-site.json)
+response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-site.json)
 
 _GET /api/meters/solar_
 
@@ -127,7 +127,7 @@ Detailed information about the solar specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
 
-response: [see sample response here](samples/api-meters-solar.json)
+response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-solar.json)
 
 
 ---
@@ -163,7 +163,7 @@ Use this URL to determine how many power walls you have, their serial numbers, a
 
 request: `curl --cacert cacert.pem https://powerwall/api/powerwalls`
 
-response:	[see sample response here](samples/api-powerwalls.json)
+response:	[see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-powerwalls.json)
 
 I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
 
@@ -622,7 +622,9 @@ POST /api/networks
         interface: K.InterfaceTypes.WIFI,
         network_name: ???,
 	security_type: ???
-}ST /api/networks/<...>/disable
+}
+
+POST /api/networks/<...>/disable
 POST /api/networks/<...>/enable
 
 POST /api/system/networks/conn_tests
@@ -637,7 +639,7 @@ when test is complete it returns:
 			"pass" : true,
 			"error" : ""
 		},
-		"Google GET Test" : {
+		"Gle GET Test" : {
 			"pass" : true,
 			"error" : ""
 		},
@@ -821,7 +823,7 @@ GET /api/system/testing
 		], [{
 				"Power" : 595.2100219726562,
 				"CT" : 1,
-				"Serial" : " ABC1234567890",
+				"Serial" : " ABC1234890",
 				"Type" : "site"
 			}, {
 				"Power" : 71.5199966430664,
@@ -831,7 +833,8 @@ GET /api/system/testing
 			}
 		], [{
 				"Power" : 1064.7099609375,
-				"CT" :				"Serial" : " ABC1234567890",
+				"CT" : 1,
+				"Serial" : " ABC1234567890",
 				"Type" : "site"
 			}, {
 				"Power" : 540.1099853515625,
