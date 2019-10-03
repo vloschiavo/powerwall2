@@ -1,21 +1,50 @@
 Tesla Powerwall 2 - Local Gateway API documentation
 ======
-_(Based on firmware version 1.15.0)_
 
-This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other functions we've been able to reverse engineer from the local gateway.  (This is not the [ Tesla Owner API](https://timdorr.docs.apiary.io/#)).
+_(This documentation is currently in flux: portions are updated and portions aren't updated.  Use at your own risk)_
+_(I am in process of updating this documentation to work with firmware version 1.40.2)_
+_(Please be paitent as I have an unrelated day job!  Please help me update this: Pull requests are welcome! :)  )_
+
+This is a list of api URLs and some random thoughts I've been able to pull together from the interwebz and other functions we've been able to reverse engineer from the local gateway.  (This is not the [ Tesla Owner API] which you can find here: (https://timdorr.docs.apiary.io/#)).
 
 A note about HTTPS and SSL Certificates
 ---
-In a recent update to the Powerwall firmware non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed meaning that web browsers and tools like curl will not accept it without it either being included as a trusted certificate on the computer making the request or a specific action by the user to override the error. 
+In a recent update to the Powerwall firmware (v1.20+) non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed.  This results in web browsers and tools like curl not accept it without it either being included as a trusted certificate or a specific action by the user to override the error. 
 
-1) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
-2) With curl the `--insecure` or `-k` option will ignore SSL certificate errors.
-3) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
+A) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
+B) With curl the `--insecure` or `-k` option will ignore SSL certificate errors.
+C) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
+
+I recommend option 3 above.  Here's what worked for me:
+
+Step 1: DNS
+Enable DNS on your local network for one of the following DNS names in the certificate under the "Certificate Subject Alt Name".  On my gateway the names are:
+teg
+powerwall
+powerpack
+
+You can add this to your local DNS server or /etc/hosts file or other DNS name resolution service.  
+For /etc/hosts add an entry that lools like this if your powerwall gateway's IP was 192.168.99.99:
+192.168.99.99	powerwall
+
+Step 2: Get the certificate
+echo quit | openssl s_client -showcerts -servername powerwall -connect powerwall:443 > cacert.pem
+
+This grabs the certificate from the powerwall using the DNS entry you setup in step1.
+
+Step 3: use the certificate in your curl statements
+e.g. curl --cacert cacert.pem https://powerwall/api/meters/aggregates
+
+If you get this error: curl: (51) SSL: no alternative certificate subject name matches target host name
+Then the name you chose (teg or powerwall or powerpack) doesn't match what's in the certificate file and you'll need to do some googling to figure out the solution.
+
+For the rest of the documentation, I will assume you copied the certificate and are using method C with the Powerwall's public certificate.
+
 
 Powerwall 2 Web UI
 ---
 The web UI provides ~~an instantaneous~~ a 250-500ms average(?) power flow diagram an access to the wizard.
-Hit your local gateway IP with a browser, i.e. _https://192.168.xxx.xxx/
+Hit your local gateway IP with a browser, i.e. _https://powerwall/
 
 You should see something like this:
 
@@ -23,13 +52,18 @@ You should see something like this:
 
 ---
 **Wizard**
-You can hit the _"Run Wizard"_ button here and go through the setup (be careful what you change in the wizard).
+You can hit the _"Login"_ link on this page and go through the setup (be careful what you change in the wizard).
 
 `username: <leave this blank as it's ignored (and/or logged)>`
 
 `password: S + <gateway serial number>`
 
-You can find the serial number of the gateway ( the linux server that switches power) on the inside of the metal access door to the gateway. Don't unscrew anything as the box is switching high voltage & current behind the screwed pannels. See image:
+_(Question for the reader: Does this still work?)_
+
+You can find the serial number of the gateway ( the linux server that switches power) in two places:
+1) In the Tesla Mobile app [see screenshot](https://github.com/vloschiavo/powerwall2/raw/master/img/AppSerialNumber.png), just click the "Reveal Serial number link".  This is already in the the S + SerialNumber format.
+
+2) on the inside of the metal access door to the gateway. Don't unscrew anything as the box is switching high voltage & current behind the screwed pannels. See image:
 
 ![Gateway Location](https://github.com/vloschiavo/powerwall2/raw/master/img/equipment.jpg "Gateway location")
 
@@ -39,11 +73,11 @@ ___
 ### Information
 
 **Meters / Power output stats**
-Calling the below URLs does not require authentication.  Each will return JSON output with key-value pairs.
+Calling the below URLs does not require authentication.  Each will return JSON output with key-value pairs. Specify the cacert.pem you grabbed earlier using the Certificate Subject Alt Name.
 
 _GET /api/meters/aggregates_
 
-request: `curl https://192.168.xxx.xxx/api/meters/aggregates`
+request: `curl --cacert cacert.pem https://powerwall/api/meters/aggregates`
 
 response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_meters_aggregates.json
 )
@@ -71,7 +105,7 @@ _GET /api/meters/site_
 
 Detailed information about the site specific meter.
 
-request: `curl https://192.168.xxx.xxx/api/meters/site`
+request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
 
 response: [see sample response here](samples/api-meters-site.json)
 
@@ -79,7 +113,7 @@ _GET /api/meters/solar_
 
 Detailed information about the solar specific meter.
 
-request: `curl https://192.168.xxx.xxx/api/meters/solar`
+request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
 
 response: [see sample response here](samples/api-meters-solar.json)
 
@@ -90,7 +124,7 @@ _GET /api/system_status/soe_
 
 This returns the aggregate charge state in percent of the powerwall(s).
 
-request: `curl https://192.168.xxx.xxx/api/system_status/soe`
+request: `curl --cacert cacert.pem https://powerwall/api/system_status/soe`
 
 response:	`{"percentage":69.1675560298826}`
 
@@ -104,9 +138,9 @@ Use this URL to determine:
 2. How long the powerwall has been set to the running state {in seconds}
 3. Is the powerwall gateway connected to Tesla's servers {true|false}}
 
-request: `curl https://192.168.xxx.xxx/api/sitemaster`
+request: `curl --cacert cacert.pem https://powerwall/api/sitemaster`
 
-response:	`{"running":true,"uptime":"166594s,","connected_to_tesla":true}`
+response:	`{"running":true,"uptime":"802459s,","connected_to_tesla":true}`
 
 When site master or the Powerwalls are off, the response is:  `{"running":false,"uptime":"log:","connected_to_tesla":false}`
 
@@ -115,9 +149,9 @@ When site master or the Powerwalls are off, the response is:  `{"running":false,
 _GET /api/powerwalls_
 Use this URL to determine how many power walls you have, their serial numbers, and if they are in sync (assuming more than one powerwall).
 
-request: `curl https://192.168.xxx.xxx/api/powerwalls`
+request: `curl --cacert cacert.pem https://powerwall/api/powerwalls`
 
-response:	`{"powerwalls":[{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567890"},{"PackagePartNumber":"1092170-03-E","PackageSerialNumber":"T1234567891"}],"has_sync":true}`
+response:	[see sample response here](samples/api-powerwalls.json)
 
 I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
 
@@ -127,18 +161,18 @@ I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber i
 _GET /api/customer/registration_
 Use this URL to determine registration status.  The below shows the results from a system that is fully configured and running.
 
-request: `curl https://192.168.xxx.xxx/api/customer/registration`
+request: `curl --cacert cacert.pem https://powerwall/api/customer/registration`
 
-response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"emailed_registration":true,"skipped_registration":false,"timed_out_registration":false}`
+response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"timed_out_registration":false}`
 
 ---
 
 _GET /api/system_status/grid_status_
 Determine if the Grid is up or down.
 
-request: `curl https://192.168.xxx.xxx/api/system_status/grid_status`
+request: `curl --cacert cacert.pem https://powerwall/api/system_status/grid_status`
 
-response: 
+response: {"grid_status":"SystemGridConnected","grid_services_active":false}
 
 `{"grid_status":"SystemGridConnected"}` = grid is up
 
@@ -148,8 +182,8 @@ response:
 
 ---
 _GET /api/system/update/status_
-
-request: `curl https://192.168.xxx.xxx/api/system/update/status`
+_UPDATE: You need to be authenticated for this command_
+request: `curl --cacert cacert.pem https://powerwall/api/system/update/status`
 
 response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
 
@@ -206,59 +240,58 @@ Southern California Edison has TOU plan with the following details:
 ---	
 _GET /api/site_info_
 
-request: `curl https://192.168.xxx.xxx/api/site_info`
+request: `curl --cacert cacert.pem https://powerwall/api/site_info`
 
-response: `Response: {"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles","min_site_meter_power_kW":-1000000000,"max_site_meter_power_kW":1000000000,"nominal_system_energy_kWh":13.5,"grid_code":"60Hz_240V_s_UL1741SA:2016_California","grid_voltage_setting":240,"grid_freq_setting":60,"grid_phase_setting":"Split","country":"United States","state":"California","region":"UL1741SA"}`
+response: `{"max_site_meter_power_kW":1000000000,"min_site_meter_power_kW":-1000000000,"nominal_system_energy_kWh":13.5,"nominal_system_power_kW":10,"site_name":"Loschiavo","timezone":"America/Los_Angeles","grid_code":"60Hz_240V_s_UL1741SA:2016_California","grid_voltage_setting":240,"grid_freq_setting":60,"grid_phase_setting":"Split","country":"United States","state":"California","distributor":"*","utility":"Pacific Gas and Electric Company","retailer":"*","region":"UL1741SA"}`
 
 ---
 
 _GET /api/site_info/site_name_
 
-request: `curl https://192.168.xxx.xxx/api/site_info/site_name`
+request: `curl --cacert cacert.pem https://powerwall/api/site_info/site_name`
 
 response: `{"site_name":"Home Energy Gateway","timezone":"America/Los_Angeles"}`
+
+The site_name value can be changed from the Tesla Mobile app settings.
 
 ---
 _GET /api/status_
 
-request: `curl https://192.168.xxx.xxx/api/status`
+request: `curl --cacert cacert.pem https://powerwall/api/status`
 
-response: `{"start_time":"2018-03-16 19:08:46 +0800","up_time_seconds":"402h8m19.937911668s","is_new":false,"version":"1.15.0\n","git_hash":"dc337851c6cad15a7e9c7223d60fff719eb8da4d\n"}`
+response: `{"start_time":"2019-09-23 23:38:46 +0800","up_time_seconds":"223h5m51.577762169s","is_new":false,"version":"1.40.2","git_hash":"14f7c1769ec307bba2ea62355a09d01c8e58988c+"}`
 
-Useful here: Gateway Version:  "version":"1.15.0\n"
+Useful here: Gateway Version:  "version":"1.40.2\n"
 
 ---
 
 _GET /api/logout_
 
 The Gateway Web UI uses this url to logout of the wizard.  I assume you can also use this to expire an auth token...(some testing is required).
+_This is untested. Question for the community: Does this still work? Soliciting for pull requests! :)_
 
-Request: `curl -i 192.168.xxx.xxx/api/logout`
+Request: `curl --cacert cacert.pem -i https://powerwall/api/logout`
 
-Response: `HTTP/1.1 204 No Content
-Access-Control-Allow-Credentials: false
-Access-Control-Allow-Headers: X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Accept-Encoding, Authorization
-Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS
-Access-Control-Allow-Origin: *
-Access-Control-Max-Age: 86400`
+Response: `HTTP/2 204 
+date: Thu, 03 Oct 2019 13:48:10 GMT`
 
-returns HTTP Status 204, no content, if request is accepted
+returns HTTP/2 Status 204, with a date
 
 ---
 _GET /api/system_status/grid_faults_
 
 Not sure what this does...does it list the recent grid failure dates/times?
 
-Request: `curl 192.168.xxx.xxx/api/system_status/grid_faults`
+Request: `curl --cacert cacert.pem https://powerwall/api/system_status/grid_faults`
 
 Response: `[]`
 
 ---
 _GET /api/sitemaster/stop_
-
+_UPDATE: You need to be authenticated for this command_
 This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
 
-Request: `curl https://192.168.xxx.xxx/api/sitemaster/stop`
+Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/stop`
 
 Response:  
 
@@ -268,10 +301,10 @@ returns HTTP Status 500 if powerwall cannot be stopped at this moment with the f
 
 ---
 _GET /api/sitemaster/run_
-
+_UPDATE: You need to be authenticated for this command_
 This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
 
-Request: `curl https://192.168.xxx.xxx/api/sitemaster/run`
+Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/run`
 
 Response:  
 Returns HTTPS Status 202 if request is accepted
@@ -279,12 +312,10 @@ Returns HTTPS Status 202 if request is accepted
 
 ---
 _GET /api/config/completed_
-
+_UPDATE: You need to be authenticated for this command_
 This applies configuration changes.
 
-This is a GET request and doesn't require an authentication token.
-
-Request: `curl /api/config/completed`
+Request: `curl --cacert cacert.pem https://powerwall/api/config/completed`
 
 Response:
 Returns HTTP Status 202 if input accepted
@@ -293,19 +324,24 @@ Returns HTTP Status 202 if input accepted
 ___
 Note: __*** The below API calls require authentication ***__
 
+Note2: __*** This documentation is old (created on version 1.15) and needs updating ***__
+__*** I wouldn't be surprised if less than 1% of the below still works in versions 1.40+ ***__
+
 
 **Login**
 _POST /api/login/Basic_
 
+Note: _This section needs updating: Does this work?_
+
 **Authentication example:**
-Note: Getting an authentication token will stop the powerwall.  It won't charge, discharge, or collect stats on v1.15.0.  Therefore you should re-enable the powerwall after getting a token.  
+Note: Getting an authentication token will stop the powerwall.  It won't charge, discharge, or collect stats on v1.15+.  Therefore you should re-enable the powerwall after getting a token.  
 See: the _/api/sitemaster/run_ section above.
 
 Here is an example login using a blank username (none needed) and a serial number of T123456789.  The password is S+Serial number: ST123456789.
 
 Request: 
 
-`curl -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' https://192.168.xxx.xxx/api/login/Basic`
+`curl --cacert cacert.pem -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' https://powerwall/api/login/Basic`
 
 Response: 
 
