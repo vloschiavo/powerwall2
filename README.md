@@ -12,7 +12,11 @@ A note about HTTPS and SSL Certificates
 In a recent update to the Powerwall firmware (v1.20+) non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed.  This results in web browsers and tools like curl not accept it without it either being included as a trusted certificate or a specific action by the user to override the error. 
 
 A) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
+
 B) With curl the `--insecure` or `-k` option will ignore SSL certificate errors.
+
+or 
+
 C) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
 
 I recommend option 3 above.  Here's what worked for me:
