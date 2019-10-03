@@ -19,13 +19,17 @@ or
 
 C) Export the Powerwall public certificate and add it to the local machine's trusted certificate list.
 
-I recommend option 3 above.  Here's what worked for me:
+I recommend option C above.  Here's what worked for me:
 
 Step 1: DNS
 Enable DNS on your local network for one of the following DNS names in the certificate under the "Certificate Subject Alt Name".  On my gateway the names are:
+
 teg
+
 powerwall
+
 powerpack
+
 
 You can add this to your local DNS server or /etc/hosts file or other DNS name resolution service.  
 For /etc/hosts add an entry that lools like this if your powerwall gateway's IP was 192.168.99.99:
