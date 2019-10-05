@@ -66,20 +66,11 @@ You should see something like this:
 **Wizard**
 You can hit the _"Login"_ link on this page and go through the setup (be careful what you change in the wizard).
 
-`username: <leave this blank as it's ignored (and/or logged)>`
+`username: <Enter whatever you like here>`
 
-`password: S + <gateway serial number>`
+`password: `
+Follow the instructions on the web page to set/change/recover the password. Whatever you set here will be used later.
 
-_(Question for the reader: Does this still work?)_
-
-You can find the serial number of the gateway ( the linux server that switches power) in two places:
-1) In the Tesla Mobile app [see screenshot](https://github.com/vloschiavo/powerwall2/raw/master/img/AppSerialNumber.png), just click the "Reveal Serial number link".  This is already in the the S + SerialNumber format.
-
-2) on the inside of the metal access door to the gateway. Don't unscrew anything as the box is switching high voltage & current behind the screwed pannels. See image:
-
-![Gateway Location](https://github.com/vloschiavo/powerwall2/raw/master/img/equipment.jpg "Gateway location")
-
-[ Original image taken from www.tesla.com here](https://www.tesla.com/support/energy/install/powerwall/powerwall-installations)
 
 ___
 ### Information
