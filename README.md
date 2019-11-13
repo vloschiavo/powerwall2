@@ -9,7 +9,7 @@ ___*** Please be patient as I have an unrelated day job! ***___
 
 **Please help me update this: Pull requests are welcome!**
 
-This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://timdorr.docs.apiary.io/#).
+This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://tesla-api.timdorr.com).
 
 A note about HTTPS and SSL Certificates
 ---
