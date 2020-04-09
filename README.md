@@ -11,6 +11,8 @@ ___*** Please be patient as I have an unrelated day job! ***___
 
 This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://tesla-api.timdorr.com) with a Phython library that works nicely to control a Powerwall 2 here: (https://github.com/mlowijs/tesla_api), which is actively being developed here: (https://github.com/swm11/tesla_api).
 
+An python implementation of the local API can be found [here](https://github.com/jrester/tesla_powerwall).
+
 A note about HTTPS and SSL Certificates
 ---
 In a recent update to the Powerwall firmware (v1.20+) non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed.  This results in web browsers and tools like curl not accept it without it either being included as a trusted certificate or a specific action by the user to override the error. 
