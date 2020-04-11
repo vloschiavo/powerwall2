@@ -190,6 +190,17 @@ response: {"grid_status":"SystemGridConnected","grid_services_active":false}
 ---
 _GET /api/system/update/status_
 _UPDATE: You need to be authenticated for this command_
+
+From: @kylerove:
+"After digging, the answer was right on Tesla's website:
+https://www.tesla.com/support/energy/powerwall/own/monitoring-from-home-network
+
+username=customer
+email=your Tesla account email address
+password=last 5 digits of your gateway serial number
+
+You can then reset/choose your own customer password, if you want to make it stronger."
+
 request: `curl --cacert cacert.pem https://powerwall/api/system/update/status`
 
 response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
