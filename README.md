@@ -3,7 +3,7 @@ Tesla Powerwall 2 - Local Gateway API documentation
 
 _(This documentation is currently in flux: portions are updated and portions aren't updated.  Use at your own risk)_
 
-_(I am in process of updating this documentation to work with firmware version 1.40.2)_
+_(If you find issues, please submit pull requests - currently testing on firmware version 1.45.2)_
 
 ___*** Please be patient as I have an unrelated day job! ***___
 
@@ -12,6 +12,8 @@ ___*** Please be patient as I have an unrelated day job! ***___
 This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://tesla-api.timdorr.com) with a Python library that works nicely to control a Powerwall 2 here: (https://github.com/mlowijs/tesla_api), which is actively being developed here: (https://github.com/swm11/tesla_api).
 
 A python implementation of the local API can be found [here](https://github.com/jrester/tesla_powerwall).
+-Thanks for submitting this: 
+
 
 A note about HTTPS and SSL Certificates
 ---
