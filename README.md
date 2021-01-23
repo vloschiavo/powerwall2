@@ -181,7 +181,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/system_status/grid_status`                  | [GET](README.md#get-apisystem_statusgrid_status)    | :x: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
 | `/system_status/soe`                          | [GET](README.md#get-apisystem_statussoe)    | :x: | :heavy_check_mark: | Powerwall charged percentage |
 
-<sub>Table outline generated using https://github.com/vls29/tesla-powerwall2-api-to-table</sub>
+<sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
 
 ---
 #### _GET /api/meters/aggregates_ ####
