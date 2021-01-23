@@ -160,9 +160,9 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 |                                               | POST   |  |  |  |
 | `/site_info/timezone`                         | POST   |  |  |  |
 | `/sitemaster`                                 | [GET](README.md#get-apisitemaster)    | :x: | :heavy_check_mark: |  |
-| `/sitemaster/run`                             | [GET](README.md#get-apisitemasterrun)    | :heavy_check_mark | :heavy_check_mark: | Starts the Powerwall electricity flow |
+| `/sitemaster/run`                             | [GET](README.md#get-apisitemasterrun)    | :heavy_check_mark: | :heavy_check_mark: | Starts the Powerwall electricity flow |
 | `/sitemaster/run_for_commissioning`           | [POST](README.md#post-apisitemasterrun_for_commissioning)   |  |  |  |
-| `/sitemaster/stop`                            | [GET](README.md#get-apisitemasterstop)    | :heavy_check_mark | :heavy_check_mark: | Stops the Powerwall electricity flow |
+| `/sitemaster/stop`                            | [GET](README.md#get-apisitemasterstop)    | :heavy_check_mark: | :heavy_check_mark: | Stops the Powerwall electricity flow |
 | `/solars`                                     | [GET](README.md#get-apisolars)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/solars/brands`                              | [GET](README.md#get-apisolarsbrands)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/solars/brands/${brand}`                     | [GET](README.md#get-apisolarsbrandssolaredge20technologies)    | :heavy_check_mark: | :heavy_check_mark: |  |
