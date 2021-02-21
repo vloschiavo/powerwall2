@@ -4,7 +4,7 @@
 
 _(This documentation is currently in flux: portions are updated and portions aren't updated.  Use at your own risk)_
 
-_(If you find issues, please submit pull requests - currently testing on firmware version 1.45.2)_
+_(If you find issues, please submit pull requests - currently testing on firmware version 20.49.0)_
 
 ___*** Please be patient as I have an unrelated day job! ***___
 
