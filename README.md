@@ -79,6 +79,9 @@ You can hit the _"Login"_ link on this page and go through the setup (be careful
 `password: `
 Follow the instructions on the web page to set/change/recover the password. Whatever you set here will be used later.
 
+As of version 20.49.0, the password you set here will be required to pull any of the URIs (statistics & settings) listed below.
+
+Check out the bash script powerwallstats.sh (https://github.com/vloschiavo/powerwall2/blob/master/samples/powerwallstats.sh) in the samples directory for an example: 
 ___
 
 ## API Reference
