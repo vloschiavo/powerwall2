@@ -114,6 +114,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/customer/registration`                      | [GET](README.md#get-apicustomerregistration)    | :x: | :heavy_check_mark: |  |
 | `/customer/registration/legal`                | [POST](README.md#post-apicustomerregistrationlegal)   | 🚧 | 🚧 |  |
 | `/customer/registration/skip`                 | [POST](README.md#post-apicustomerregistrationskip)   | 🚧 | 🚧 |  |
+| `/details/vitals`                                   | [GET](README.md#get-apidetailsvitals)    | :heavy_check_mark: | 🚧 |  |
 | `/generators`                                 | [GET](README.md#get-apigenerators) | :heavy_check_mark: | 🚧 |  |
 | `/generators/disconnect_types`                | [GET](README.md#get-apigeneratorsdisconnect_types) | :heavy_check_mark: | 🚧 |  |
 | `/installer`                                  | [GET](README.md#get-apiinstaller)     | :heavy_check_mark: | :heavy_check_mark: |  |
@@ -661,6 +662,50 @@ Response:
 
 ---
 __Others to be documented:__
+
+#### _GET /api/details/vitals ####
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -o https://192.168.xxx.xxx/api/details/vitals`
+
+
+Response:
+
+returns a binary file with what looks like interesting information including:
+```
+THC_State THC_STATE_AUTONOMOUSCONTROL
+THC_AmbientTemp!
+...
+POD_nom_energy_to_be_charged!
+POD_nom_energy_remaining!
+POD_nom_full_pack_energy!
+POD_available_charge_power!
+POD_available_dischg_power!
+POD_curtailed_charge_power!
+POD_curtailed_dischg_power!
+POD_est_DC_Bus_Power!
+        POD_Ibatt!
+        POD_Vbatt!
+POD_DC_Bus_Voltage!
+        POD_state*
+POD_ACTIVE
+POD_enable_line0
+POD_ChargeComplete0
+POD_DischargeComplete0
+POD_PersistentlyFaulted0
+POD_PermanentlyFaulted0
+POD_ChargeRequest0
+POD_ActiveHeating0
+POD_Resting0
+POD_CCVhold0
+POD_HeatZeroCurrentReg0
+POD_ExtendedCapacityMode0
+POD_IpcRequestedBusUp0
+POD_SelfTestRequested0
+```
+
+---
 
 #### _GET /api/generators/disconnect_types_ ####
 
