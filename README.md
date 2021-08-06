@@ -114,7 +114,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/customer/registration`                      | [GET](README.md#get-apicustomerregistration)    | :x: | :heavy_check_mark: |  |
 | `/customer/registration/legal`                | [POST](README.md#post-apicustomerregistrationlegal)   | 🚧 | 🚧 |  |
 | `/customer/registration/skip`                 | [POST](README.md#post-apicustomerregistrationskip)   | 🚧 | 🚧 |  |
-| `/details/vitals`                                   | [GET](README.md#get-apidetailsvitals)    | :heavy_check_mark: | 🚧 |  |
+| `/devices/vitals`                                   | [GET](README.md#get-apidevicesvitals)    | :heavy_check_mark: | 🚧 |  |
 | `/generators`                                 | [GET](README.md#get-apigenerators) | :heavy_check_mark: | 🚧 |  |
 | `/generators/disconnect_types`                | [GET](README.md#get-apigeneratorsdisconnect_types) | :heavy_check_mark: | 🚧 |  |
 | `/installer`                                  | [GET](README.md#get-apiinstaller)     | :heavy_check_mark: | :heavy_check_mark: |  |
@@ -663,16 +663,16 @@ Response:
 ---
 __Others to be documented:__
 
-#### _GET /api/details/vitals ####
+#### _GET /api/devices/vitals ####
 
 Request:
 
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -o https://192.168.xxx.xxx/api/details/vitals`
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -o https://192.168.xxx.xxx/api/devices/vitals`
 
 
 Response:
 
-returns a binary file with what looks like interesting information including:
+darryllee - Found when I logged into my Gateway as an Installer, this returns a binary file with what looks like interesting information including:
 ```
 THC_State THC_STATE_AUTONOMOUSCONTROL
 THC_AmbientTemp!
