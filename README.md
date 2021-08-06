@@ -663,7 +663,7 @@ Response:
 ---
 __Others to be documented:__
 
-#### _GET /api/devices/vitals ####
+#### _GET /api/devices/vitals_ ####
 
 Request:
 
