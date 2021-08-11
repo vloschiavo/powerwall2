@@ -181,8 +181,9 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 |                                               | DELETE |  |  |  |
 | `/system/testing/PINV_TEST`                   | POST   |  |  |  |
 | `/system/update/status`                       | [GET](README.md#get-apisystemupdatestatus)  | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/system_status/grid_faults`                  | [GET](README.md#get-apisystem_statusgrid_faults)    | :x: | 🚧 |  |
-| `/system_status/grid_status`                  | [GET](README.md#get-apisystem_statusgrid_status)    | :x: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
+| `/system_status`                  | [GET](README.md#get-apisystem_status)    | :heavy_check_mark: | 🚧 |  |
+| `/system_status/grid_faults`                  | [GET](README.md#get-apisystem_statusgrid_faults)    | :heavy_check_mark: | 🚧 |  |
+| `/system_status/grid_status`                  | [GET](README.md#get-apisystem_statusgrid_status)    | :heavy_check_mark: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
 | `/system_status/soe`                          | [GET](README.md#get-apisystem_statussoe)    | :x: | :heavy_check_mark: | Powerwall charged percentage |
 
 <sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
@@ -277,6 +278,13 @@ Use this URL to determine registration status.  The below shows the results from
 request: `curl --cacert cacert.pem https://powerwall/api/customer/registration`
 
 response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"timed_out_registration":false}`
+
+---
+#### _GET /api/system_status ####
+
+Provides information on batteries and inverters. (**nominal_full_pack_energy** is useful for monitoring degradation over time, as discussed [here|https://teslamotorsclub.com/tmc/threads/powerwall-2-available-energy-after-2-years.228580/#post-5537358].
+
+Request: `curl --cacert cacert.pem https://powerwall/api/system_status`
 
 ---
 
@@ -402,6 +410,7 @@ date: Thu, 03 Oct 2019 13:48:10 GMT`
 returns HTTP/2 Status 204, with a date
 
 ---
+
 #### _GET /api/system_status/grid_faults_ ####
 
 Not sure what this does...does it list the recent grid failure dates/times?
