@@ -280,7 +280,7 @@ request: `curl --cacert cacert.pem https://powerwall/api/customer/registration`
 response: `{"privacy_notice":true,"limited_warranty":true,"grid_services":null,"marketing":null,"registered":true,"timed_out_registration":false}`
 
 ---
-#### _GET /api/system_status ####
+#### _GET /api/system_status_ ####
 
 Provides information on batteries and inverters. (**nominal_full_pack_energy** is useful for monitoring degradation over time, as discussed [here|https://teslamotorsclub.com/tmc/threads/powerwall-2-available-energy-after-2-years.228580/#post-5537358].
 
