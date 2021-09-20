@@ -107,6 +107,10 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 |                                               | DELETE |  |  |  |
 | `/auth/toggle/start`                          | POST   |  |  |  |
 | `/auth/toggle/supported`                      | GET    |  |  |  |
+| `/autoconfig/cancel`                          | POST   |  |  |  |
+| `/autoconfig/retry`                           | POST   |  |  |  |
+| `/autoconfig/run`                             | POST   |  |  |  |
+| `/autoconfig/status`                          | GET    |  |  |  |
 | `/config`                                     | [GET](README.md#get-apiconfig)    | :heavy_check_mark: | 🚧 |  |
 | `/config/completed`                           | [GET](README.md#get-apiconfigcompleted)    | :heavy_check_mark: | :heavy_check_mark: | Applies config changes |
 | `/customer`                                   | [GET](README.md#get-apicustomer)    | :heavy_check_mark: | :heavy_check_mark: |  |
@@ -132,10 +136,11 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/meters/${o.serial}/cts`                     | POST   |  |  |  |
 | `/meters/${t}`                                | DELETE |  |  |  |
 | `/meters/${t}/verify`                         | [POST](README.md#post-apimetersabc1234567890verify)   | 🚧 | 🚧 |  |
-| `/meters/aggregates`                          | [GET](README.md#get-apimetersaggregates)    | :x: | :heavy_check_mark: | Instantaneous readings from the CT clamps |
+| `/meters/aggregates`                          | [GET](README.md#get-apimetersaggregates)    | :heavy_check_mark: | :heavy_check_mark: | Instantaneous readings from the CT clamps |
 | `/meters/detect_wired_meters`                 | POST   |  |  |  |
 | `/meters/readings`                            | [GET](README.md#get-apimetersreadings)    | :heavy_check_mark: | 🚧 |  |
-| `/meters/status`                              | GET    |  |  |  |
+| `/meters/status`                              | GET    | :heavy_check_mark: |  |  |
+| `/meters/verify`                              | POST   |  |  |  |
 | `/networks`                                   | [GET](README.md#get-apinetworks)    | :heavy_check_mark: | 🚧 |  |
 |                                               | [POST](README.md#post-apinetworks)   | :heavy_check_mark: | 🚧 |  |
 |                                               | DELETE | :heavy_check_mark: | :x: |  |
@@ -150,23 +155,27 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/password/change`                            | POST   |  |  |  |
 | `/password/generate`                          | POST   |  |  |  |
 | `/password/reset`                             | POST   |  |  |  |
-| `/powerwalls`                                 | [GET](README.md#get-apipowerwalls)    | :x: | :heavy_check_mark: |  |  |
+| `/powerwalls`                                 | [GET](README.md#get-apipowerwalls)    | :heavy_check_mark: | :heavy_check_mark: |  |  |
 | `/powerwalls/phase_detection`                 | GET    |  |  |  |
 | `/powerwalls/phase_usages`                    | GET    |  |  |  |
 | `/powerwalls/status`                          | [GET](README.md#get-apipowerwallsstatus)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/powerwalls/update`                          | GET    |  |  |  |
-| `/site_info`                                  | [GET](README.md#get-apisite_info)    | :x: | :heavy_check_mark: | High Level info about site and grid the powerwall connected to |
+| `/site_info`                                  | [GET](README.md#get-apisite_info)    | :heavy_check_mark: | :heavy_check_mark: | High Level info about site and grid the powerwall connected to |
 | `/site_info/grid_code`                        | POST   |  | :x: |  |
 | `/site_info/grid_codes`                       | [GET](README.md#get-apisite_infogrid_codes)   | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/site_info/grid_regions`                     | GET    |  |  |  |
 | `/site_info/offgrid`                          | POST   |  |  |  |
-| `/site_info/site_name`                        | [GET](README.md#get-apisite_infosite_name)    | :x: | :heavy_check_mark: | Name of the site + timezone |
+| `/site_info/site_name`                        | [GET](README.md#get-apisite_infosite_name)    | :heavy_check_mark: | :heavy_check_mark: | Name of the site + timezone |
 |                                               | POST   |  |  |  |
 | `/site_info/timezone`                         | POST   |  |  |  |
-| `/sitemaster`                                 | [GET](README.md#get-apisitemaster)    | :x: | :heavy_check_mark: |  |
+| `/sitemaster`                                 | [GET](README.md#get-apisitemaster)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/sitemaster/run`                             | [GET](README.md#get-apisitemasterrun)    | :heavy_check_mark: | :heavy_check_mark: | Starts the Powerwall electricity flow |
 | `/sitemaster/run_for_commissioning`           | [POST](README.md#post-apisitemasterrun_for_commissioning)   |  |  |  |
 | `/sitemaster/stop`                            | [GET](README.md#get-apisitemasterstop)    | :heavy_check_mark: | :heavy_check_mark: | Stops the Powerwall electricity flow |
+| `/solar_powerwall/${n}/power_status`          | GET    |  |  |  |
+| `/solar_powerwall/${t}/reset`                 | GET    |  |  |  |
+| `/solar_powerwall/power_status`               | GET    |  |  |  |
+| `/solar_powerwall/reset`                      | GET    |  |  |  |
 | `/solars`                                     | [GET](README.md#get-apisolars)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/solars/brands`                              | [GET](README.md#get-apisolarsbrands)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/solars/brands/${brand}`                     | [GET](README.md#get-apisolarsbrandssolaredge20technologies)    | :heavy_check_mark: | :heavy_check_mark: |  |
@@ -184,7 +193,8 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/system_status`                  | [GET](README.md#get-apisystem_status)    | :heavy_check_mark: | 🚧 |  |
 | `/system_status/grid_faults`                  | [GET](README.md#get-apisystem_statusgrid_faults)    | :heavy_check_mark: | 🚧 |  |
 | `/system_status/grid_status`                  | [GET](README.md#get-apisystem_statusgrid_status)    | :heavy_check_mark: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
-| `/system_status/soe`                          | [GET](README.md#get-apisystem_statussoe)    | :x: | :heavy_check_mark: | Powerwall charged percentage |
+| `/system_status/soe`                          | [GET](README.md#get-apisystem_statussoe)    | :heavy_check_mark: | :heavy_check_mark: | Powerwall charged percentage |
+| `/v2/islanding/mode`                          | GET    |  |  |  |
 
 <sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
 
