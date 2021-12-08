@@ -724,6 +724,63 @@ POD_IpcRequestedBusUp0
 POD_SelfTestRequested0
 ```
 
+jasonacox - The binary file is a *protobuf* payload.  It includes all devices including metrics for string data. Without the proto schema, the `protoc` tool can decode the raw file (some information will be missing without the schema):
+
+```bash
+protoc --decode_raw < vitals
+```
+
+It represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean - example snips:
+
+```
+  2 {
+    1: "THC_State"
+    5: "THC_STATE_AUTONOMOUSCONTROL"
+  }
+  2 {
+    1: "THC_AmbientTemp"
+    4: 0x403899999999999c
+  }
+...
+
+ 2 {
+    1: "PVAC_PVMeasuredVoltage_A"
+    4: 0x406cb66666666667
+  }
+  2 {
+    1: "PVAC_PVMeasuredVoltage_B"
+    4: 0xc003333333333332
+  }
+  2 {
+    1: "PVAC_PVMeasuredVoltage_C"
+    4: 0x406c09999999999a
+  }
+  2 {
+    1: "PVAC_PVMeasuredVoltage_D"
+    4: 0x406c09999999999a
+  }
+
+...
+
+ 2 {
+    1: "PVS_StringA_Connected"
+    6: 1
+  }
+  2 {
+    1: "PVS_StringB_Connected"
+    6: 0
+  }
+  2 {
+    1: "PVS_StringC_Connected"
+    6: 1
+  }
+  2 {
+    1: "PVS_StringD_Connected"
+    6: 1
+  }
+
+```
+
 ---
 
 #### _GET /api/generators/disconnect_types_ ####
