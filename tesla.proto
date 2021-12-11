@@ -1,0 +1,96 @@
+// Tesla Protocol Buffer definition (tesla.proto) 
+// Used to decode /api/devices/vitals
+//
+// Credit and thanks to @brianhealey
+
+syntax = "proto3";
+
+package teslapower;
+
+import "google/protobuf/timestamp.proto";
+
+message DeviceVital {
+    optional string name = 1;
+    oneof value {
+        int64 intValue = 3;
+        double floatValue = 4;
+        string stringValue = 5;
+        bool boolValue = 6;
+    }
+}
+
+message StringValue {
+    string value = 1;
+}
+
+message UInt32Value {
+    uint32 value = 1;
+}
+
+message ConnectionParameters {
+    optional string ipAddress = 1;
+    optional string serialPort = 2;
+    optional string serialBaud = 3;
+    optional uint32 modbusId = 4;
+}
+
+message TeslaHardwareId {
+    optional UInt32Value pcbaId = 1;
+    optional UInt32Value assemblyId = 2;
+    optional UInt32Value usageId = 3;
+}
+
+message TeslaEnergyEcuAttributes {
+    optional int32 ecuType = 1;
+    optional TeslaHardwareId hardwareId = 2;
+}
+
+message GeneratorAttributes {
+    optional uint64 nameplateRealPowerW = 1;
+    optional uint64 nameplateApparentPowerVa = 2;
+}
+
+message PVInverterAttributes {
+    optional uint64 nameplateRealPowerW = 1;
+}
+
+message MeterAttributes {
+    repeated uint32 meterLocation = 1;
+}
+
+message DeviceAttributes {
+    oneof deviceAttributes {
+        TeslaEnergyEcuAttributes teslaEnergyEcuAttributes = 1;
+        GeneratorAttributes generatorAttributes = 2;
+        PVInverterAttributes pvInverterAttributes = 3;
+        MeterAttributes meterAttributes = 4;
+    };
+}
+
+message Device {
+    optional StringValue din = 1;
+    optional StringValue partNumber = 2;
+    optional StringValue serialNumber = 3;
+    optional StringValue manufacturer = 4;
+    optional StringValue siteLabel = 5;
+    optional StringValue componentParentDin = 6;
+    optional StringValue firmwareVersion = 7;
+    optional google.protobuf.Timestamp firstCommunicationTime = 8;
+    optional google.protobuf.Timestamp lastCommunicationTime = 9;
+    optional ConnectionParameters connectionParameters = 10;
+    repeated DeviceAttributes deviceAttributes = 11;
+}
+
+message SiteControllerConnectedDevice {
+    optional Device device = 1;
+}
+
+message SiteControllerConnectedDeviceWithVitals {
+    repeated SiteControllerConnectedDevice device = 1;
+    repeated DeviceVital vitals = 2;
+    repeated string alerts = 3;
+}
+
+message DevicesWithVitals {
+    repeated SiteControllerConnectedDeviceWithVitals devices = 1;
+}

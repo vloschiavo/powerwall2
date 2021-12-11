@@ -730,55 +730,155 @@ jasonacox - The binary file is a *protobuf* payload.  It includes all devices in
 protoc --decode_raw < vitals
 ```
 
-It represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean - example snips:
+The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean - example snips.
 
-```
-  2 {
-    1: "THC_State"
-    5: "THC_STATE_AUTONOMOUSCONTROL"
-  }
-  2 {
-    1: "THC_AmbientTemp"
-    4: 0x403899999999999c
-  }
+Thanks to @brianhealey we have a working [tesla.proto](tesla.proto) file.  This can be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).  
+
+An decoded output example /api/devices/vitals from [pypowerwall](https://github.com/jasonacox/pypowerwall) (`pw.vitals()`) looks like this:
+
+Full example: [samples/api-devices-vitals.json](samples/api-devices-vitals.json)
+
+Some interesting data points:
+```json
+    "STSTSM--1232100-00-E--TTTTTTTTTTTTTT": {
+        "Parent": "",
+        "STSTSM-Location": "Gateway",
+        "firmwareVersion": "2021-11-02-g3d303deef",
+        "lastCommunicationTime": "1639168200",
+        "manufacturer": "TESLA",
+        "partNumber": "1232100-00-E",
+        "serialNumber": "TTTTTTTTTTTTTT"
+    },
+	"NEURIO--VVVVVVVVVVVVV": {
+        "NEURIO_CT0_InstRealPower": 1576.0756967629245,
+        "NEURIO_CT0_Location": "solar",
 ...
-
- 2 {
-    1: "PVAC_PVMeasuredVoltage_A"
-    4: 0x406cb66666666667
-  }
-  2 {
-    1: "PVAC_PVMeasuredVoltage_B"
-    4: 0xc003333333333332
-  }
-  2 {
-    1: "PVAC_PVMeasuredVoltage_C"
-    4: 0x406c09999999999a
-  }
-  2 {
-    1: "PVAC_PVMeasuredVoltage_D"
-    4: 0x406c09999999999a
-  }
-
+    },
+    "PVAC--1538100-00-F--CCCCCCCCCCCCCC": {
 ...
-
- 2 {
-    1: "PVS_StringA_Connected"
-    6: 1
-  }
-  2 {
-    1: "PVS_StringB_Connected"
-    6: 0
-  }
-  2 {
-    1: "PVS_StringC_Connected"
-    6: 1
-  }
-  2 {
-    1: "PVS_StringD_Connected"
-    6: 1
-  }
-
+        "PVAC_LifetimeEnergyPV_Total": 1543380.0,
+        "PVAC_PVCurrent_A": 2.24,
+        "PVAC_PVCurrent_B": 0.0,
+        "PVAC_PVCurrent_C": 1.62,
+        "PVAC_PVCurrent_D": 1.6,
+        "PVAC_PVMeasuredPower_A": 552.0,
+        "PVAC_PVMeasuredPower_B": 0.0,
+        "PVAC_PVMeasuredPower_C": 508.0,
+        "PVAC_PVMeasuredPower_D": 503.0,
+        "PVAC_PVMeasuredVoltage_A": 244.8,
+        "PVAC_PVMeasuredVoltage_B": -2.5,
+        "PVAC_PVMeasuredVoltage_C": 314.5,
+        "PVAC_PVMeasuredVoltage_D": 315.20000000000005,
+        "PVAC_Pout": 1610.0,
+        "PVAC_PvState_A": "PV_Active",
+        "PVAC_PvState_B": "PV_Active",
+        "PVAC_PvState_C": "PV_Active",
+        "PVAC_PvState_D": "PV_Active_Parallel",
+        "PVAC_Qout": 20.0,
+...
+    },
+    "PVS--1538100-00-F--CCCCCCCCCCCCCC": {
+...
+        "PVS_StringA_Connected": true,
+        "PVS_StringB_Connected": false,
+        "PVS_StringC_Connected": true,
+        "PVS_StringD_Connected": true,
+        "PVS_vLL": 241.5,
+...
+    },
+	"TEPINV--1081100-10-U--SSSSSSSSSSS": {
+        "PINV_EnergyCharged": 439040.0,
+        "PINV_EnergyDischarged": 383090.0,
+...
+        "PINV_PllFrequency": 59.969,
+        "PINV_PllLocked": true,
+        "PINV_Pout": -0.19,
+        "PINV_PowerLimiter": "PWRLIM_POD_Power_Limit",
+        "PINV_Qout": 0.0,
+        "PINV_ReadyForGridForming": true,
+        "PINV_State": "PINV_GridFollowing",
+        "PINV_VSplit1": 120.9,
+        "PINV_VSplit2": 120.30000000000001,
+        "PINV_Vout": 241.10000000000002,
+...
+    },
+	"TEPOD--1081100-10-U--SSSSSSSSSSS": {
+        "POD_ActiveHeating": false,
+        "POD_CCVhold": false,
+        "POD_ChargeComplete": false,
+        "POD_ChargeRequest": false,
+        "POD_DischargeComplete": false,
+        "POD_PermanentlyFaulted": false,
+        "POD_PersistentlyFaulted": false,
+        "POD_available_charge_power": 7000.0,
+        "POD_available_dischg_power": 12000.0,
+        "POD_enable_line": true,
+        "POD_nom_energy_remaining": 8636.0,
+        "POD_nom_energy_to_be_charged": 5685.0,
+        "POD_nom_full_pack_energy": 13990.0,
+        "POD_state": "POD_ACTIVE",
+...
+    },
+	"TESYNC--1493315-01-F--77777777777777": {
+        "ISLAND_FreqL1_Load": 59.980000000000004,
+        "ISLAND_FreqL1_Main": 59.980000000000004,
+        "ISLAND_FreqL2_Load": 60.010000000000005,
+        "ISLAND_FreqL2_Main": 60.0,
+...
+        "ISLAND_GridConnected": true,
+        "ISLAND_GridState": "ISLAND_GridState_Grid_Compliant",
+        "ISLAND_L1L2PhaseDelta": -256.0,
+        "ISLAND_L1L3PhaseDelta": -256.0,
+        "ISLAND_L1MicrogridOk": true,
+        "ISLAND_L2L3PhaseDelta": -256.0,
+        "ISLAND_L2MicrogridOk": true,
+        "ISLAND_L3MicrogridOk": false,
+        "ISLAND_PhaseL1_Main_Load": 0.0,
+        "ISLAND_PhaseL2_Main_Load": 0.0,
+        "ISLAND_PhaseL3_Main_Load": -256.0,
+        "ISLAND_ReadyForSynchronization": true,
+        "ISLAND_VL1N_Load": 121.0,
+        "ISLAND_VL1N_Main": 121.0,
+        "ISLAND_VL2N_Load": 121.0,
+        "ISLAND_VL2N_Main": 121.0,
+        "ISLAND_VL3N_Load": 0.0,
+        "ISLAND_VL3N_Main": 0.0,
+        "METER_X_CTA_I": 4.2525,
+        "METER_X_CTA_InstReactivePower": -13.0,
+        "METER_X_CTA_InstRealPower": 434.0,
+        "METER_X_CTB_I": 3.9210000000000003,
+        "METER_X_CTB_InstReactivePower": -44.0,
+        "METER_X_CTB_InstRealPower": -433.0,
+        "METER_X_CTC_I": 0.0,
+        "METER_X_CTC_InstReactivePower": 0.0,
+        "METER_X_CTC_InstRealPower": 0.0,
+        "METER_X_LifetimeEnergyExport": 372371.0,
+        "METER_X_LifetimeEnergyImport": 1904776.0,
+        "METER_X_VL1N": 120.3,
+        "METER_X_VL2N": 120.68,
+        "METER_X_VL3N": 0.0,
+        "METER_Y_CTA_I": 0.0,
+        "METER_Y_CTA_InstReactivePower": 0.0,
+        "METER_Y_CTA_InstRealPower": 0.0,
+        "METER_Y_CTB_I": 0.0,
+        "METER_Y_CTB_InstReactivePower": 0.0,
+        "METER_Y_CTB_InstRealPower": 0.0,
+        "METER_Y_CTC_I": 0.0,
+        "METER_Y_CTC_InstReactivePower": 0.0,
+        "METER_Y_CTC_InstRealPower": 0.0,
+        "METER_Y_LifetimeEnergyExport": 0.0,
+        "METER_Y_LifetimeEnergyImport": 2.0,
+        "METER_Y_VL1N": 120.31,
+        "METER_Y_VL2N": 120.68,
+        "METER_Y_VL3N": 0.0,
+...
+    },
+    "TETHC--2012170-25-E--44444444444444": {
+        "Parent": "STSTSM--1232100-00-E--TTTTTTTTTTTTTT",
+        "THC_AmbientTemp": 16.0,
+        "THC_State": "THC_STATE_AUTONOMOUSCONTROL",
+...
+    },
 ```
 
 ---
