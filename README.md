@@ -730,11 +730,9 @@ jasonacox - The binary file is a *protobuf* payload.  It includes all devices in
 protoc --decode_raw < vitals
 ```
 
-The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean - example snips.
+The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean. Thanks to @brianhealey we have a working [tesla.proto](tesla.proto) file.  This can be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).  
 
-Thanks to @brianhealey we have a working [tesla.proto](tesla.proto) file.  This can be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).  
-
-An decoded output example /api/devices/vitals from [pypowerwall](https://github.com/jasonacox/pypowerwall) (`pw.vitals()`) looks like this:
+A decoded output example /api/devices/vitals from [pypowerwall](https://github.com/jasonacox/pypowerwall) (`pw.vitals()`) looks like this:
 
 Full example: [samples/api-devices-vitals.json](samples/api-devices-vitals.json)
 
