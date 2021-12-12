@@ -101,7 +101,7 @@ valid_cookie () {
 
 
 getstat () {
-	curl -k -b $COOKIE https://$POWERWALLIP$URL
+	curl -s -S -k -b $COOKIE https://$POWERWALLIP$URL
 }
 
 
