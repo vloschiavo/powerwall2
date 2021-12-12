@@ -68,7 +68,7 @@ Hit your local gateway IP with a browser, i.e. _https://powerwall/
 
 You should see something like this:
 
-![GatewayUI](https://github.com/vloschiavo/powerwall2/raw/master/img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
+![GatewayUI](img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
 
 ---
 **Wizard**
@@ -81,7 +81,7 @@ Follow the instructions on the web page to set/change/recover the password. What
 
 As of version 20.49.0, the password you set here will be required to pull any of the URIs (statistics & settings) listed below.
 
-Check out the bash script powerwallstats.sh (https://github.com/vloschiavo/powerwall2/blob/master/samples/powerwallstats.sh) in the samples directory for an example: 
+Check out the bash script [powerwallstats.sh](samples/powerwallstats.sh) in the samples directory for an example: 
 ___
 
 ## API Reference
@@ -203,7 +203,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/aggregates`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_meters_aggregates.json
+response: [see sample response here](samples/api_meters_aggregates.json
 )
 
 This returns the current readings from the meters that measure solar, grid, battery, and home production and usage.  Watts, Hz, etc.  Watt values can be positive or negative.  
@@ -231,7 +231,7 @@ Detailed information about the site specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-site.json)
+response: [see sample response here](samples/api-meters-site.json)
 
 #### _GET /api/meters/solar_ ####
 
@@ -239,7 +239,7 @@ Detailed information about the solar specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-solar.json)
+response: [see sample response here](samples/api-meters-solar.json)
 
 
 ---
@@ -275,7 +275,7 @@ Use this URL to determine how many power walls you have, their serial numbers, a
 
 request: `curl --cacert cacert.pem https://powerwall/api/powerwalls`
 
-response:	[see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-powerwalls.json)
+response:	[see sample response here](samples/api-powerwalls.json)
 
 I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
 
@@ -591,7 +591,7 @@ Request:
 
 Response: 
 
-[ Grid Codes Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_site_info_grid_codes.json)
+[ Grid Codes Long JSON response here](samples/api_site_info_grid_codes.json)
 
 ---
 
@@ -617,7 +617,7 @@ Request:
 
 `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
 
-[ Solar Brands - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_solars_brands.json)
+[ Solar Brands - Long JSON response here](samples/api_solars_brands.json)
 
 ---
 
@@ -632,7 +632,7 @@ Request:
 
 Response
 
-[ SolarEdge Models - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solar_edge_models.json)
+[ SolarEdge Models - Long JSON response here](samples/solar_edge_models.json)
 
 ---
 
