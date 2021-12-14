@@ -35,7 +35,7 @@
 #######################################################
 # You'll want to change these to match your environment
 
-POWERWALLIP="192.168.255.10"		# This is your Powerwall IP or DNS Name
+POWERWALLIP="powerwall"			# This is your Powerwall IP or DNS Name
 PASSWORD='Y0ur$up3r$3cr3tPassword!'	# Login to the Powerwall UI and Set this password - follow the on-screen instructions
 
 
@@ -45,9 +45,10 @@ PASSWORD='Y0ur$up3r$3cr3tPassword!'	# Login to the Powerwall UI and Set this pas
 #######################################################
 # You probably won't need to change these
 
+TOKEN_REFRESH=86400			# How often to re-login to refresh the token in seconds (86400 = 1 day)
 USERNAME="customer"
 EMAIL="Lt.Dan@bubbagump.com"		# Set this to whatever you want, it's not actually used in the login process; I suspect Tesla will collect this eventually
-COOKIE="/var/tmp/PWcookie.txt"		# Feel free to change this location as you see fit.  
+COOKIE="/tmp/PWcookie.txt"		# Feel free to change this location as you see fit.  
 URL=$1
 
 
@@ -66,12 +67,13 @@ create_cookie () {
 	fi
 	
 	# Login and Create new cookie
-	curl -s -k -i -c $COOKIE -X POST -H "Content-Type: application/json" -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\", \"email\":\"$EMAIL\",\"force_sm_off\":false}" "https://$POWERWALLIP/api/login/Basic"
+	result=$(curl -s -k -c $COOKIE -X POST -H "Content-Type: application/json" -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\", \"email\":\"$EMAIL\",\"force_sm_off\":false}" "https://$POWERWALLIP/api/login/Basic")
 
 	# If Login fails, then throw error and exit
-	if [ $? -eq 200 ]; then
-		echo "Login failed"
-		exit;
+	if ! grep -q AuthCookie $COOKIE; then
+		rm -f $COOKIE
+		echo "Login failed: $result"
+		exit 1
 	fi
 }
 
@@ -85,20 +87,21 @@ valid_cookie () {
 		create_cookie
 	fi
 
-	# If the cookie is older than one day old, refresh the cookie
+	# If the cookie is older than the refresh interval, refresh the cookie
 	# Collect both times in seconds-since-the-epoch
-	ONE_DAY_AGO=$(date -d 'now - 1 days' +%s)
+	NOW_TIME=$(date +%s)
 	FILE_TIME=$(date -r "$COOKIE" +%s)
+	FILE_AGE=$[NOW_TIME - FILE_TIME]
 
-	if [ "$FILE_TIME" -le "$ONE_DAY_AGO" ]; then
-		#The cookie is older than 1 days; get a new cookie
+	if [ "$FILE_AGE" -ge "$TOKEN_REFRESH" ]; then
+		#The cookie is older than refresh interval; get a new cookie
 		create_cookie
 	fi
 }
 
 
 getstat () {
-	curl -k -b $COOKIE https://$POWERWALLIP$URL
+	curl -s -S -k -b $COOKIE https://$POWERWALLIP$URL
 }
 
 
