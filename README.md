@@ -68,7 +68,7 @@ Hit your local gateway IP with a browser, i.e. _https://powerwall/
 
 You should see something like this:
 
-![GatewayUI](https://github.com/vloschiavo/powerwall2/raw/master/img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
+![GatewayUI](img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
 
 ---
 **Wizard**
@@ -81,7 +81,7 @@ Follow the instructions on the web page to set/change/recover the password. What
 
 As of version 20.49.0, the password you set here will be required to pull any of the URIs (statistics & settings) listed below.
 
-Check out the bash script powerwallstats.sh (https://github.com/vloschiavo/powerwall2/blob/master/samples/powerwallstats.sh) in the samples directory for an example: 
+Check out the bash script [powerwallstats.sh](samples/powerwallstats.sh) in the samples directory for an example: 
 ___
 
 ## API Reference
@@ -111,22 +111,22 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/autoconfig/retry`                           | POST   |  |  |  |
 | `/autoconfig/run`                             | POST   |  |  |  |
 | `/autoconfig/status`                          | GET    |  |  |  |
-| `/config`                                     | [GET](README.md#get-apiconfig)    | :heavy_check_mark: | 🚧 |  |
-| `/config/completed`                           | [GET](README.md#get-apiconfigcompleted)    | :heavy_check_mark: | :heavy_check_mark: | Applies config changes |
-| `/customer`                                   | [GET](README.md#get-apicustomer)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/config`                                     | [GET](#get-apiconfig)    | :heavy_check_mark: | 🚧 |  |
+| `/config/completed`                           | [GET](#get-apiconfigcompleted)    | :heavy_check_mark: | :heavy_check_mark: | Applies config changes |
+| `/customer`                                   | [GET](#get-apicustomer)    | :heavy_check_mark: | :heavy_check_mark: |  |
 |                                               | POST   |  |  |  |
-| `/customer/registration`                      | [GET](README.md#get-apicustomerregistration)    | :x: | :heavy_check_mark: |  |
-| `/customer/registration/legal`                | [POST](README.md#post-apicustomerregistrationlegal)   | 🚧 | 🚧 |  |
-| `/customer/registration/skip`                 | [POST](README.md#post-apicustomerregistrationskip)   | 🚧 | 🚧 |  |
-| `/devices/vitals`                                   | [GET](README.md#get-apidevicesvitals)    | :heavy_check_mark: | 🚧 |  |
-| `/generators`                                 | [GET](README.md#get-apigenerators) | :heavy_check_mark: | 🚧 |  |
-| `/generators/disconnect_types`                | [GET](README.md#get-apigeneratorsdisconnect_types) | :heavy_check_mark: | 🚧 |  |
-| `/installer`                                  | [GET](README.md#get-apiinstaller)     | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/installer/companies`                        | [GET](README.md#get-apiinstallercompanies)     | 🚧 | 🚧 |  |
+| `/customer/registration`                      | [GET](#get-apicustomerregistration)    | :x: | :heavy_check_mark: |  |
+| `/customer/registration/legal`                | [POST](#post-apicustomerregistrationlegal)   | 🚧 | 🚧 |  |
+| `/customer/registration/skip`                 | [POST](#post-apicustomerregistrationskip)   | 🚧 | 🚧 |  |
+| `/devices/vitals`                                   | [GET](#get-apidevicesvitals)    | :heavy_check_mark: | 🚧 |  |
+| `/generators`                                 | [GET](#get-apigenerators) | :heavy_check_mark: | 🚧 |  |
+| `/generators/disconnect_types`                | [GET](#get-apigeneratorsdisconnect_types) | :heavy_check_mark: | 🚧 |  |
+| `/installer`                                  | [GET](#get-apiinstaller)     | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/installer/companies`                        | [GET](#get-apiinstallercompanies)     | 🚧 | 🚧 |  |
 | `/logging`                                    | POST   |  |  |  |
-| `/login/Basic`                                | [POST](README.md#post-apiloginbasic)   | :x: | 🚧 |  |
-| `/logout`                                     | [GET](README.md#get-apilogout)    | 🚧 | 🚧 |  |
-| `/meters`                                     | [GET](README.md#get-apimeters)    | :heavy_check_mark: | 🚧 |  |
+| `/login/Basic`                                | [POST](#post-apiloginbasic)   | :x: | 🚧 |  |
+| `/logout`                                     | [GET](#get-apilogout)    | 🚧 | 🚧 |  |
+| `/meters`                                     | [GET](#get-apimeters)    | :heavy_check_mark: | 🚧 |  |
 |                                               | POST   |  |  |  |
 | `/meters/${e}/ct_config`                      | GET    |  |  |  |
 |                                               | POST   |  |  |  |
@@ -135,14 +135,14 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/meters/${i}/commission`                     | POST   |  |  |  |
 | `/meters/${o.serial}/cts`                     | POST   |  |  |  |
 | `/meters/${t}`                                | DELETE |  |  |  |
-| `/meters/${t}/verify`                         | [POST](README.md#post-apimetersabc1234567890verify)   | 🚧 | 🚧 |  |
-| `/meters/aggregates`                          | [GET](README.md#get-apimetersaggregates)    | :heavy_check_mark: | :heavy_check_mark: | Instantaneous readings from the CT clamps |
+| `/meters/${t}/verify`                         | [POST](#post-apimetersabc1234567890verify)   | 🚧 | 🚧 |  |
+| `/meters/aggregates`                          | [GET](#get-apimetersaggregates)    | :heavy_check_mark: | :heavy_check_mark: | Instantaneous readings from the CT clamps |
 | `/meters/detect_wired_meters`                 | POST   |  |  |  |
-| `/meters/readings`                            | [GET](README.md#get-apimetersreadings)    | :heavy_check_mark: | 🚧 |  |
+| `/meters/readings`                            | [GET](#get-apimetersreadings)    | :heavy_check_mark: | 🚧 |  |
 | `/meters/status`                              | GET    | :heavy_check_mark: |  |  |
 | `/meters/verify`                              | POST   |  |  |  |
-| `/networks`                                   | [GET](README.md#get-apinetworks)    | :heavy_check_mark: | 🚧 |  |
-|                                               | [POST](README.md#post-apinetworks)   | :heavy_check_mark: | 🚧 |  |
+| `/networks`                                   | [GET](#get-apinetworks)    | :heavy_check_mark: | 🚧 |  |
+|                                               | [POST](#post-apinetworks)   | :heavy_check_mark: | 🚧 |  |
 |                                               | DELETE | :heavy_check_mark: | :x: |  |
 | `/networks/${e}/disconnect`                   | DELETE |  |  |  |
 | `/networks/client_protocols`                  | GET    |  |  |  |
@@ -150,50 +150,50 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/networks/connect`                           | POST   |  |  |  |
 | `/networks/enable_${e}`                       | POST   |  |  |  |
 | `/networks/request_scan_wifi`                 | POST   |  |  |  |
-| `/operation`                                  | [GET](README.md#apioperation)    | :heavy_check_mark: | :heavy_check_mark: |  |
-|                                               | [POST](README.md#apioperation)   | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/operation`                                  | [GET](#apioperation)    | :heavy_check_mark: | :heavy_check_mark: |  |
+|                                               | [POST](#apioperation)   | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/password/change`                            | POST   |  |  |  |
 | `/password/generate`                          | POST   |  |  |  |
 | `/password/reset`                             | POST   |  |  |  |
-| `/powerwalls`                                 | [GET](README.md#get-apipowerwalls)    | :heavy_check_mark: | :heavy_check_mark: |  |  |
+| `/powerwalls`                                 | [GET](#get-apipowerwalls)    | :heavy_check_mark: | :heavy_check_mark: |  |  |
 | `/powerwalls/phase_detection`                 | GET    |  |  |  |
 | `/powerwalls/phase_usages`                    | GET    |  |  |  |
-| `/powerwalls/status`                          | [GET](README.md#get-apipowerwallsstatus)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/powerwalls/status`                          | [GET](#get-apipowerwallsstatus)    | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/powerwalls/update`                          | GET    |  |  |  |
-| `/site_info`                                  | [GET](README.md#get-apisite_info)    | :heavy_check_mark: | :heavy_check_mark: | High Level info about site and grid the powerwall connected to |
+| `/site_info`                                  | [GET](#get-apisite_info)    | :heavy_check_mark: | :heavy_check_mark: | High Level info about site and grid the powerwall connected to |
 | `/site_info/grid_code`                        | POST   |  | :x: |  |
-| `/site_info/grid_codes`                       | [GET](README.md#get-apisite_infogrid_codes)   | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/site_info/grid_codes`                       | [GET](#get-apisite_infogrid_codes)   | :heavy_check_mark: | :heavy_check_mark: |  |
 | `/site_info/grid_regions`                     | GET    |  |  |  |
 | `/site_info/offgrid`                          | POST   |  |  |  |
-| `/site_info/site_name`                        | [GET](README.md#get-apisite_infosite_name)    | :heavy_check_mark: | :heavy_check_mark: | Name of the site + timezone |
+| `/site_info/site_name`                        | [GET](#get-apisite_infosite_name)    | :heavy_check_mark: | :heavy_check_mark: | Name of the site + timezone |
 |                                               | POST   |  |  |  |
 | `/site_info/timezone`                         | POST   |  |  |  |
-| `/sitemaster`                                 | [GET](README.md#get-apisitemaster)    | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/sitemaster/run`                             | [GET](README.md#get-apisitemasterrun)    | :heavy_check_mark: | :heavy_check_mark: | Starts the Powerwall electricity flow |
-| `/sitemaster/run_for_commissioning`           | [POST](README.md#post-apisitemasterrun_for_commissioning)   |  |  |  |
-| `/sitemaster/stop`                            | [GET](README.md#get-apisitemasterstop)    | :heavy_check_mark: | :heavy_check_mark: | Stops the Powerwall electricity flow |
+| `/sitemaster`                                 | [GET](#get-apisitemaster)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/sitemaster/run`                             | [GET](#get-apisitemasterrun)    | :heavy_check_mark: | :heavy_check_mark: | Starts the Powerwall electricity flow |
+| `/sitemaster/run_for_commissioning`           | [POST](#post-apisitemasterrun_for_commissioning)   |  |  |  |
+| `/sitemaster/stop`                            | [GET](#get-apisitemasterstop)    | :heavy_check_mark: | :heavy_check_mark: | Stops the Powerwall electricity flow |
 | `/solar_powerwall/${n}/power_status`          | GET    |  |  |  |
 | `/solar_powerwall/${t}/reset`                 | GET    |  |  |  |
 | `/solar_powerwall/power_status`               | GET    |  |  |  |
 | `/solar_powerwall/reset`                      | GET    |  |  |  |
-| `/solars`                                     | [GET](README.md#get-apisolars)    | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/solars/brands`                              | [GET](README.md#get-apisolarsbrands)    | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/solars/brands/${brand}`                     | [GET](README.md#get-apisolarsbrandssolaredge20technologies)    | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/status`                                     | [GET](README.md#get-apistatus)    | :x: | :heavy_check_mark: | Information about the gateway software version |
+| `/solars`                                     | [GET](#get-apisolars)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/solars/brands`                              | [GET](#get-apisolarsbrands)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/solars/brands/${brand}`                     | [GET](#get-apisolarsbrandssolaredge20technologies)    | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/status`                                     | [GET](#get-apistatus)    | :x: | :heavy_check_mark: | Information about the gateway software version |
 | `/synchrometer/ct_voltage_references`         | GET    |  |  |  |
 |                                               | POST   |  |  |  |
 | `/synchrometer/ct_voltage_references/options` | GET    |  |  |  |
 | `/system/networks/conn_tests`                 | GET    |  |  |  |
 |                                               | POST   |  |  |  |
-| `/system/networks/ping_test`                  | [POST](README.md#apisystemnetworksping_test)   | 🚧 | 🚧 |  |
-| `/system/testing`                             | [GET](README.md#get-apisystemtesting)    | 🚧 | 🚧  |  |  |
+| `/system/networks/ping_test`                  | [POST](#apisystemnetworksping_test)   | 🚧 | 🚧 |  |
+| `/system/testing`                             | [GET](#get-apisystemtesting)    | 🚧 | 🚧  |  |  |
 |                                               | DELETE |  |  |  |
 | `/system/testing/PINV_TEST`                   | POST   |  |  |  |
-| `/system/update/status`                       | [GET](README.md#get-apisystemupdatestatus)  | :heavy_check_mark: | :heavy_check_mark: |  |
-| `/system_status`                  | [GET](README.md#get-apisystem_status)    | :heavy_check_mark: | 🚧 |  |
-| `/system_status/grid_faults`                  | [GET](README.md#get-apisystem_statusgrid_faults)    | :heavy_check_mark: | 🚧 |  |
-| `/system_status/grid_status`                  | [GET](README.md#get-apisystem_statusgrid_status)    | :heavy_check_mark: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
-| `/system_status/soe`                          | [GET](README.md#get-apisystem_statussoe)    | :heavy_check_mark: | :heavy_check_mark: | Powerwall charged percentage |
+| `/system/update/status`                       | [GET](#get-apisystemupdatestatus)  | :heavy_check_mark: | :heavy_check_mark: |  |
+| `/system_status`                  | [GET](#get-apisystem_status)    | :heavy_check_mark: | 🚧 |  |
+| `/system_status/grid_faults`                  | [GET](#get-apisystem_statusgrid_faults)    | :heavy_check_mark: | 🚧 |  |
+| `/system_status/grid_status`                  | [GET](#get-apisystem_statusgrid_status)    | :heavy_check_mark: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
+| `/system_status/soe`                          | [GET](#get-apisystem_statussoe)    | :heavy_check_mark: | :heavy_check_mark: | Powerwall charged percentage |
 | `/v2/islanding/mode`                          | GET    |  |  |  |
 
 <sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
@@ -203,7 +203,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/aggregates`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_meters_aggregates.json
+response: [see sample response here](samples/api_meters_aggregates.json
 )
 
 This returns the current readings from the meters that measure solar, grid, battery, and home production and usage.  Watts, Hz, etc.  Watt values can be positive or negative.  
@@ -231,7 +231,7 @@ Detailed information about the site specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-site.json)
+response: [see sample response here](samples/api-meters-site.json)
 
 #### _GET /api/meters/solar_ ####
 
@@ -239,7 +239,7 @@ Detailed information about the solar specific meter.
 
 request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
 
-response: [see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-meters-solar.json)
+response: [see sample response here](samples/api-meters-solar.json)
 
 
 ---
@@ -275,7 +275,7 @@ Use this URL to determine how many power walls you have, their serial numbers, a
 
 request: `curl --cacert cacert.pem https://powerwall/api/powerwalls`
 
-response:	[see sample response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-powerwalls.json)
+response:	[see sample response here](samples/api-powerwalls.json)
 
 I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
 
@@ -591,7 +591,7 @@ Request:
 
 Response: 
 
-[ Grid Codes Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_site_info_grid_codes.json)
+[ Grid Codes Long JSON response here](samples/api_site_info_grid_codes.json)
 
 ---
 
@@ -617,7 +617,7 @@ Request:
 
 `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
 
-[ Solar Brands - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api_solars_brands.json)
+[ Solar Brands - Long JSON response here](samples/api_solars_brands.json)
 
 ---
 
@@ -632,7 +632,7 @@ Request:
 
 Response
 
-[ SolarEdge Models - Long JSON response here](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solar_edge_models.json)
+[ SolarEdge Models - Long JSON response here](samples/solar_edge_models.json)
 
 ---
 
