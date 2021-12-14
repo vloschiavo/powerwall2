@@ -33,14 +33,24 @@ You have three ways around a certificate error:
 
 __I recommend option 3 above.__
 
+In addition to the issues of validating the certificate itself, the Powerwall gateway also apparently uses [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication) when serving the TLS certificate, and will simply abort the connection if the wrong hostname is presented via SNI when establishing the TLS connection.  It can therefore only be accessed using a few set hostnames (and if you put its IP address in your local DNS or hosts file with a different name, it will likely not work).
+
+Hostnames which are known to work to access a Powerwall:
+
+- (IP address)
+- teg
+- powerwall
+- powerpack
+
+Note that none of these names have any domain component.  That means you *must* access the Powerwall as, for example, `https://powerwall/`.  Something like `https://powerwall.mycooldomain.net/` will not work (even if `mycooldomain.net` is configured to have the necessary DNS entry).
+
+If you want to access your Powerwall using a name other than one of the above, you will likely need to do some custom hacking with your client's HTTPS/TLS settings to provide one of these names via SNI instead of the actual hostname (note that not all clients support this).
+
 _Here's what worked for me:_
 
 Step 1: DNS
 
-Enable DNS lookups, on your local network, for one of the following DNS names in the certificate under the "Certificate Subject Alt Name".  On my gateway these names are:
-1) teg
-2) powerwall
-3) powerpack
+Enable DNS lookups, on your local network, for one of the hostnames listed above (for example, `powerwall`) pointing to the device's IP address.
 
 You can add this to your local DNS server as an A Record or /etc/hosts file or other DNS name resolution service.  
 
@@ -49,12 +59,12 @@ For /etc/hosts add an entry that looks like this if your Powerwall gateway's IP 
 `192.168.99.99	powerwall`
 
 Step 2: Get the certificate
-`echo quit | openssl s_client -showcerts -servername powerwall -connect powerwall:443 > cacert.pem`
+`openssl s_client -showcerts -connect powerwall:443 < /dev/null | sed --quiet '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' > cacert.pem`
 
 This grabs the certificate from the powerwall using the DNS entry you setup in step 1.
 
 Step 3: use the certificate in your curl statements
-e.g. `curl --cacert cacert.pem https://powerwall/api/meters/aggregates`
+e.g. `curl --cacert cacert.pem https://powerwall/api/status`
 
 If you get this error: `curl: (51) SSL: no alternative certificate subject name matches target host name` then the name you chose (teg or powerwall or powerpack) doesn't match what's in the certificate file and you'll need to check the certificate and perhaps do some googling to figure out the solution.
 
