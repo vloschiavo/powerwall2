@@ -1,0 +1,82 @@
+{
+  "<<METER_SERIAL>>synchrometerX": {
+    "error": "",
+    "data": {
+      "firmwareVersion": "223a56cd575b7b",
+      "cts": [
+        {
+          "ct": 1,
+          "v_V": 122.53,
+          "p_W": 467,
+          "q_VAR": -326,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 2,
+          "v_V": 124.24,
+          "p_W": -486,
+          "q_VAR": -61,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 3,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        }
+      ]
+    }
+  },
+  "<<METER_SERIAL>>synchrometerY": {
+    "error": "",
+    "data": {
+      "firmwareVersion": "223a56cd575b7b",
+      "cts": [
+        {
+          "ct": 1,
+          "v_V": 122.54,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 2,
+          "v_V": 124.23,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 3,
+          "v_V": 122.54,
+          "p_W": 571,
+          "q_VAR": -7,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+HTTP/2 400 
+cache-control: no-cache, no-store
+content-type: application/json
+x-content-type-options: nosniff
+content-length: 183
+date: Sun, 26 Dec 2021 20:09:25 GMT
+
+{"code":400,"error":"run sitemanager flag enabled, sitemanager process is running","message":"Failed to read Synchrometer Y CT available pairings. Please try again or reboot Gateway"}

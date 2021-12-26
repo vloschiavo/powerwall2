@@ -1,0 +1,198 @@
+{
+  "enumerating": false,
+  "updating": false,
+  "checking_if_offgrid": false,
+  "running_phase_detection": false,
+  "phase_detection_last_error": "no phase information",
+  "bubble_shedding": false,
+  "on_grid_check_error": "sitemanager process is running, run sitemanager flag enabled",
+  "grid_qualifying": false,
+  "grid_code_validating": false,
+  "phase_detection_not_available": true,
+  "powerwalls": [
+    {
+      "Type": "",
+      "PackagePartNumber": "3012170-05-B",
+      "PackageSerialNumber": "<<BATTERY_SERIAL>>",
+      "type": "ACPW",
+      "grid_state": "Grid_Uncompliant",
+      "grid_reconnection_time_seconds": 0,
+      "under_phase_detection": false,
+      "updating": false,
+      "commissioning_diagnostic": {
+        "name": "Commissioning",
+        "category": "InternalComms",
+        "disruptive": false,
+        "inputs": null,
+        "checks": [
+          {
+            "name": "CAN connectivity",
+            "status": "fail",
+            "start_time": "2021-12-13T00:24:48.343662966-07:00",
+            "end_time": "2021-12-13T00:24:48.343928825-07:00",
+            "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Enable switch",
+            "status": "fail",
+            "start_time": "2021-12-13T00:24:48.34393495-07:00",
+            "end_time": "2021-12-13T00:24:48.343939825-07:00",
+            "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Internal communications",
+            "status": "fail",
+            "start_time": "2021-12-13T00:24:48.343944074-07:00",
+            "end_time": "2021-12-13T00:24:48.343948199-07:00",
+            "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Firmware up-to-date",
+            "status": "fail",
+            "start_time": "2021-12-13T00:24:48.343952324-07:00",
+            "end_time": "2021-12-13T00:24:48.343956449-07:00",
+            "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+            "results": {},
+            "debug": {},
+            "checks": null
+          }
+        ],
+        "alert": false
+      },
+      "update_diagnostic": {
+        "name": "Firmware Update",
+        "category": "InternalComms",
+        "disruptive": true,
+        "inputs": null,
+        "checks": [
+          {
+            "name": "Powerwall firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Battery firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Inverter firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Grid code",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          }
+        ],
+        "alert": false
+      },
+      "bc_type": null,
+      "in_config": true
+    }
+  ],
+  "gateway_din": "1232100-00-E--<<GATEWAY_TSN>>",
+  "sync": {
+    "updating": false,
+    "commissioning_diagnostic": {
+      "name": "Commissioning",
+      "category": "InternalComms",
+      "disruptive": false,
+      "inputs": null,
+      "checks": [
+        {
+          "name": "CAN connectivity",
+          "status": "fail",
+          "start_time": "2021-12-13T00:24:48.34419031-07:00",
+          "end_time": "2021-12-13T00:24:48.344196309-07:00",
+          "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+          "results": {},
+          "debug": {},
+          "checks": null
+        },
+        {
+          "name": "Firmware up-to-date",
+          "status": "fail",
+          "start_time": "2021-12-13T00:24:48.344201184-07:00",
+          "end_time": "2021-12-13T00:24:48.344205559-07:00",
+          "message": "Cannot perform this action with site controller running. From landing page, either \"STOP SYSTEM\" or \"RUN WIZARD\" to proceed.",
+          "results": {},
+          "debug": {},
+          "checks": null
+        }
+      ],
+      "alert": false
+    },
+    "update_diagnostic": {
+      "name": "Firmware Update",
+      "category": "InternalComms",
+      "disruptive": true,
+      "inputs": null,
+      "checks": [
+        {
+          "name": "Synchronizer firmware",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        },
+        {
+          "name": "Islanding configuration",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        },
+        {
+          "name": "Grid code",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        }
+      ],
+      "alert": false
+    }
+  },
+  "msa": null,
+  "states": null
+}

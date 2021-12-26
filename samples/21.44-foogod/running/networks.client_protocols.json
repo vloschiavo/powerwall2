@@ -1,0 +1,7 @@
+{
+  "dnp3": false,
+  "m2m": false,
+  "mtls": false,
+  "modbus": false,
+  "allow_public_ip": false
+}

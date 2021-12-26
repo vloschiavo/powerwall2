@@ -1,0 +1,18 @@
+[
+  {
+    "type": "site",
+    "valid": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "inverted": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "real_power_scale_factor": 1
+  }
+]

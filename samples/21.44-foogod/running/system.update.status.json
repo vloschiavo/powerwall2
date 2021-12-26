@@ -1,0 +1,14 @@
+{
+  "state": "/update_succeeded",
+  "info": {
+    "status": [
+      "nonactionable"
+    ]
+  },
+  "current_time": 1640549366145,
+  "last_status_time": 1640546006659,
+  "version": "21.44 223a56cd",
+  "offline_updating": false,
+  "offline_update_error": "",
+  "estimated_bytes_per_second": null
+}

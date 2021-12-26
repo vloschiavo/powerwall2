@@ -1,0 +1,11 @@
+{
+  "running": false,
+  "status": "TestNotRun",
+  "charge_tests": null,
+  "meter_results": null,
+  "inverter_results": null,
+  "hysteresis": 0,
+  "error": "",
+  "errors": null,
+  "tests": null
+}

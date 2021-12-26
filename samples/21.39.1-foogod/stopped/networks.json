@@ -1,0 +1,70 @@
+[
+  {
+    "network_name": "ethernet_tesla_internal_default",
+    "interface": "EthType",
+    "dhcp": true,
+    "enabled": true,
+    "extra_ips": [
+      {
+        "ip": "192.168.90.2",
+        "netmask": 24
+      }
+    ],
+    "active": false,
+    "primary": false,
+    "lastTeslaConnected": false,
+    "lastInternetConnected": false
+  },
+  {
+    "network_name": "gsm_tesla_internal_default",
+    "interface": "GsmType",
+    "dhcp": null,
+    "enabled": true,
+    "active": true,
+    "primary": false,
+    "lastTeslaConnected": false,
+    "lastInternetConnected": false,
+    "iface_network_info": {
+      "network_name": "gsm_tesla_internal_default",
+      "ip_networks": [
+        {
+          "ip": "<<IP_ADDR>>",
+          "mask": "255.255.255.255"
+        }
+      ],
+      "gateway": "<<IP_ADDR>>",
+      "interface": "GsmType",
+      "state": "DeviceStateReady",
+      "state_reason": "DeviceStateReasonNone",
+      "signal_strength": 85,
+      "hw_address": ""
+    }
+  },
+  {
+    "network_name": "<<WIFI_SSID>>",
+    "interface": "WifiType",
+    "security_type": "WPA2_Personal",
+    "dhcp": true,
+    "username": "",
+    "enabled": true,
+    "active": true,
+    "primary": true,
+    "lastTeslaConnected": true,
+    "lastInternetConnected": true,
+    "iface_network_info": {
+      "network_name": "<<WIFI_SSID>>",
+      "ip_networks": [
+        {
+          "ip": "<<IP_ADDR>>",
+          "mask": "255.255.255.0"
+        }
+      ],
+      "gateway": "<<IP_ADDR>>",
+      "interface": "WifiType",
+      "state": "DeviceStateReady",
+      "state_reason": "DeviceStateReasonNone",
+      "signal_strength": 53,
+      "hw_address": "<<MAC_ADDR>>"
+    }
+  }
+]

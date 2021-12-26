@@ -1,0 +1,12 @@
+{
+  "enumerating": false,
+  "updating": false,
+  "checking_if_offgrid": false,
+  "running_phase_detection": false,
+  "phase_detection_last_error": "no phase information",
+  "bubble_shedding": false,
+  "on_grid_check_error": "run sitemanager flag enabled, sitemanager process is running",
+  "grid_qualifying": false,
+  "grid_code_validating": false,
+  "phase_detection_not_available": true
+}

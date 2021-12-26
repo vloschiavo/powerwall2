@@ -1,0 +1,8 @@
+HTTP/2 500 
+cache-control: no-cache, no-store
+content-type: application/json
+x-content-type-options: nosniff
+content-length: 98
+date: Sun, 26 Dec 2021 20:09:33 GMT
+
+{"code":500,"error":"no phase information","message":"Failed getting phase detection information"}
