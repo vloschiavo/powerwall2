@@ -14,8 +14,13 @@ ___*** Please be patient as I have an unrelated day job! ***___
 
 This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://tesla-api.timdorr.com) with a Python library that works nicely to control a Powerwall 2 here: (https://github.com/mlowijs/tesla_api).
 
-A python implementation of the local API can be found here (https://github.com/jrester/tesla_powerwall).
--Thanks for submitting this: 
+### Libraries / apps using this API
+
+The following projects are known to be using portions of this API, and may be useful for those looking to interact with Powerwall devices:
+
+- [tesla_powerwall](https://github.com/jrester/tesla_powerwall) client library for Python
+- [go-powerwall](https://github.com/foogod/go-powerwall) client library for Go
+- [Powerwall exporter for Prometheus](https://github.com/foogod/powerwall_exporter) (uses the `go-powerwall` library)
 
 ## Getting Started ##
 
