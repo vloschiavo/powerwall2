@@ -1,0 +1,34 @@
+[
+  {
+    "type": "solar",
+    "valid": [
+      false,
+      false,
+      true,
+      false
+    ],
+    "inverted": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "real_power_scale_factor": 2
+  },
+  {
+    "type": "site",
+    "valid": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "inverted": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "real_power_scale_factor": 1
+  }
+]

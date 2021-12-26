@@ -1,0 +1,9 @@
+{
+  "status": "not_applicable",
+  "running": false,
+  "retry_possible": false,
+  "have_registered": false,
+  "have_timezone": false,
+  "have_gridcode": false,
+  "grid_availability": ""
+}

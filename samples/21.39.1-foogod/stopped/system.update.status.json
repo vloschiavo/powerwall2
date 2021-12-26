@@ -1,0 +1,14 @@
+{
+  "state": "/update_unknown",
+  "info": {
+    "status": [
+      "nonactionable"
+    ]
+  },
+  "current_time": 1639380310952,
+  "last_status_time": 1639373921031,
+  "version": "21.39.1 7759c368",
+  "offline_updating": false,
+  "offline_update_error": "",
+  "estimated_bytes_per_second": null
+}

@@ -1,0 +1,7 @@
+{
+  "status": "StatusUp",
+  "running": true,
+  "connected_to_tesla": true,
+  "power_supply_mode": false,
+  "can_reboot": "Yes"
+}

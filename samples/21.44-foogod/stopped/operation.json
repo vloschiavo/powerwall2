@@ -1,0 +1,6 @@
+{
+  "real_mode": "autonomous",
+  "backup_reserve_percent": 30,
+  "freq_shift_load_shed_soe": 75,
+  "freq_shift_load_shed_delta_f": -0.32
+}

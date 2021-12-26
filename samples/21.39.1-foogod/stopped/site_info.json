@@ -1,0 +1,23 @@
+{
+  "measured_frequency": 59.99,
+  "max_system_energy_kWh": 13.5,
+  "max_system_power_kW": 5.8,
+  "site_name": "Home Energy Gateway",
+  "timezone": "America/Los_Angeles",
+  "max_site_meter_power_kW": 1000000000,
+  "min_site_meter_power_kW": -1000000000,
+  "nominal_system_energy_kWh": 13.5,
+  "nominal_system_power_kW": 5.8,
+  "grid_code": {
+    "grid_code": "60Hz_240V_s_UL1741SA:2019_California",
+    "grid_voltage_setting": 240,
+    "grid_freq_setting": 60,
+    "grid_phase_setting": "Split",
+    "country": "United States",
+    "state": "California",
+    "distributor": "*",
+    "utility": "Pacific Gas and Electric Company",
+    "retailer": "CleanPowerSF (CPSF)",
+    "region": "UL1741SA-CA:2019"
+  }
+}

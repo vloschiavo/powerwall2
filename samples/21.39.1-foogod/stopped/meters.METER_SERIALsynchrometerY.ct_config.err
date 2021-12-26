@@ -1,0 +1,8 @@
+HTTP/2 500 
+cache-control: no-cache, no-store
+content-type: application/json
+x-content-type-options: nosniff
+content-length: 108
+date: Mon, 13 Dec 2021 07:25:13 GMT
+
+{"code":500,"error":"meter type must be Neurio (synchrometerY)","message":"Unable to get Amp configuration"}

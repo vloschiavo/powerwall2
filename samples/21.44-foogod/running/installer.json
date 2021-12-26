@@ -1,0 +1,18 @@
+{
+  "company": "Clean Solar",
+  "customer_id": "592ff91a-2372-46d5-85dd-35966a6ba1ae",
+  "phone": "<<INSTALLER_PHONE>>",
+  "email": "<<INSTALLER_EMAIL>>",
+  "location": "Outdoor",
+  "mounting": "Floor",
+  "wiring": "Side",
+  "backup_configuration": "Partial Home",
+  "solar_installation": "Existing",
+  "solar_installation_type": "PV Panel",
+  "has_cellular_modem_to_wifi": true,
+  "run_sitemaster": true,
+  "verified_config": true,
+  "installation_types": [
+    "Residential"
+  ]
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "serial": "synchrometerY",
+    "short_id": "1232100-00-E--<<GATEWAY_TSN>>",
+    "type": "synchrometerY",
+    "cts": [
+      {
+        "type": "site",
+        "valid": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "inverted": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "real_power_scale_factor": 1
+      },
+      {
+        "type": "solar",
+        "valid": [
+          false,
+          false,
+          true,
+          false
+        ],
+        "inverted": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "real_power_scale_factor": 2
+      }
+    ]
+  },
+  {
+    "serial": "synchrometerX",
+    "short_id": "1232100-00-E--<<GATEWAY_TSN>>",
+    "type": "synchrometerX",
+    "cts": [
+      {
+        "type": "site",
+        "valid": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "inverted": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "real_power_scale_factor": 1
+      }
+    ]
+  }
+]

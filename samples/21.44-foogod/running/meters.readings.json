@@ -1,0 +1,82 @@
+{
+  "<<METER_SERIAL>>synchrometerX": {
+    "error": "run sitemanager flag enabled, sitemanager process is running",
+    "data": {
+      "firmwareVersion": "",
+      "cts": [
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        }
+      ]
+    }
+  },
+  "<<METER_SERIAL>>synchrometerY": {
+    "error": "run sitemanager flag enabled, sitemanager process is running",
+    "data": {
+      "firmwareVersion": "",
+      "cts": [
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        },
+        {
+          "ct": 0,
+          "v_V": 0,
+          "p_W": 0,
+          "q_VAR": 0,
+          "eExp_Ws": 0,
+          "eImp_Ws": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "enumerating": false,
+  "updating": false,
+  "checking_if_offgrid": false,
+  "running_phase_detection": false,
+  "phase_detection_last_error": "no phase information",
+  "bubble_shedding": false,
+  "on_grid_check_error": "run sitemanager flag enabled, sitemanager process is running",
+  "grid_qualifying": false,
+  "grid_code_validating": false,
+  "phase_detection_not_available": true,
+  "powerwalls": [
+    {
+      "Type": "",
+      "PackagePartNumber": "3012170-05-B",
+      "PackageSerialNumber": "<<BATTERY_SERIAL>>",
+      "type": "ACPW",
+      "grid_state": "Grid_Compliant",
+      "grid_reconnection_time_seconds": 0,
+      "under_phase_detection": false,
+      "updating": false,
+      "commissioning_diagnostic": {
+        "name": "Commissioning",
+        "category": "InternalComms",
+        "disruptive": false,
+        "inputs": null,
+        "checks": [
+          {
+            "name": "CAN connectivity",
+            "status": "running",
+            "start_time": "2021-12-26T13:09:33.614074156-07:00",
+            "end_time": null,
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Enable switch",
+            "status": "running",
+            "start_time": "2021-12-26T13:09:33.61407903-07:00",
+            "end_time": null,
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Internal communications",
+            "status": "running",
+            "start_time": "2021-12-26T13:09:33.614083405-07:00",
+            "end_time": null,
+            "results": {},
+            "debug": {},
+            "checks": null
+          },
+          {
+            "name": "Firmware up-to-date",
+            "status": "running",
+            "start_time": "2021-12-26T13:09:33.614087655-07:00",
+            "end_time": null,
+            "results": {},
+            "debug": {},
+            "checks": null
+          }
+        ],
+        "alert": false
+      },
+      "update_diagnostic": {
+        "name": "Firmware Update",
+        "category": "InternalComms",
+        "disruptive": true,
+        "inputs": null,
+        "checks": [
+          {
+            "name": "Powerwall firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Battery firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Inverter firmware",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          },
+          {
+            "name": "Grid code",
+            "status": "not_run",
+            "start_time": null,
+            "end_time": null,
+            "progress": 0,
+            "results": null,
+            "debug": null,
+            "checks": null
+          }
+        ],
+        "alert": false
+      },
+      "bc_type": null,
+      "in_config": true
+    }
+  ],
+  "gateway_din": "1232100-00-E--<<GATEWAY_TSN>>",
+  "sync": {
+    "updating": false,
+    "commissioning_diagnostic": {
+      "name": "Commissioning",
+      "category": "InternalComms",
+      "disruptive": false,
+      "inputs": null,
+      "checks": [
+        {
+          "name": "CAN connectivity",
+          "status": "pass",
+          "start_time": "2021-12-26T13:09:33.614140027-07:00",
+          "end_time": "2021-12-26T13:09:33.614153026-07:00",
+          "results": {},
+          "debug": {},
+          "checks": null
+        },
+        {
+          "name": "Firmware up-to-date",
+          "status": "pass",
+          "start_time": "2021-12-26T13:09:33.6141669-07:00",
+          "end_time": "2021-12-26T13:09:33.614176649-07:00",
+          "results": {
+            "/etc/commit": "223a56cd575b7b19bad7e12a4ebad0eb52d1f50a",
+            "SYNC.git_hash": "223a56cd575b7b",
+            "readyForFWUpdate": true
+          },
+          "debug": {},
+          "checks": null
+        }
+      ],
+      "alert": false
+    },
+    "update_diagnostic": {
+      "name": "Firmware Update",
+      "category": "InternalComms",
+      "disruptive": true,
+      "inputs": null,
+      "checks": [
+        {
+          "name": "Synchronizer firmware",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        },
+        {
+          "name": "Islanding configuration",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        },
+        {
+          "name": "Grid code",
+          "status": "not_run",
+          "start_time": null,
+          "end_time": null,
+          "progress": 0,
+          "results": null,
+          "debug": null,
+          "checks": null
+        }
+      ],
+      "alert": false
+    }
+  },
+  "msa": null,
+  "states": null
+}

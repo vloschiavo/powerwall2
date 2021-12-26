@@ -1,0 +1,14 @@
+{
+  "din": "1232100-00-E--<<GATEWAY_TSN>>",
+  "start_time": "2021-12-16 22:13:25 +0800",
+  "up_time_seconds": "230h56m10.039547701s",
+  "is_new": false,
+  "version": "21.44 223a56cd",
+  "git_hash": "223a56cd575b7b19bad7e12a4ebad0eb52d1f50a",
+  "commission_count": 11,
+  "device_type": "teg",
+  "sync_type": "v2.1",
+  "leader": "",
+  "followers": null,
+  "cellular_disabled": false
+}
