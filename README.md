@@ -209,7 +209,7 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 | `/system_status/grid_faults`                  | [GET](#get-apisystem_statusgrid_faults)    | :heavy_check_mark: | 🚧 |  |
 | `/system_status/grid_status`                  | [GET](#get-apisystem_statusgrid_status)    | :heavy_check_mark: | :heavy_check_mark: | Whether the Powerwall is on or off grid |
 | `/system_status/soe`                          | [GET](#get-apisystem_statussoe)    | :heavy_check_mark: | :heavy_check_mark: | Powerwall charged percentage |
-| `/v2/islanding/mode`                          | GET    |  |  |  |
+| `/v2/islanding/mode`                          | [POST](#post-apiv2islandingmode)   | :heavy_check_mark: | :heavy_check_mark: | Go on or off-grid |
 
 <sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
 
@@ -695,6 +695,43 @@ Response:
 
 
 ---
+
+#### _POST /api/v2/islanding/mode_
+
+Sets whether the powerwall is on or off grid.  Change the value in the POSTed data to change to off-grid (`intentional_reconnect_failsafe`) or on-grid (`backup`).
+
+##### Switch to Off-grid mode
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"island_mode":"intentional_reconnect_failsafe"}' https://192.168.xxx.xxx/api/v2/islanding/mode`
+
+Response:
+```json
+{
+    "island_mode": "intentional_reconnect_failsafe"
+}
+```
+
+Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemIslandedActive"` once the system is in off-grid mode.
+
+##### Switch to On-grid mode
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"island_mode":"backup"}' https://192.168.xxx.xxx/api/v2/islanding/mode`
+
+Response:
+```json
+{
+    "island_mode": "backup"
+}
+```
+
+Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemGridConnected"` once the system is back in on-grid mode.
+
+---
+
 __Others to be documented:__
 
 #### _GET /api/devices/vitals_ ####
