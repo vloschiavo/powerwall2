@@ -1,0 +1,777 @@
+# Tesla Powerwall 2 - Local Gateway API documentation #
+
+## Contributing ##
+
+_(This documentation is currently in flux: portions are updated and portions aren't updated.  Use at your own risk)_
+
+_(If you find issues, please submit pull requests - currently testing on firmware version 20.49.0)_
+
+___*** Please be patient as I have an unrelated day job! ***___
+
+**Please help me update this: Pull requests are welcome!**
+
+## Overview ##
+
+This is a list of api URLs and some random thoughts I've been able to pull together from the interwebs and other functions we've been able to reverse engineer from the local gateway.  This is not the [ Tesla Owner API] which you can find here: (https://tesla-api.timdorr.com) with a Python library that works nicely to control a Powerwall 2 here: (https://github.com/mlowijs/tesla_api).
+
+### Libraries / apps using this API
+
+The following projects are known to be using portions of this API, and may be useful for those looking to interact with Powerwall devices:
+
+- [tesla_powerwall](https://github.com/jrester/tesla_powerwall) client library for Python
+- [go-powerwall](https://github.com/foogod/go-powerwall) client library for Go
+- [Powerwall exporter for Prometheus](https://github.com/foogod/powerwall_exporter) (uses the `go-powerwall` library)
+
+## Getting Started ##
+
+### A note about HTTPS and SSL Certificates ###
+
+In a recent update to the Powerwall firmware (v1.20+) non-SSL requests (http) are no longer supported and queries will return HTTP/1.1 301 Moved Permanently.  Unfortunately the certificate presented by the Powerwall is not signed by a root certificate authority as they are self-signed.  This results in web browsers and tools like curl not accept it without it either being included as a trusted certificate or a specific action by the user to override the error. 
+
+You have three ways around a certificate error:
+
+1) In web browser this will manifest itself as an error that the certificate is not trusted.  To bypass simply click "details" (IE/Edge) or "Advanced..." (Firefox) and select continue.
+
+2) With curl the `--insecure` or `-k` option will ignore the SSL certificate.  This is ok, but it doesn't authenticate the device you are connecting to.
+
+3) A better way is to export the Powerwall public certificate and add it to the local machine's trusted certificate list or just use the certificate in your curl request.
+
+__I recommend option 3 above.__
+
+In addition to the issues of validating the certificate itself, the Powerwall gateway also apparently uses [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication) when serving the TLS certificate, and will simply abort the connection if the wrong hostname is presented via SNI when establishing the TLS connection.  It can therefore only be accessed using a few set hostnames (and if you put its IP address in your local DNS or hosts file with a different name, it will likely not work).
+
+Hostnames which are known to work to access a Powerwall:
+
+- (IP address)
+- teg
+- powerwall
+- powerpack
+
+Note that none of these names have any domain component.  That means you *must* access the Powerwall as, for example, `https://powerwall/`.  Something like `https://powerwall.mycooldomain.net/` will not work (even if `mycooldomain.net` is configured to have the necessary DNS entry).
+
+If you want to access your Powerwall using a name other than one of the above, you will likely need to do some custom hacking with your client's HTTPS/TLS settings to provide one of these names via SNI instead of the actual hostname (note that not all clients support this).
+
+_Here's what worked for me:_
+
+Step 1: DNS
+
+Enable DNS lookups, on your local network, for one of the hostnames listed above (for example, `powerwall`) pointing to the device's IP address.
+
+You can add this to your local DNS server as an A Record or /etc/hosts file or other DNS name resolution service.  
+
+For /etc/hosts add an entry that looks like this if your Powerwall gateway's IP was 192.168.99.99:
+
+`192.168.99.99	powerwall`
+
+Step 2: Get the certificate
+`openssl s_client -showcerts -connect powerwall:443 < /dev/null | sed --quiet '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' > cacert.pem`
+
+This grabs the certificate from the powerwall using the DNS entry you setup in step 1.
+
+Step 3: use the certificate in your curl statements
+e.g. `curl --cacert cacert.pem https://powerwall/api/status`
+
+If you get this error: `curl: (51) SSL: no alternative certificate subject name matches target host name` then the name you chose (teg or powerwall or powerpack) doesn't match what's in the certificate file and you'll need to check the certificate and perhaps do some googling to figure out the solution.
+
+For the rest of the documentation, I will assume you copied the certificate and are using method C with the Powerwall's public certificate.  If you didn't, just leave out the certificate `--cacert cacert.pem` portion and add `-k`.
+
+
+Powerwall 2 Web UI
+---
+The web UI provides ~~an instantaneous~~ a 250-500ms average(?) power flow diagram an access to the wizard.
+Hit your local gateway IP with a browser, i.e. _https://powerwall/
+
+You should see something like this:
+
+![GatewayUI](img/TeslaPowerwallGatewayUI.jpg "Gateway Web UI")
+
+---
+**Wizard**
+You can hit the _"Login"_ link on this page and go through the setup (be careful what you change in the wizard).
+
+`username: <Enter whatever you like here>`
+
+`password: `
+Follow the instructions on the web page to set/change/recover the password. Whatever you set here will be used later.
+
+As of version 20.49.0, the password you set here will be required to pull any of the URIs (statistics & settings) listed below.
+
+Check out the bash script [powerwallstats.sh](samples/powerwallstats.sh) in the samples directory for an example: 
+___
+
+## API Reference
+
+### Base Endpoint
+
+`https://<tesla-powerwall-ip>/api/`
+
+### Key ###
+
+| Symbol | Meaning |
+| - | - |
+|  | Yes |
+| :x: or _\<blank>_ | No |
+|  | Requires updating or has partial info |
+
+### Overview
+
+Endpoint | Method | Requires Authentication? | Documented? | Summary
+| - | - | - | - | - |
+| `/${e}`                                       | GET    |  |  |  |
+| `/auth/toggle/login`                          | POST   |  |  |  |
+|                                               | DELETE |  |  |  |
+| `/auth/toggle/start`                          | POST   |  |  |  |
+| `/auth/toggle/supported`                      | GET    |  |  |  |
+| `/autoconfig/cancel`                          | POST   |  |  |  |
+| `/autoconfig/retry`                           | POST   |  |  |  |
+| `/autoconfig/run`                             | POST   |  |  |  |
+| `/autoconfig/status`                          | GET    |  |  |  |
+| `/config`                                     | [GET](#get-apiconfig)    |  |  |  |
+| `/config/completed`                           | [GET](#get-apiconfigcompleted)    |  |  | Applies config changes |
+| `/customer`                                   | [GET](#get-apicustomer)    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/customer/registration`                      | [GET](#get-apicustomerregistration)    | :x: |  |  |
+| `/customer/registration/legal`                | [POST](#post-apicustomerregistrationlegal)   |  |  |  |
+| `/customer/registration/skip`                 | [POST](#post-apicustomerregistrationskip)   |  |  |  |
+| `/devices/vitals`                                   | [GET](#get-apidevicesvitals)    |  |  |  |
+| `/generators`                                 | [GET](#get-apigenerators) |  |  |  |
+| `/generators/disconnect_types`                | [GET](#get-apigeneratorsdisconnect_types) |  |  |  |
+| `/installer`                                  | [GET](#get-apiinstaller)     |  |  |  |
+| `/installer/companies`                        | [GET](#get-apiinstallercompanies)     |  |  |  |
+| `/logging`                                    | POST   |  |  |  |
+| `/login/Basic`                                | [see openapi documentation](openapi/#/default/post_login_Basic)   |  |  |  |
+| `/logout`                                     | [see openapi documentation](openapi/#/default/get_logout)    |  |  |  |
+| `/meters`                                     | [see openapi documentation](openapi/#/default/get_meters)    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/meters/${e}/ct_config`                      | GET    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/meters/${e}/cts`                            | DELETE |  |  |  |
+| `/meters/${e}/invert_cts`                     | POST   |  |  |  |
+| `/meters/${i}/commission`                     | POST   |  |  |  |
+| `/meters/${o.serial}/cts`                     | POST   |  |  |  |
+| `/meters/${t}`                                | DELETE |  |  |  |
+| `/meters/${t}/verify`                         | [POST](#post-apimetersabc1234567890verify)   |  |  |  |
+| `/meters/aggregates`                          | [see openapi documentation](openapi/#/default/get_meters_aggregates)    |  |  |  |
+| `/meters/detect_wired_meters`                 | POST   |  |  |  |
+| `/meters/readings`                            | [see openapi documentation](openapi/#/default/get_meters_readings)    |  |  |  |
+| `/meters/status`                              | GET    |  |  |  |
+| `/meters/verify`                              | POST   |  |  |  |
+| `/networks`                                   | [GET](#get-apinetworks)    |  |  |  |
+|                                               | [POST](#post-apinetworks)   |  |  |  |
+|                                               | DELETE |  | :x: |  |
+| `/networks/${e}/disconnect`                   | DELETE |  |  |  |
+| `/networks/client_protocols`                  | GET    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/networks/connect`                           | POST   |  |  |  |
+| `/networks/enable_${e}`                       | POST   |  |  |  |
+| `/networks/request_scan_wifi`                 | POST   |  |  |  |
+| `/operation`                                  | [GET](#apioperation)    |  |  |  |
+|                                               | [POST](#apioperation)   |  |  |  |
+| `/password/change`                            | POST   |  |  |  |
+| `/password/generate`                          | POST   |  |  |  |
+| `/password/reset`                             | POST   |  |  |  |
+| `/powerwalls`                                 | [GET](#get-apipowerwalls)    |  |  |  |  |
+| `/powerwalls/phase_detection`                 | GET    |  |  |  |
+| `/powerwalls/phase_usages`                    | GET    |  |  |  |
+| `/powerwalls/status`                          | [GET](#get-apipowerwallsstatus)    |  |  |  |
+| `/powerwalls/update`                          | GET    |  |  |  |
+| `/site_info`                                  | [GET](#get-apisite_info)    |  |  | High Level info about site and grid the powerwall connected to |
+| `/site_info/grid_code`                        | POST   |  | :x: |  |
+| `/site_info/grid_codes`                       | [GET](#get-apisite_infogrid_codes)   |  |  |  |
+| `/site_info/grid_regions`                     | GET    |  |  |  |
+| `/site_info/offgrid`                          | POST   |  |  |  |
+| `/site_info/site_name`                        | [GET](#get-apisite_infosite_name)    |  |  | Name of the site + timezone |
+|                                               | POST   |  |  |  |
+| `/site_info/timezone`                         | POST   |  |  |  |
+| `/sitemaster`                                 | [GET](#get-apisitemaster)    |  |  |  |
+| `/sitemaster/run`                             | [GET](#get-apisitemasterrun)    |  |  | Starts the Powerwall electricity flow |
+| `/sitemaster/run_for_commissioning`           | [POST](#post-apisitemasterrun_for_commissioning)   |  |  |  |
+| `/sitemaster/stop`                            | [GET](#get-apisitemasterstop)    |  |  | Stops the Powerwall electricity flow |
+| `/solar_powerwall/${n}/power_status`          | GET    |  |  |  |
+| `/solar_powerwall/${t}/reset`                 | GET    |  |  |  |
+| `/solar_powerwall/power_status`               | GET    |  |  |  |
+| `/solar_powerwall/reset`                      | GET    |  |  |  |
+| `/solars`                                     | [GET](#get-apisolars)    |  |  |  |
+| `/solars/brands`                              | [GET](#get-apisolarsbrands)    |  |  |  |
+| `/solars/brands/${brand}`                     | [GET](#get-apisolarsbrandssolaredge20technologies)    |  |  |  |
+| `/status`                                     | [see openapi documentation](openapi/#/default/get_status)    |  |  |  |
+| `/synchrometer/ct_voltage_references`         | GET    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/synchrometer/ct_voltage_references/options` | GET    |  |  |  |
+| `/system/networks/conn_tests`                 | GET    |  |  |  |
+|                                               | POST   |  |  |  |
+| `/system/networks/ping_test`                  | [POST](#apisystemnetworksping_test)   |  |  |  |
+| `/system/testing`                             | [see openapi documentation](openapi/#/default/get_system_testing)(#get-apisystemtesting)    |  |   |  |  |
+|                                               | DELETE |  |  |  |
+| `/system/testing/PINV_TEST`                   | POST   |  |  |  |
+| `/system/update/status`                       | [GET](#get-apisystemupdatestatus)  |  |  |  |
+| `/system_status`                              | [see openapi documentation](openapi/#/default/get_system_status)    |  |  |  |
+| `/system_status/grid_faults`                  | [see openapi documentation](openapi/#/default/get_system_status_grid_faults)    |  |  |  |
+| `/system_status/grid_status`                  | [see openapi documentation](openapi/#/default/get_system_status_grid_status)    |  |  |  |
+| `/system_status/soe`                          | [see openapi documentation](openapi/#/default/get_system_status_soe)    |  |  |  |
+| `/v2/islanding/mode`                          | [POST](#post-apiv2islandingmode)   |  |  | Go on or off-grid |
+
+<sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
+
+
+#### _GET /api/meters/site_ ####
+
+Detailed information about the site specific meter.
+
+request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
+
+response: [see sample response here](samples/api-meters-site.json)
+
+#### _GET /api/meters/solar_ ####
+
+Detailed information about the solar specific meter.
+
+request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
+
+response: [see sample response here](samples/api-meters-solar.json)
+
+---
+
+
+#### _GET /api/system/update/status_ ####
+_UPDATE: You need to be authenticated for this command_
+
+From: @kylerove:
+"After digging, the answer was right on Tesla's website:
+https://www.tesla.com/support/energy/powerwall/own/monitoring-from-home-network
+
+username=customer
+email=your Tesla account email address
+password=last 5 digits of your gateway serial number
+
+You can then reset/choose your own customer password, if you want to make it stronger."
+
+request: `curl --cacert cacert.pem https://powerwall/api/system/update/status`
+
+response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
+
+1. update_failed / status nonactionable = I tried to do an upgrade but I have the latest firmware version already installed.
+2. current_time in EPOC.
+	-1422697552910 = **GMT**: Monday, April 2, 2018 8:09:17.447 PM
+	
+	  
+possible values of "state" property, according to the code:
+
+-   "/clear_update_status", // Checking for firmware update is in progress (need to keep sending request until state is changed)  
+    
+-   "/update_succeeded", // Success  
+    
+-   "/update_failed", // Update failed, or not required  
+    
+-   "/update_staged", // Staging update?  
+    
+-   "/download",  // Downloading update  
+    
+-   "/update_downloaded", // Ready to update  
+    
+-   "/update_unknown"  
+
+possible values of "status" property according to the code:
+
+-   "ignoring", // possibly some uninterruptable action is in progress?  
+    
+-   "error",  
+    
+-   "nonactionable" // everything is OK  
+    
+
+  
+
+Use case:  One user is making this request to check new firmware available, and run the upgrade, approximately 30 minutes before switching to discharging (self_consumption mode with 5% reserve). Assumption is - we better upgrade firmware while battery is in standby mode, rather then letting gateway upgrade itself later, because it will stop battery possibly during peak hours for an upgrade. He noticed his gateway has self-upgraded during peak hours, resulting around 15 minutes stop of battery, which was an unpleasant surprise and extra cost. So, his idea was to force a new firmware check (and upgrade) when battery is not used:
+
+  
+-   7:15am  check for new fimware and run an upgrade if firmware is available  
+    
+-   7:55am  - start discharging (self_consumption, 5% reserve)  
+    
+-   10:05pm  - start charging (backup, 100% reserve)  
+    
+
+Southern California Edison has TOU plan with the following details:
+
+-   8am-2pm,  8pm-10pm  - offpeak  
+    
+-   2pm-8pm  - peak  
+    
+-   10pm-8am  - super offpeak
+
+---	
+
+#### _GET /api/sitemaster/stop_ ####
+_UPDATE: You need to be authenticated for this command_
+This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
+
+Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/stop`
+
+Response:  
+
+returns HTTP Status 500 if powerwall cannot be stopped at this moment with the following JSON: 
+
+`{"code":500,"error":"Cannot Start Wizard","message":"Unable to stop sitemaster"}`
+
+---
+#### _GET /api/sitemaster/run_ ####
+_UPDATE: You need to be authenticated for this command_
+This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
+
+Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/run`
+
+Response:  
+Returns HTTPS Status 202 if request is accepted
+
+
+---
+#### _GET /api/config/completed_ ####
+_UPDATE: You need to be authenticated for this command_
+This applies configuration changes.
+
+Request: `curl --cacert cacert.pem https://powerwall/api/config/completed`
+
+Response:
+Returns HTTP Status 202 if input accepted
+
+
+___
+Note: __*** The below API calls require authentication ***__
+
+Note2: __*** This documentation is old (created on version 1.15) and needs updating ***__
+__*** I wouldn't be surprised if less than 1% of the below still works in versions 1.40+ ***__
+
+
+---
+#### _/api/operation_ ####
+Change the Powerwall mode and Reserve Percentage
+
+_Note 1: Making changes to the Powerwalls via the Mobile application can take some time to go into effect.  There's a rumor that states that the changes happen around 30 minutes past the hour. (Probably based on a cron job in Tesla's servers)._
+
+_Note 2: Setting a value is not sufficient to make the change.  You must "save" or "commit" the configuration to have it go into effect.  See  the _Config Completed_ section below._
+
+_Note 3: Once a value is changed and committed it is immediately in effect._
+
+
+
+
+#### _POST /api/operation_ ####
+
+The below request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value) using the token retrieved from the authentication example. 
+
+request: `curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"mode":"self_consumption","backup_reserve_percent":24.6}' https://192.168.xxx.xxx/api/operation`
+
+response: `{"mode":"self_consumption","backup_reserve_percent":24.6}`
+
+Valid Modes:
+1. `self_consumption`
+2. `backup`
+3. `autonomous` (aka Time of Use (TOU) as reported by dlieu on the teslamotorsclub.com forums)
+4. `scheduler`  aka Aggregation - This seems like it is not supported now. 
+
+The JavaScript constant in the code of mobile client for Android has the following options:
+
+```
+OperationModes = 
+{SELF_CONSUMPTION: "self_consumption",
+TIME_OF_USE: "autonomous",
+BACKUP: "backup",
+AGGREGATION: "scheduler"}
+```
+
+There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess (Time of use?). Mine is currently set to null (probably because time of use isn't enabled on my system yet (as of April 2018).  You can omit this key/value pair from the POST.
+
+`{max_pv_export_power_kW: null, mode: "self_consumption", backup_reserve_percent: 24}`
+
+Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
+
+___**Tested values:**___
+
+| APP Setting | API Setting |
+| :-------------: |:-------------:|
+| 5%	| 10%		| 
+| 16%	| 20%		|
+| 16%	| 20.6%		|
+| 20%	| 24%		|
+| 21%	| 24.6% 	|
+| 30%	| 33%		|
+| 100%	| 100%		|
+
+
+---
+
+#### _GET /api/powerwalls/status_ ####
+
+Informational:
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/powerwalls/status`
+
+Response:
+
+`{"code":409,"error":"Sitemaster is current running","message":"Sitemaster is current running"}`
+
+---
+#### _GET /api/site_info/grid_codes_ ####
+
+_vls29 - I couldn't find this endpoint in the javascript file and it returns 404_
+
+Informational: setting options used in the wizard
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/site_info/grid_codes`
+
+Response: 
+
+[ Grid Codes Long JSON response here](samples/api_site_info_grid_codes.json)
+
+---
+
+#### _GET /api/solars_ ####
+
+Informational: responds with the solar inverter brand, model, and max power rating as stored on the gateway.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars`
+
+Reply:
+
+`[{"brand":"SolarEdge Technologies","model":"SE5000 (240V) w/ -ER-US or A-US","power_rating_watts":6000}]`
+
+---
+
+#### _GET /api/solars/brands_ ####
+
+Informational: responds with the Solar inverter Brand options for the wizard.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands > api_solars_brands.json`
+
+[ Solar Brands - Long JSON response here](samples/api_solars_brands.json)
+
+---
+
+
+#### _GET /api/solars/brands/SolarEdge%20Technologies_ ####
+
+Informational: Get a list of SolarEdge models - used in the wizard.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/solars/brands/SolarEdge%20Technologies`
+
+Response
+
+[ SolarEdge Models - Long JSON response here](samples/solar_edge_models.json)
+
+---
+
+#### _GET /api/generators_ ####
+
+Note: I don't have a generator tied to my system.
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" httsp://192.168.xxx.xxx/api/generators`
+
+Response:
+
+`{"disconnect_type":"None","generators":[]}`
+
+---
+
+
+#### _POST /api/v2/islanding/mode_
+
+Sets whether the powerwall is on or off grid.  Change the value in the POSTed data to change to off-grid (`intentional_reconnect_failsafe`) or on-grid (`backup`).
+
+##### Switch to Off-grid mode
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"island_mode":"intentional_reconnect_failsafe"}' https://192.168.xxx.xxx/api/v2/islanding/mode`
+
+Response:
+```json
+{
+    "island_mode": "intentional_reconnect_failsafe"
+}
+```
+
+Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemIslandedActive"` once the system is in off-grid mode.
+
+##### Switch to On-grid mode
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -X POST -d '{"island_mode":"backup"}' https://192.168.xxx.xxx/api/v2/islanding/mode`
+
+Response:
+```json
+{
+    "island_mode": "backup"
+}
+```
+
+Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemGridConnected"` once the system is back in on-grid mode.
+
+---
+
+__Others to be documented:__
+
+#### _GET /api/devices/vitals_ ####
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" -o https://192.168.xxx.xxx/api/devices/vitals`
+
+
+Response:
+
+darryllee - Found when I logged into my Gateway as an Installer, this returns a binary file with what looks like interesting information including:
+```
+THC_State THC_STATE_AUTONOMOUSCONTROL
+THC_AmbientTemp!
+...
+POD_nom_energy_to_be_charged!
+POD_nom_energy_remaining!
+POD_nom_full_pack_energy!
+POD_available_charge_power!
+POD_available_dischg_power!
+POD_curtailed_charge_power!
+POD_curtailed_dischg_power!
+POD_est_DC_Bus_Power!
+        POD_Ibatt!
+        POD_Vbatt!
+POD_DC_Bus_Voltage!
+        POD_state*
+POD_ACTIVE
+POD_enable_line0
+POD_ChargeComplete0
+POD_DischargeComplete0
+POD_PersistentlyFaulted0
+POD_PermanentlyFaulted0
+POD_ChargeRequest0
+POD_ActiveHeating0
+POD_Resting0
+POD_CCVhold0
+POD_HeatZeroCurrentReg0
+POD_ExtendedCapacityMode0
+POD_IpcRequestedBusUp0
+POD_SelfTestRequested0
+```
+
+jasonacox - The binary file is a *protobuf* payload.  It includes all devices including metrics for string data. Without the proto schema, the `protoc` tool can decode the raw file (some information will be missing without the schema):
+
+```bash
+protoc --decode_raw < vitals
+```
+
+The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean. Thanks to @brianhealey we have a working [tesla.proto](tesla.proto) file.  This can be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).  
+
+A decoded output example /api/devices/vitals from [pypowerwall](https://github.com/jasonacox/pypowerwall) (`pw.vitals()`) looks like this:
+
+Full example: [samples/api-devices-vitals.json](samples/api-devices-vitals.json)
+
+Some interesting data points:
+```json
+    "STSTSM--1232100-00-E--TTTTTTTTTTTTTT": {
+        "Parent": "",
+        "STSTSM-Location": "Gateway",
+        "firmwareVersion": "2021-11-02-g3d303deef",
+        "lastCommunicationTime": "1639168200",
+        "manufacturer": "TESLA",
+        "partNumber": "1232100-00-E",
+        "serialNumber": "TTTTTTTTTTTTTT"
+    },
+	"NEURIO--VVVVVVVVVVVVV": {
+        "NEURIO_CT0_InstRealPower": 1576.0756967629245,
+        "NEURIO_CT0_Location": "solar",
+...
+    },
+    "PVAC--1538100-00-F--CCCCCCCCCCCCCC": {
+...
+        "PVAC_LifetimeEnergyPV_Total": 1543380.0,
+        "PVAC_PVCurrent_A": 2.24,
+        "PVAC_PVCurrent_B": 0.0,
+        "PVAC_PVCurrent_C": 1.62,
+        "PVAC_PVCurrent_D": 1.6,
+        "PVAC_PVMeasuredPower_A": 552.0,
+        "PVAC_PVMeasuredPower_B": 0.0,
+        "PVAC_PVMeasuredPower_C": 508.0,
+        "PVAC_PVMeasuredPower_D": 503.0,
+        "PVAC_PVMeasuredVoltage_A": 244.8,
+        "PVAC_PVMeasuredVoltage_B": -2.5,
+        "PVAC_PVMeasuredVoltage_C": 314.5,
+        "PVAC_PVMeasuredVoltage_D": 315.20000000000005,
+        "PVAC_Pout": 1610.0,
+        "PVAC_PvState_A": "PV_Active",
+        "PVAC_PvState_B": "PV_Active",
+        "PVAC_PvState_C": "PV_Active",
+        "PVAC_PvState_D": "PV_Active_Parallel",
+        "PVAC_Qout": 20.0,
+...
+    },
+    "PVS--1538100-00-F--CCCCCCCCCCCCCC": {
+...
+        "PVS_StringA_Connected": true,
+        "PVS_StringB_Connected": false,
+        "PVS_StringC_Connected": true,
+        "PVS_StringD_Connected": true,
+        "PVS_vLL": 241.5,
+...
+    },
+	"TEPINV--1081100-10-U--SSSSSSSSSSS": {
+        "PINV_EnergyCharged": 439040.0,
+        "PINV_EnergyDischarged": 383090.0,
+...
+        "PINV_PllFrequency": 59.969,
+        "PINV_PllLocked": true,
+        "PINV_Pout": -0.19,
+        "PINV_PowerLimiter": "PWRLIM_POD_Power_Limit",
+        "PINV_Qout": 0.0,
+        "PINV_ReadyForGridForming": true,
+        "PINV_State": "PINV_GridFollowing",
+        "PINV_VSplit1": 120.9,
+        "PINV_VSplit2": 120.30000000000001,
+        "PINV_Vout": 241.10000000000002,
+...
+    },
+	"TEPOD--1081100-10-U--SSSSSSSSSSS": {
+        "POD_ActiveHeating": false,
+        "POD_CCVhold": false,
+        "POD_ChargeComplete": false,
+        "POD_ChargeRequest": false,
+        "POD_DischargeComplete": false,
+        "POD_PermanentlyFaulted": false,
+        "POD_PersistentlyFaulted": false,
+        "POD_available_charge_power": 7000.0,
+        "POD_available_dischg_power": 12000.0,
+        "POD_enable_line": true,
+        "POD_nom_energy_remaining": 8636.0,
+        "POD_nom_energy_to_be_charged": 5685.0,
+        "POD_nom_full_pack_energy": 13990.0,
+        "POD_state": "POD_ACTIVE",
+...
+    },
+	"TESYNC--1493315-01-F--77777777777777": {
+        "ISLAND_FreqL1_Load": 59.980000000000004,
+        "ISLAND_FreqL1_Main": 59.980000000000004,
+        "ISLAND_FreqL2_Load": 60.010000000000005,
+        "ISLAND_FreqL2_Main": 60.0,
+...
+        "ISLAND_GridConnected": true,
+        "ISLAND_GridState": "ISLAND_GridState_Grid_Compliant",
+        "ISLAND_L1L2PhaseDelta": -256.0,
+        "ISLAND_L1L3PhaseDelta": -256.0,
+        "ISLAND_L1MicrogridOk": true,
+        "ISLAND_L2L3PhaseDelta": -256.0,
+        "ISLAND_L2MicrogridOk": true,
+        "ISLAND_L3MicrogridOk": false,
+        "ISLAND_PhaseL1_Main_Load": 0.0,
+        "ISLAND_PhaseL2_Main_Load": 0.0,
+        "ISLAND_PhaseL3_Main_Load": -256.0,
+        "ISLAND_ReadyForSynchronization": true,
+        "ISLAND_VL1N_Load": 121.0,
+        "ISLAND_VL1N_Main": 121.0,
+        "ISLAND_VL2N_Load": 121.0,
+        "ISLAND_VL2N_Main": 121.0,
+        "ISLAND_VL3N_Load": 0.0,
+        "ISLAND_VL3N_Main": 0.0,
+        "METER_X_CTA_I": 4.2525,
+        "METER_X_CTA_InstReactivePower": -13.0,
+        "METER_X_CTA_InstRealPower": 434.0,
+        "METER_X_CTB_I": 3.9210000000000003,
+        "METER_X_CTB_InstReactivePower": -44.0,
+        "METER_X_CTB_InstRealPower": -433.0,
+        "METER_X_CTC_I": 0.0,
+        "METER_X_CTC_InstReactivePower": 0.0,
+        "METER_X_CTC_InstRealPower": 0.0,
+        "METER_X_LifetimeEnergyExport": 372371.0,
+        "METER_X_LifetimeEnergyImport": 1904776.0,
+        "METER_X_VL1N": 120.3,
+        "METER_X_VL2N": 120.68,
+        "METER_X_VL3N": 0.0,
+        "METER_Y_CTA_I": 0.0,
+        "METER_Y_CTA_InstReactivePower": 0.0,
+        "METER_Y_CTA_InstRealPower": 0.0,
+        "METER_Y_CTB_I": 0.0,
+        "METER_Y_CTB_InstReactivePower": 0.0,
+        "METER_Y_CTB_InstRealPower": 0.0,
+        "METER_Y_CTC_I": 0.0,
+        "METER_Y_CTC_InstReactivePower": 0.0,
+        "METER_Y_CTC_InstRealPower": 0.0,
+        "METER_Y_LifetimeEnergyExport": 0.0,
+        "METER_Y_LifetimeEnergyImport": 2.0,
+        "METER_Y_VL1N": 120.31,
+        "METER_Y_VL2N": 120.68,
+        "METER_Y_VL3N": 0.0,
+...
+    },
+    "TETHC--2012170-25-E--44444444444444": {
+        "Parent": "STSTSM--1232100-00-E--TTTTTTTTTTTTTT",
+        "THC_AmbientTemp": 16.0,
+        "THC_State": "THC_STATE_AUTONOMOUSCONTROL",
+...
+    },
+```
+
+---
+
+#### _GET /api/generators/disconnect_types_ ####
+
+Request:
+
+`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/generators/disconnect_types`
+
+
+Response:
+
+`["DownstreamATS"]`
+
+---
+
+
+
+---
+
+__Others to document__
+
+#### _POST /api/sitemaster/run_for_commissioning_ ####
+
+
+Also need to research:
+#### _/api/system/networks/ping_test_ ####
+
+POST /api/logging
+{
+	level: ???,
+	log: ???
+}
+
+
+#### _POST /api/customer/registration/legal_ ####
+"Content-Type": "application/json"
+response:
+```
+{
+	marketing: ???,
+	privacy_notice: ???,
+	limited_warranty: ???,
+	grid_services: ???
+}
+```
+
+
+#### _POST /api/meters/ABC1234567890/verify_ ####
+
+"Content-Type": "application/json"
+request's body: {"short_id":"12345","serial":" ABC1234567890 "}
+
+
+---

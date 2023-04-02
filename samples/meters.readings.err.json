@@ -1,0 +1,46 @@
+{
+    "ABC1234567890": {
+        "error": "Get https://Neurio-12345:443/latest: dial tcp: lookup Neurio-12345 on 192.168.0.1:53: no such host",
+        "data": {
+            "firmwareVersion": "",
+            "cts": [
+                {
+                    "ct": 0,
+                    "v_V": 0,
+                    "p_W": 0,
+                    "q_VAR": 0,
+                    "eExp_Ws": 0,
+                    "eImp_Ws": 0,
+                    "i_A": 0
+                },
+                {
+                    "ct": 0,
+                    "v_V": 0,
+                    "p_W": 0,
+                    "q_VAR": 0,
+                    "eExp_Ws": 0,
+                    "eImp_Ws": 0,
+                    "i_A": 0
+                },
+                {
+                    "ct": 0,
+                    "v_V": 0,
+                    "p_W": 0,
+                    "q_VAR": 0,
+                    "eExp_Ws": 0,
+                    "eImp_Ws": 0,
+                    "i_A": 0
+                },
+                {
+                    "ct": 0,
+                    "v_V": 0,
+                    "p_W": 0,
+                    "q_VAR": 0,
+                    "eExp_Ws": 0,
+                    "eImp_Ws": 0,
+                    "i_A": 0
+                }
+            ]
+        }
+    }
+}

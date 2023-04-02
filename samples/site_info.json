@@ -1,0 +1,19 @@
+{
+    "max_system_energy_kWh": 13.5,
+    "max_system_power_kW": 5,
+    "site_name": "<<YOUR SITE NAME>>",
+    "timezone": "Europe/London",
+    "max_site_meter_power_kW": 1000000000,
+    "min_site_meter_power_kW": -1000000000,
+    "nominal_system_energy_kWh": 13.5,
+    "nominal_system_power_kW": 5,
+    "grid_code": {
+        "grid_code": "50Hz_230V_1_G59:UK",
+        "grid_voltage_setting": 230,
+        "grid_freq_setting": 50,
+        "grid_phase_setting": "Single",
+        "country": "United Kingdom",
+        "state": "*",
+        "region": "G59 21A"
+    }
+}

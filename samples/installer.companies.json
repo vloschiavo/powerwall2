@@ -1,0 +1,7 @@
+[
+    {
+      "company": "<<COMPANY_NAME>>",
+      "customer_id": "<<CUSTOMER_ID>>",
+      "country": "<<COUNTRY_CODE>>"
+    }
+]

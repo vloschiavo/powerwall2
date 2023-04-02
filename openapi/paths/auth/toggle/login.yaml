@@ -1,0 +1,7 @@
+delete:
+  description: Undocumented
+  tags:
+    - Undocumented
+  responses:
+    '204':
+      description: delete:/auth/toggle/login response

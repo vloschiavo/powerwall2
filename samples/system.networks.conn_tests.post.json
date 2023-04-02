@@ -1,0 +1,56 @@
+[
+    {
+        "name": "CAN bus",
+        "category": "InternalComms",
+        "disruptive": false,
+        "inputs": null,
+        "checks": [
+            {
+                "name": "Enable switch",
+                "status": "not_run",
+                "start_time": null,
+                "end_time": null,
+                "results": null,
+                "debug": null,
+                "checks": null
+            }
+        ],
+        "alert": false
+    },
+    {
+        "name": "Meter communication",
+        "category": "Metering",
+        "disruptive": false,
+        "inputs": null,
+        "checks": [
+            {
+                "name": "Meter read",
+                "status": "not_run",
+                "start_time": null,
+                "end_time": null,
+                "results": null,
+                "debug": null,
+                "checks": null
+            }
+        ],
+        "alert": false
+    },
+    {
+        "name": "Network connection",
+        "category": "Network",
+        "disruptive": false,
+        "inputs": null,
+        "checks": [
+            {
+                "name": "Network device",
+                "status": "scheduled",
+                "start_time": null,
+                "end_time": null,
+                "results": {},
+                "debug": {},
+                "checks": null
+            }
+        ],
+        "alert": false
+    }
+]

@@ -1,0 +1,84 @@
+[
+    {
+        "network_name": "connman_eth",
+        "interface": "EthType",
+        "enabled": true,
+        "dhcp": true,
+        "extra_ips": [
+            {
+                "ip": "192.168.90.2",
+                "netmask": 24
+            }
+        ],
+        "active": true,
+        "primary": true,
+        "lastTeslaConnected": true,
+        "lastInternetConnected": true,
+        "iface_network_info": {
+            "network_name": "connman_eth",
+            "ip_networks": [
+                {
+                    "ip": "<<IP_ADDR>>",
+                    "mask": "255.255.255.0"
+                }
+            ],
+            "gateway": "<<IP_ADDR>>",
+            "interface": "EthType",
+            "state": "DeviceStateReady",
+            "state_reason": "DeviceStateReasonNone",
+            "signal_strength": 0,
+            "hw_address": "<<MAC_ADDR>>"
+        }
+    },
+    {
+        "network_name": "<<WIFI_SSID>>",
+        "interface": "WifiType",
+        "enabled": true,
+        "dhcp": true,
+        "security_type": "WPA2_Personal",
+        "active": true,
+        "primary": false,
+        "lastTeslaConnected": true,
+        "lastInternetConnected": true,
+        "iface_network_info": {
+            "network_name": "<<WIFI_SSID>>",
+            "ip_networks": [
+                {
+                    "ip": "<<IP_ADDR>>",
+                    "mask": "255.255.255.0"
+                }
+            ],
+            "gateway": "<<IP_ADDR>>",
+            "interface": "WifiType",
+            "state": "DeviceStateReady",
+            "state_reason": "DeviceStateReasonNone",
+            "signal_strength": 62,
+            "hw_address": "<<MAC_ADDR>>"
+        }
+    },
+    {
+        "network_name": "gsm_tesla_internal_default",
+        "interface": "GsmType",
+        "enabled": true,
+        "dhcp": null,
+        "active": true,
+        "primary": false,
+        "lastTeslaConnected": false,
+        "lastInternetConnected": false,
+        "iface_network_info": {
+            "network_name": "gsm_tesla_internal_default",
+            "ip_networks": [
+                {
+                    "ip": "<<IP_ADDR>>",
+                    "mask": "255.255.255.255"
+                }
+            ],
+            "gateway": "<<IP_ADDR>>",
+            "interface": "GsmType",
+            "state": "DeviceStateReady",
+            "state_reason": "DeviceStateReasonNone",
+            "signal_strength": 42,
+            "hw_address": ""
+        }
+    }
+]

@@ -1,0 +1,21 @@
+get:
+  summary: Information on batteries and inverters
+  description: |
+    nominal_full_pack_energy is useful for monitoring degradation over time, as discussed here:
+      (https://teslamotorsclub.com/tmc/threads/powerwall-2-available-energy-after-2-years.228580/#post-5537358)
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/system_status response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system_status.json'
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

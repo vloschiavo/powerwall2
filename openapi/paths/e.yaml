@@ -1,0 +1,19 @@
+get:
+  description: Undocumented
+  security: 
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+    - name: e
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: get:/{e} response
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '404':
+      $ref: '../spec.yaml#/components/responses/NotFound'

@@ -1,0 +1,51 @@
+[
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 11,
+        "signal_strength": 75,
+        "security_type": "WPA2_Personal"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 1,
+        "signal_strength": 67,
+        "security_type": "WPA2_Personal"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 1,
+        "signal_strength": 65,
+        "security_type": "WPA2_Personal"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 11,
+        "signal_strength": 52,
+        "security_type": "WPA2_Personal"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 6,
+        "signal_strength": 49,
+        "security_type": "NONE"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 6,
+        "signal_strength": 49,
+        "security_type": "WPA2_Personal"
+    },
+    {
+        "ssid": "<<SSID>>",
+        "bssid": "<<MAC_ADDR>>",
+        "channel": 6,
+        "signal_strength": 35,
+        "security_type": "WPA2_Personal"
+    }
+]

@@ -1,0 +1,30 @@
+get:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+  - name: e
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '200':
+      description: get:/config/completed response
+post:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+  - name: e
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '200':
+      description: post:/meters/{e}/ct_config response

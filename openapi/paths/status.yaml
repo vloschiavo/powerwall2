@@ -1,0 +1,18 @@
+get:
+  description: |
+    Retrieves information about the API version along with a few other fields.
+
+    Doesn't require authentication, so can be useful for retrieving the last 5 digits of your Gateway serial number if 
+      a custom password has not been set.
+  responses:
+    '200':
+      description: Status Response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/status.json"
+  
+  

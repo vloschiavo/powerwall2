@@ -1,0 +1,26 @@
+get:
+  summary: List Powerwalls
+  description: |
+    Use this URL to determine how many power walls you have, their serial numbers, and if they are in sync (assuming more than one powerwall).
+
+    I have two of the AC Powerwall 2s in the United States.  The PackagePartNumber is: 1092170-03-E.  Let me know if you have a different package part number and what Powerwall model you have.  (i.e. DC, AC, Powerwall v1 or v2)
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/powerwalls response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/powerwalls.json'
+            example2:
+              summary: Example 2
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-powerwalls.json'
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

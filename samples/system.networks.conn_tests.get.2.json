@@ -1,0 +1,36 @@
+{
+    "name": "Network connection",
+    "category": "Network",
+    "disruptive": false,
+    "inputs": null,
+    "checks": [
+        {
+            "name": "Network device",
+            "status": "pass",
+            "start_time": "2023-03-31T15:42:15.448910471+01:00",
+            "end_time": "2023-03-31T15:42:15.700189504+01:00",
+            "results": {},
+            "debug": {},
+            "checks": null
+        },
+        {
+            "name": "IP address",
+            "status": "pass",
+            "start_time": "2023-03-31T15:42:15.700185837+01:00",
+            "end_time": "2023-03-31T15:42:15.783385294+01:00",
+            "results": null,
+            "debug": null,
+            "checks": null
+        },
+        {
+            "name": "Tesla and internet connectivity",
+            "status": "running",
+            "start_time": "2023-03-31T15:42:15.783382294+01:00",
+            "end_time": null,
+            "results": null,
+            "debug": null,
+            "checks": null
+        }
+    ],
+    "alert": false
+}
