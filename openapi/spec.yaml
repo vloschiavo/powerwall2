@@ -52,6 +52,7 @@ info:
         }
         # this ip address is the address of your Tesla Powerwall
         proxy_pass        https://192.168.0.XX:443;
+        # if the repository is forked, you would need to change the below github address to your username
         add_header 'Access-Control-Allow-Origin' "https://vloschiavo.github.io" always;
       }
     }
