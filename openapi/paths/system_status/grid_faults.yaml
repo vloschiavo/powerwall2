@@ -3,6 +3,8 @@ get:
     Not sure what this does...does it list the recent grid failure dates/times?
   security:
     - bearerAuth: []
+  tags:
+    - Undocumented
   responses:
     '200':
       description: get:/system_status/grid_faults response
