@@ -17,10 +17,10 @@ get:
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/meters.readings.json'
             example2:
               summary: Example 2
-              externalValue: "https://raw.githubusercontent.com/vls29/powerwall2/openapi/samples/meters.readings.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.readings.json"
             example3:
               summary: Failed lookup of Neurio
-              externalValue: "https://raw.githubusercontent.com/vls29/powerwall2/openapi/samples/meters.readings.err.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.readings.err.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '502':

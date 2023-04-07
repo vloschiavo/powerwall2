@@ -16,7 +16,7 @@ get:
           examples:
             example1:
               summary: Example 1
-              externalValue: 'https://raw.githubusercontent.com/vls29/powerwall2/openapi/samples/installer.companies.json'
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/installer.companies.json'
             example2:
               summary: Example 2 - this may cause your brower tab to slow down and/or crash!
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/installer.companies.json'

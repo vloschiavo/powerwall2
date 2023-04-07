@@ -17,7 +17,7 @@ info:
 
     ### How to use the Swagger UI Try it out feature against your own Powerwall
 
-    Please see [USING_TRY_IT_Out.md](USING_TRY_IT_Out.md) for more information on how to use the Swagger UI Try it out feature against your own Powerwall.
+    Please see [USING-SWAGGER-TRY-IT-OUT.md](USING-SWAGGER-TRY-IT-OUT.md) for more information on how to use the Swagger UI Try it out feature against your own Powerwall.
 
 servers:
   - url: https://{hostname}/api

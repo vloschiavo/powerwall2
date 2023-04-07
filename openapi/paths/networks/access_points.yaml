@@ -13,6 +13,6 @@ get:
           examples:
             response:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vls29/powerwall2/openapi/samples/networks.access_points.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/networks.access_points.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
