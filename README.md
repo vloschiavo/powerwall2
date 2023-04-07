@@ -101,6 +101,25 @@ ___
 
 ## API Reference
 
+### Alternative API documentation in the form of OpenAPI Spec
+
+An alternative to the below README form of documenting the APIs can be seen in [openapi](openapi) folder.  OpenAPI spec is a machine-readable format that can be used to generate documentation, client libraries, and more.
+
+You can also view the OpenAPI spec using the Swagger viewer by going to https://vloschiavo.github.io/powerwall2/openapi/
+
+Advantages of OpenAPI spec:
+
+- Industry standard format for documenting APIs
+- Machine-readable format
+- Can be used to client libraries
+- Swagger UI presents the spec in an easy to read format
+- With the right setup, you can use the Swagger UI to test the API endpoints against your own Powerwall
+
+Disadvantages of OpenAPI spec:
+
+- Not as human-readable as the README format
+- Not as easy to contribute to as the README format
+
 ### Base Endpoint
 
 `https://<tesla-powerwall-ip>/api/`
