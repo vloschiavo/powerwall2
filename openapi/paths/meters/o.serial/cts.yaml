@@ -1,0 +1,15 @@
+post:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+  - name: o.serial
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '204':
+      description: post:/meters/{o.serial}/cts response

@@ -1,0 +1,9 @@
+get:
+  description: Undocumented
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: post:/site_info/grid_regions response
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'

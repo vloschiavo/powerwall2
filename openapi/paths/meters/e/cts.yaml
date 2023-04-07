@@ -1,0 +1,15 @@
+delete:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+  - name: e
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '204':
+      description: get:/logout response

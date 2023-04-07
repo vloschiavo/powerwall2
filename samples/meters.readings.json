@@ -1,0 +1,45 @@
+{
+    "ABC1234567890": {
+        "error": "",
+        "data": {
+            "IP": "Neurio-12345",
+            "sensorId": "0x<EIGHT_BYTES_HERE_IN_HEX_FORMAT>",
+            "firmwareVersion": "Tesla-0.0.7",
+            "f_Hz": 60,
+            "cts": [
+                {
+                    "ct": 1,
+                    "v_V": 120.1,
+                    "p_W": 345.07,
+                    "q_VAR": -179.66,
+                    "eExp_Ws": 12601671,
+                    "eImp_Ws": 579265920
+                },
+                {
+                    "ct": 2,
+                    "v_V": 120.81,
+                    "p_W": 68.48,
+                    "q_VAR": -109.03,
+                    "eExp_Ws": 76422454,
+                    "eImp_Ws": 447595772
+                },
+                {
+                    "ct": 3,
+                    "v_V": 120.88,
+                    "p_W": -0.2,
+                    "q_VAR": 0,
+                    "eExp_Ws": 258718,
+                    "eImp_Ws": 32548
+                },
+                {
+                    "ct": 4,
+                    "v_V": 120.1,
+                    "p_W": -0.06,
+                    "q_VAR": -0.17,
+                    "eExp_Ws": 112940,
+                    "eImp_Ws": 88921
+                }
+            ]
+        }
+    }
+}

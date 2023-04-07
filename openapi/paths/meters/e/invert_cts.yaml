@@ -1,0 +1,15 @@
+post:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  parameters:
+  - name: e
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '200':
+      description: post:/meters/{e}/invert_cts response

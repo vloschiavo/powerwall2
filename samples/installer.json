@@ -1,0 +1,8 @@
+{
+    "company": "Cawoods.net T/A Manor Solar",
+    "customer_id": "ZZ-0000000",
+    "phone": "<<INSTALLER_PHONE>>",
+    "email": "<<INSTALLER_EMAIL>>",
+    "run_sitemaster": true,
+    "verified_config": true
+}

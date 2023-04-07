@@ -1,0 +1,10 @@
+get:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: |
+        complex

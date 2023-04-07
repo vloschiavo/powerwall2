@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <!-- Load the latest Swagger UI code and style from npm using unpkg.com -->
+        <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css"/>
+        <title>Tesla Powerwall 2 API</title>
+    </head>
+    <body>
+        <div id="swagger-ui"></div> <!-- Div to hold the UI component -->
+        <script>
+            // Add in workaround for externalValue not populating from https://github.com/swagger-api/swagger-ui/issues/5433
+
+            // Examples map
+            const examples = {};
+
+            // Custom plugin for logic that happens before the response element is created
+            const CustomPlugin = () => {
+            return {
+                wrapComponents: {
+                response: (Original, { React, oas3Actions, oas3Selectors }) => (props) => {
+                    const contentType = oas3Selectors.responseContentType(props.path, props.method)
+                    const externalValue = props.response.getIn(['content', contentType, 'examples', props.activeExamplesKey, 'externalValue'])
+                    // Check if externalValue field exists
+                    if (externalValue) {
+                    // Check if examples map already contains externalValue key
+                    if (examples[externalValue]) {
+                        // Set example value directly from examples map
+                        props.response = props.response.setIn(['content', contentType, 'examples', props.activeExamplesKey, 'value'], examples[externalValue])
+                    } else {
+                        fetch(externalValue)
+                        .then(res => res.text())
+                        .then(data => {
+                            // Put downloaded file content into the examples map
+                            examples[externalValue] = data
+                            // Simulate select another example action
+                            oas3Actions.setActiveExamplesMember({
+                                "name": 'fake',
+                                "pathMethod": [props.path, props.method],
+                                "contextType": "responses",
+                                "contextName": props.code
+                            })
+                            // Reselect this example
+                            oas3Actions.setActiveExamplesMember({
+                                "name": props.activeExamplesKey,
+                                "pathMethod": [props.path, props.method],
+                                "contextType": "responses",
+                                "contextName": props.code
+                            })
+                        })
+                        .catch(e => console.error(e))
+                    }
+                    }
+                    return React.createElement(Original, props)
+                }
+                }
+            }
+            }
+
+            window.onload = function () {
+                // Begin Swagger UI call region
+                const ui = SwaggerUIBundle({
+                    url: "spec.yaml", //Location of Open API spec in the repo
+                    dom_id: '#swagger-ui',
+                    deepLinking: true,
+                    presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIBundle.SwaggerUIStandalonePreset
+                    ],
+                    plugins: [
+                        SwaggerUIBundle.plugins.DownloadUrl,
+                        CustomPlugin
+                    ],
+                    supportedSubmitMethods: [
+                        "get", "put", "post", "options", "head", "patch", "trace"
+                    ]
+                })
+                window.ui = ui
+            }
+        </script>
+    </body>
+</html>

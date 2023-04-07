@@ -1,0 +1,88 @@
+{
+    "running": false,
+    "status": "TestPassed",
+    "charge_tests": [
+        0,
+        -1000,
+        -2000,
+        -1000,
+        0
+    ],
+    "meter_results": [
+        [
+            {
+                "Power": 575.6900024414062,
+                "CT": 1,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            },
+            {
+                "Power": 71.94999694824219,
+                "CT": 2,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            }
+        ],
+        [
+            {
+                "Power": 595.2100219726562,
+                "CT": 1,
+                "Serial": " ABC1234890",
+                "Type": "site"
+            },
+            {
+                "Power": 71.5199966430664,
+                "CT": 2,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            }
+        ],
+        [
+            {
+                "Power": 1064.7099609375,
+                "CT": 1,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            },
+            {
+                "Power": 540.1099853515625,
+                "CT": 2,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            }
+        ],
+        [
+            {
+                "Power": 1283.739990234375,
+                "CT": 1,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            },
+            {
+                "Power": 779.1300048828125,
+                "CT": 2,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            }
+        ],
+        [
+            {
+                "Power": 562.5499877929688,
+                "CT": 1,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            },
+            {
+                "Power": 69.66999816894531,
+                "CT": 2,
+                "Serial": " ABC1234567890",
+                "Type": "site"
+            }
+        ]
+    ],
+    "inverter_results": null,
+    "hysteresis": 0.05,
+    "error": "",
+    "errors": null,
+    "tests": null
+}
