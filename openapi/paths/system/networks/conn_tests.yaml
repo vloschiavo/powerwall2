@@ -21,6 +21,8 @@ get:
 post:
   summary: Network connectivity test
   description: Starts the test that checks whether the Powerwall has access to the local network and internet.
+  security:
+    - bearerAuth: []
   responses:
     '200':
       description: post:/system/networks/conn_tests response

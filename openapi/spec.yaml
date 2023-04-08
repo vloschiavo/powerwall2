@@ -58,6 +58,9 @@ components:
         Bad Gateway
 
         Common response for when the Powerwall is stopped and a request has been made to an endpoint for data.
+    ExpectationFailed:
+      description: |
+        Expectation Failed
 paths:
   /{e}:
     $ref: "./paths/e.yaml"

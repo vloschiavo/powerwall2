@@ -5,3 +5,14 @@ delete:
   responses:
     '204':
       description: delete:/auth/toggle/login response
+    '404':
+      $ref: '../../../spec.yaml#/components/responses/NotFound'
+post:
+  description: Undocumented
+  tags:
+    - Undocumented
+  responses:
+    '400':
+      $ref: '../../../spec.yaml#/components/responses/BadRequest'
+    '417':
+      $ref: '../../../spec.yaml#/components/responses/ExpectationFailed'
