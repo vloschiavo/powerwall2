@@ -1,6 +1,8 @@
 get:
-  summary: Site meter data.
-  description: Detailed information about the site specific meter.
+  summary: Site meter data
+  description: Detailed information about the site specific meter
+  security:
+    - bearerAuth: []
   responses:
     '200':
       description: get:/meters/site response

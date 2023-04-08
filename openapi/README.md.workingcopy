@@ -216,77 +216,10 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 ---
 
 
-#### _GET /api/system/update/status_ ####
-_UPDATE: You need to be authenticated for this command_
-
-From: @kylerove:
-"After digging, the answer was right on Tesla's website:
-https://www.tesla.com/support/energy/powerwall/own/monitoring-from-home-network
-
-username=customer
-email=your Tesla account email address
-password=last 5 digits of your gateway serial number
-
-You can then reset/choose your own customer password, if you want to make it stronger."
-
-request: `curl --cacert cacert.pem https://powerwall/api/system/update/status`
-
-response: `{"state":"/update_failed","info":{"status":["nonactionable"]},"current_time":1422697552910}`
-
-1. update_failed / status nonactionable = I tried to do an upgrade but I have the latest firmware version already installed.
-2. current_time in EPOC.
-	-1422697552910 = **GMT**: Monday, April 2, 2018 8:09:17.447 PM
-	
-	  
-possible values of "state" property, according to the code:
-
--   "/clear_update_status", // Checking for firmware update is in progress (need to keep sending request until state is changed)  
-    
--   "/update_succeeded", // Success  
-    
--   "/update_failed", // Update failed, or not required  
-    
--   "/update_staged", // Staging update?  
-    
--   "/download",  // Downloading update  
-    
--   "/update_downloaded", // Ready to update  
-    
--   "/update_unknown"  
-
-possible values of "status" property according to the code:
-
--   "ignoring", // possibly some uninterruptable action is in progress?  
-    
--   "error",  
-    
--   "nonactionable" // everything is OK  
-    
-
-  
-
-Use case:  One user is making this request to check new firmware available, and run the upgrade, approximately 30 minutes before switching to discharging (self_consumption mode with 5% reserve). Assumption is - we better upgrade firmware while battery is in standby mode, rather then letting gateway upgrade itself later, because it will stop battery possibly during peak hours for an upgrade. He noticed his gateway has self-upgraded during peak hours, resulting around 15 minutes stop of battery, which was an unpleasant surprise and extra cost. So, his idea was to force a new firmware check (and upgrade) when battery is not used:
-
-  
--   7:15am  check for new fimware and run an upgrade if firmware is available  
-    
--   7:55am  - start discharging (self_consumption, 5% reserve)  
-    
--   10:05pm  - start charging (backup, 100% reserve)  
-    
-
-Southern California Edison has TOU plan with the following details:
-
--   8am-2pm,  8pm-10pm  - offpeak  
-    
--   2pm-8pm  - peak  
-    
--   10pm-8am  - super offpeak
-
 ---	
 
 #### _GET /api/sitemaster/stop_ ####
-_UPDATE: You need to be authenticated for this command_
+
 This stops the powerwalls & gateway.  In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
 
 Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/stop`
@@ -299,7 +232,7 @@ returns HTTP Status 500 if powerwall cannot be stopped at this moment with the f
 
 ---
 #### _GET /api/sitemaster/run_ ####
-_UPDATE: You need to be authenticated for this command_
+
 This starts the powerwalls & gateway.  Use this after getting an authentication token to restart the powerwalls.
 
 Request: `curl --cacert cacert.pem https://powerwall/api/sitemaster/run`
@@ -310,7 +243,7 @@ Returns HTTPS Status 202 if request is accepted
 
 ---
 #### _GET /api/config/completed_ ####
-_UPDATE: You need to be authenticated for this command_
+
 This applies configuration changes.
 
 Request: `curl --cacert cacert.pem https://powerwall/api/config/completed`
@@ -320,8 +253,6 @@ Returns HTTP Status 202 if input accepted
 
 
 ___
-Note: __*** The below API calls require authentication ***__
-
 Note2: __*** This documentation is old (created on version 1.15) and needs updating ***__
 __*** I wouldn't be surprised if less than 1% of the below still works in versions 1.40+ ***__
 
@@ -380,36 +311,6 @@ ___**Tested values:**___
 | 21%	| 24.6% 	|
 | 30%	| 33%		|
 | 100%	| 100%		|
-
-
----
-
-#### _GET /api/powerwalls/status_ ####
-
-Informational:
-
-Request:
-
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/powerwalls/status`
-
-Response:
-
-`{"code":409,"error":"Sitemaster is current running","message":"Sitemaster is current running"}`
-
----
-#### _GET /api/site_info/grid_codes_ ####
-
-_vls29 - I couldn't find this endpoint in the javascript file and it returns 404_
-
-Informational: setting options used in the wizard
-
-Request:
-
-`curl --header "Authorization: Bearer OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==" https://192.168.xxx.xxx/api/site_info/grid_codes`
-
-Response: 
-
-[ Grid Codes Long JSON response here](samples/api_site_info_grid_codes.json)
 
 ---
 

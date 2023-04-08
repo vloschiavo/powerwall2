@@ -1,6 +1,8 @@
 get:
-  summary: Solar meter data.
-  description: Detailed information about the solar specific meter.
+  summary: Solar meter data
+  description: Detailed information about the solar specific meter
+  security:
+    - bearerAuth: []
   responses:
     '200':
       description: get:/meters/solar response

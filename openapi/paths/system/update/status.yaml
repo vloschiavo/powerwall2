@@ -1,0 +1,59 @@
+get:
+  summary: Latest status of system updates
+  description: |
+    1. update_failed / status nonactionable = I tried to do an upgrade but I have the latest firmware version already installed.
+    2. current_time in EPOC.
+
+    -1422697552910 = **GMT**: Monday, April 2, 2018 8:09:17.447 PM
+
+    Possible values of "state" property, according to the code:
+
+    - "/clear_update_status", // Checking for firmware update is in progress (need to keep sending request until state is changed)
+    - "/update_succeeded", // Success
+    - "/update_failed", // Update failed, or not required
+    - "/update_staged", // Staging update?
+    - "/download",  // Downloading update
+    - "/update_downloaded", // Ready to update
+    - "/update_unknown"
+
+    Possible values of "status" property according to the code:
+
+    - "ignoring", // possibly some uninterruptible action is in progress?
+    - "error",
+    - "nonactionable" // everything is OK
+
+    Use case:  One user is making this request to check new firmware available, and run the upgrade, approximately 30 minutes before
+      switching to discharging (self_consumption mode with 5% reserve). Assumption is - we better upgrade firmware while battery is
+      in standby mode, rather then letting gateway upgrade itself later, because it will stop battery possibly during peak hours
+      an upgrade. He noticed his gateway has self-upgraded during peak hours, resulting around 15 minutes stop of battery, which was
+      an unpleasant surprise and extra cost. So, his idea was to force a new firmware check (and upgrade) when battery is not used:
+
+    - 7:15am  check for new firmware and run an upgrade if firmware is available
+    - 7:55am  - start discharging (self_consumption, 5% reserve)
+    - 10:05pm  - start charging (backup, 100% reserve)
+
+    Southern California Edison has TOU plan with the following details:
+
+    - 8am-2pm,  8pm-10pm  - offpeak
+    - 2pm-8pm  - peak
+    - 10pm-8am  - super offpeak
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/system/update/status response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/system.update.status.json"
+            example2:
+              summary: Example 2
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system.update.status.json"
+    '401':
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'

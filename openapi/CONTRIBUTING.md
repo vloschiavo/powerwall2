@@ -34,3 +34,21 @@ get:
 ```
 
 At the time of writing this CONTRIBUTING.md file, there are no deprecated endpoints - those not present when converting to OpenAPI spec have been removed.
+
+## Submitting Pull Requests
+
+### Pre-Commit Checks
+
+Before submitting pull request changes to the OpenAPI specification, please try to run the pre-commit checks.  You can do this by installing [pre-commit](https://pre-commit.com/index.html#install) or by running a docker container with pre-commit already installed.  E.g.
+
+```bash
+ docker run --rm -v $(pwd):/data fxinnovation/pre-commit
+```
+
+### Repointing exampleValue references to vloschiavo's repository
+
+Before submitting a pull request, please ensure that any exampleValue references are pointing to vloschiavo/powerwall2's repository.  You can do this by searching and replacing or using the following script:
+
+```bash
+./point-externalValue-examples-at-vloschiavo-powerwall2-master.sh
+```

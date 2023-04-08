@@ -41,6 +41,11 @@ components:
         No content
 
         Mostly seen on delete endpoints where there is nothing for the API to return.
+    BadRequest:
+      description: |
+        Bad Request
+
+        The request was malformed or invalid.
     Unauthorized:
       description: |
         Unauthorized
@@ -210,6 +215,8 @@ paths:
     $ref: "./paths/system/testing/PINV_TEST.yaml"
   /system/update:
     $ref: "./paths/system/update.yaml"
+  /system/update/status:
+    $ref: "./paths/system/update/status.yaml"
   /system/update/urgency:
     $ref: "./paths/system/update/urgency.yaml"
   /system_status:
