@@ -201,6 +201,12 @@ paths:
     $ref: "./paths/sitemaster/stop.yaml"
   /solar_powerwall/reset:
     $ref: "./paths/solar_powerwall/reset.yaml"
+  /solars:
+    $ref: "./paths/solars.yaml"
+  /solars/brands:
+    $ref: "./paths/solars/brands.yaml"
+  /solars/brands/{e}/:
+    $ref: "./paths/solars/brands/e.yaml"
   /status:
     $ref: "./paths/status.yaml"
   /synchrometer/ct_voltage_references:

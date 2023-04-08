@@ -1,0 +1,31 @@
+get:
+  summary: List inverts made by requested brand
+  description: |
+    Responds with the inverters the particular brand produces/sells.
+
+    Can get a brand name from get:/solars/brands.
+  security:
+    - bearerAuth: []
+  parameters:
+  - name: e
+    in: path
+    required: true
+    schema:
+      type: string
+  responses:
+    '200':
+      description: get:/solars/brands/{e} response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solar_edge_models.json"
+    '400':
+      $ref: '../../../spec.yaml#/components/responses/BadRequest'
+    '401':
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'
