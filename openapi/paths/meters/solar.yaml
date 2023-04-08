@@ -1,9 +1,9 @@
 get:
-  summary: Site meter data.
-  description: Detailed information about the site specific meter.
+  summary: Solar meter data.
+  description: Detailed information about the solar specific meter.
   responses:
     '200':
-      description: get:/meters/site response
+      description: get:/meters/solar response
       content:
         application/json:
           schema:
@@ -11,7 +11,7 @@ get:
           examples:
             example2:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.site.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.solar.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

@@ -1,0 +1,58 @@
+[
+    {
+        "id": 0,
+        "location": "site",
+        "type": "neurio_tcp",
+        "cts": [
+            true,
+            true,
+            false,
+            false
+        ],
+        "inverted": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "connection": {
+            "ip_address": "PWRview-12345",
+            "port": 443,
+            "short_id": "12345",
+            "device_serial": "OBB1234567890",
+            "neurio_connected": true,
+            "https_conf": {}
+        },
+        "Cached_readings": {
+            "last_communication_time": "2023-04-08T12:55:00.180984196+01:00",
+            "instant_power": -18.00000076368451,
+            "instant_reactive_power": -431.5900109857321,
+            "instant_apparent_power": 431.96520416598025,
+            "frequency": 50,
+            "energy_exported": 1152130.009160081,
+            "energy_imported": 15614764.694437858,
+            "instant_average_voltage": 123.87999878078699,
+            "instant_average_current": 0,
+            "i_a_current": 0,
+            "i_b_current": 0,
+            "i_c_current": 0,
+            "last_phase_voltage_communication_time": "2023-04-08T12:55:00.181027196+01:00",
+            "v_l1n": 247.55999755859375,
+            "v_l2n": 0.20000000298023224,
+            "last_phase_power_communication_time": "2023-04-08T12:55:00.180984196+01:00",
+            "real_power_a": -17.950000762939453,
+            "real_power_b": -0.05000000074505806,
+            "reactive_power_a": -431.4800109863281,
+            "reactive_power_b": -0.10999999940395355,
+            "last_phase_energy_communication_time": "2023-04-07T14:44:17.625943287+01:00",
+            "energy_exported_a": 1192873.1919444446,
+            "energy_exported_b": 1713.8994444444445,
+            "energy_imported_a": 15654958.373333333,
+            "energy_imported_b": 6.539722222222222,
+            "serial_number": "OBB1234567890",
+            "version": "1.7.1-Tesla",
+            "timeout": 1500000000,
+            "instant_total_current": 0
+        }
+    }
+]

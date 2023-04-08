@@ -213,23 +213,6 @@ Endpoint | Method | Requires Authentication? | Documented? | Summary
 
 <sub>_Table partially generated using https://github.com/vls29/tesla-powerwall2-api-to-table_</sub>
 
-
-#### _GET /api/meters/site_ ####
-
-Detailed information about the site specific meter.
-
-request: `curl --cacert cacert.pem https://powerwall/api/meters/site`
-
-response: [see sample response here](samples/api-meters-site.json)
-
-#### _GET /api/meters/solar_ ####
-
-Detailed information about the solar specific meter.
-
-request: `curl --cacert cacert.pem https://powerwall/api/meters/solar`
-
-response: [see sample response here](samples/api-meters-solar.json)
-
 ---
 
 

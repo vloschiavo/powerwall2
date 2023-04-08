@@ -1,0 +1,53 @@
+[
+    {
+        "id": 0,
+        "location": "solar",
+        "type": "neurio_tcp",
+        "cts": [
+            false,
+            false,
+            false,
+            true
+        ],
+        "inverted": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "connection": {
+            "ip_address": "PWRview-12345",
+            "port": 443,
+            "short_id": "12345",
+            "device_serial": "OBB1234567890",
+            "neurio_connected": true,
+            "https_conf": {}
+        },
+        "Cached_readings": {
+            "last_communication_time": "2023-04-08T13:01:26.68807076+01:00",
+            "instant_power": 2867.159912109375,
+            "instant_reactive_power": -121.87000274658203,
+            "instant_apparent_power": 2869.7488146485034,
+            "frequency": 49.95000076293945,
+            "energy_exported": 30088.217501777115,
+            "energy_imported": 18346702.535001777,
+            "instant_average_voltage": 250.72000122070312,
+            "instant_average_current": 0,
+            "i_a_current": 0,
+            "i_b_current": 0,
+            "i_c_current": 0,
+            "last_phase_voltage_communication_time": "2023-04-08T13:01:26.68811376+01:00",
+            "v_l1n": 250.72000122070312,
+            "last_phase_power_communication_time": "2023-04-08T13:01:26.68807076+01:00",
+            "real_power_a": 2867.159912109375,
+            "reactive_power_a": -121.87000274658203,
+            "last_phase_energy_communication_time": "2023-04-08T08:02:36.955494546+01:00",
+            "energy_exported_a": 30104.78111111111,
+            "energy_imported_a": 18336727.701388888,
+            "serial_number": "OBB1234567890",
+            "version": "1.7.1-Tesla",
+            "timeout": 1500000000,
+            "instant_total_current": 0
+        }
+    }
+]

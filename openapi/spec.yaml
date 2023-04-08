@@ -122,6 +122,10 @@ paths:
     $ref: "./paths/meters/inverter_meter_readings.yaml"
   /meters/readings:
     $ref: "./paths/meters/readings.yaml"
+  /meters/site:
+    $ref: "./paths/meters/site.yaml"
+  /meters/solar:
+    $ref: "./paths/meters/solar.yaml"
   /meters/status:
     $ref: "./paths/meters/status.yaml"
   /meters/verify:
