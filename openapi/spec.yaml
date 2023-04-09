@@ -95,6 +95,10 @@ paths:
     $ref: "./paths/customer/registration/legal.yaml"
   /devices/vitals:
     $ref: "./paths/devices/vitals.yaml"
+  /generators:
+    $ref: "./paths/generators.yaml"
+  /generators/disconnect_types:
+    $ref: "./paths/generators/disconnect_types.yaml"
   /installer:
     $ref: "./paths/installer.yaml"
   /installer/companies:
