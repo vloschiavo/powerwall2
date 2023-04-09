@@ -18,6 +18,8 @@ get:
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/system.networks.conn_tests.get.2.json"
     '401':
       $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'
 post:
   summary: Network connectivity test
   description: Starts the test that checks whether the Powerwall has access to the local network and internet.

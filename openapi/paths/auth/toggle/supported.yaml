@@ -1,7 +1,8 @@
 get:
-  description: Undocumented
-  security:
-    - bearerAuth: []
+  description: |
+    Undocumented
+
+    Authorization not required.
   tags:
     - Undocumented
   responses:
@@ -15,5 +16,3 @@ get:
             response:
               summary: Example 1
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/auth.toggle.supported.json'
-    '401':
-      $ref: '../../../spec.yaml#/components/responses/Unauthorized'

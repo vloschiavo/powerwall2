@@ -16,3 +16,5 @@ get:
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/networks.access_points.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

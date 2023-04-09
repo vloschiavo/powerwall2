@@ -45,3 +45,5 @@ post:
       description: post:/networks/connect response
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

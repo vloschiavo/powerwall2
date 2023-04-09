@@ -23,5 +23,7 @@ get:
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.readings.err.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
     '502':
       $ref: '../../spec.yaml#/components/responses/BadGateway'

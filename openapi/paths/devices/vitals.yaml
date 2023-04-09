@@ -23,3 +23,7 @@ get:
             example1:
               summary: A decoded output example
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-devices-vitals.json'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

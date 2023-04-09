@@ -25,5 +25,7 @@ get:
                 grid_status: SystemTransitionToGrid
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
     '502':
       $ref: '../../spec.yaml#/components/responses/BadGateway'
