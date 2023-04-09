@@ -205,7 +205,7 @@ paths:
     $ref: "./paths/solars.yaml"
   /solars/brands:
     $ref: "./paths/solars/brands.yaml"
-  /solars/brands/{e}/:
+  /solars/brands/{e}:
     $ref: "./paths/solars/brands/e.yaml"
   /status:
     $ref: "./paths/status.yaml"
