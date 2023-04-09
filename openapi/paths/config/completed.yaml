@@ -1,9 +1,14 @@
 get:
+  summary: Applies configuration changes
   description: Undocumented
   security:
     - bearerAuth: []
   tags:
     -  Undocumented
   responses:
-    '200':
-      description: get:/config/completed response
+    '202':
+      $ref: '../../spec.yaml#/components/responses/Accepted'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

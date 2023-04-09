@@ -1,18 +1,3 @@
-#### _GET /api/config/completed_ ####
-
-This applies configuration changes.
-
-Request: `curl --cacert cacert.pem https://powerwall/api/config/completed`
-
-Response:
-Returns HTTP Status 202 if input accepted
-
-
----
-
-__Others to document__
-
-
 Also need to research:
 
 POST /api/logging
