@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: Tesla Powerwall 2 - Local Gateway API Documentation
   description: |
-    ### A community documented list of the endpoints available on the Tesla Powerwall 2
+    ## A community documented list of the endpoints available on the Tesla Powerwall 2
 
     <span style="color:red">_It does take a few seconds for the documentation to load all of the definitions._</span>
 

@@ -18,7 +18,7 @@ get:
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/operation.json'
             example2:
               summary: Example 2
-              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/operation.json'
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/operation.json'
     '401':
       $ref: '../spec.yaml#/components/responses/Unauthorized'
     '403':
@@ -99,7 +99,7 @@ post:
           examples:
             example1:
               summary: Example 1
-              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/operation.post.1.json'
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/operation.post.1.json'
     '401':
       $ref: '../spec.yaml#/components/responses/Unauthorized'
     '403':

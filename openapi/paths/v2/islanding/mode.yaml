@@ -40,10 +40,10 @@ post:
           examples:
             example1:
               summary: Example 1 - Switch to off-grid mode
-              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/v2.islanding.mode.off-grid.json'
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/v2.islanding.mode.off-grid.json'
             example2:
               summary: Example 2 - Switch to on-grid mode
-              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/v2.islanding.mode.on-grid.json'
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/v2.islanding.mode.on-grid.json'
     '400':
       $ref: '../../../spec.yaml#/components/responses/BadRequest'
     '401':

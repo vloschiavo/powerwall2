@@ -15,4 +15,4 @@ get:
           examples:
             example2:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/legal.radio.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/legal.radio.json"

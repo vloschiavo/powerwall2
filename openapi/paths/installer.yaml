@@ -16,7 +16,7 @@ get:
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/installer.json'
             example2:
               summary: Example 2
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/installer.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/installer.json"
     '401':
       $ref: '../spec.yaml#/components/responses/Unauthorized'
     '403':

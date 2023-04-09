@@ -39,7 +39,7 @@ post:
             type: object
           examples:
             response:
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/api-login-basic.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-login-basic.json"
       headers:
         AuthCookie:
               schema:

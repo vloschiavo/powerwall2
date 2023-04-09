@@ -16,7 +16,7 @@ get:
           examples:
             example1:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/solars.brands.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solars.brands.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

@@ -13,7 +13,7 @@ get:
           examples:
             example2:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/meters.site.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/meters.site.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

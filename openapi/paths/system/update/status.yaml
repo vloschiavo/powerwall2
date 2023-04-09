@@ -49,7 +49,7 @@ get:
           examples:
             example1:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/system.update.status.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/system.update.status.json"
             example2:
               summary: Example 2
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system.update.status.json"
