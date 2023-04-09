@@ -1,5 +1,5 @@
 get:
-  summary: Your Powerwall Installer's Details
+  summary: Your Powerwall Installer's details
   description: Details of the company that did the installation of the Powerwall as well as your customer ID in their system.  This can be configured in the Wizard.
   security:
     - bearerAuth: []

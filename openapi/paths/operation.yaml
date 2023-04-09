@@ -1,5 +1,5 @@
 get:
-  summary: Get the Powerwall Mode and Reserve Percentage
+  summary: Get the Powerwall mode and reserve percentage
   description: Undocumented
   security:
     - bearerAuth: []

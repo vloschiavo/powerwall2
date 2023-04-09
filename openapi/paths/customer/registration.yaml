@@ -1,7 +1,10 @@
 get:
-  description: Use this URL to determine registration status.
+  summary: Registration status
+  description: Undocumented
   security:
     - bearerAuth: []
+  tags:
+    -  Undocumented
   responses:
     '200':
       description: get:/customer/registration response

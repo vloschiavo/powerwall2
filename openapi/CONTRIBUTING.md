@@ -37,6 +37,14 @@ At the time of writing this CONTRIBUTING.md file, there are no deprecated endpoi
 
 ## Submitting Pull Requests
 
+### Testing the Swagger UI on your forked copy
+
+Before submitting a pull request, please try out the Swagger UI on your forked copy.  You will need to enable GitHub Pages on your forked copy, and then you can access the Swagger UI at `https://<your-github-username>.github.io/powerwall2/openapi/`.  E.g. https://vloschiavo.github.io/powerwall2/openapi/.
+
+To enable GitHub Pages go to your forked copy of the repository, Settings --> Pages --> Source: Deploy from a branch --> Branch: <your branch name> --> Save.
+
+![Enabling GitHub Pages on branch](enable-github-pages-on-branch.png)
+
 ### Pre-Commit Checks
 
 Before submitting pull request changes to the OpenAPI specification, please try to run the pre-commit checks.  You can do this by installing [pre-commit](https://pre-commit.com/index.html#install) or by running a docker container with pre-commit already installed.  E.g.

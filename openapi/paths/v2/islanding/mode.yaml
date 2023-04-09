@@ -6,6 +6,8 @@ post:
     **Switching to off-grid mode:** Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemIslandedActive"` once the system is in off-grid mode.
 
     **Switch to on-grid mode:** Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemGridConnected"` once the system is back in on-grid mode.
+  security:
+    - bearerAuth: []
   requestBody:
     required: true
     content:
