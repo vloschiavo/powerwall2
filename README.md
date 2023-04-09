@@ -103,7 +103,7 @@ ___
 
 ### Alternative API documentation in the form of OpenAPI Spec
 
-An alternative to the below README form of documenting the APIs can be seen in [openapi](openapi) folder.  OpenAPI spec is a machine-readable format that can be used to generate documentation, client libraries, and more.
+An alternative to the below README form of documenting the APIs can be seen in [openapi](https://github.com/vloschiavo/powerwall2/tree/openapi/openapi) branch, folder.  OpenAPI spec is a machine-readable format that can be used to generate documentation, client libraries, and more.
 
 You can also view the OpenAPI spec using the Swagger viewer by going to https://vloschiavo.github.io/powerwall2/openapi/
 
