@@ -36,6 +36,11 @@ components:
       type: http
       scheme: bearer
   responses:
+    Accepted:
+      description: |
+        Accepted
+
+        The request has been accepted for processing, but the processing has not been completed.
     NoContent:
       description: |
         No content
@@ -66,6 +71,9 @@ components:
     ExpectationFailed:
       description: |
         Expectation Failed
+    InternalServerError:
+      description: |
+        Internal Server Error
 paths:
   /{e}:
     $ref: "./paths/e.yaml"

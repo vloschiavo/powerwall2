@@ -43,8 +43,8 @@ post:
               summary: Example 2 - Switch to on-grid mode
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/openapi/samples/v2.islanding.mode.on-grid.json'
     '400':
-      $ref: '../spec.yaml#/components/responses/BadRequest'
+      $ref: '../../../spec.yaml#/components/responses/BadRequest'
     '401':
-      $ref: '../spec.yaml#/components/responses/Unauthorized'
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
     '403':
-      $ref: '../spec.yaml#/components/responses/Forbidden'
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'
