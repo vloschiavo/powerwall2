@@ -1,4 +1,5 @@
 get:
+  summary: Protocol Buffers (aka. protobuf) Encoded Device Metrics
   description: |
     darryllee - Found when I logged into my Gateway as an Installer, this returns a binary file with what looks like interesting information
      including:
@@ -43,8 +44,8 @@ get:
     ```
 
     The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean. Thanks to
-      @brianhealey we have a working [tesla.proto](tesla.proto) file.  This can be used to decode the *protobuf* payload
-      (e.g. `protoc --python_out=. tesla.proto`).  
+      @brianhealey we have a working [tesla.proto](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/tesla.proto) file.  This can
+      be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).
 
     A decoded output example /api/devices/vitals from [pypowerwall](https://github.com/jasonacox/pypowerwall) (`pw.vitals()`) looks like this:
 
@@ -192,8 +193,6 @@ get:
     ```
   security:
     - bearerAuth: []
-  tags:
-    - Undocumented
   responses:
     '200':
       description: get:/devices/vitals response
@@ -201,5 +200,5 @@ get:
         application/octet-stream:
           examples:
             example1:
-              summary: Example 1
+              summary: A decoded output example
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-devices-vitals.json'
