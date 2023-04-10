@@ -1,0 +1,21 @@
+get:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/generators/disconnect_types response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/generators.disconnect_types.json'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

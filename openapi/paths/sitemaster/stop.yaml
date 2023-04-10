@@ -1,0 +1,15 @@
+get:
+  summary: Stops the Powerwall(s) and Gateway
+  description: |
+    **WARNING**: In the stopped state, the powerwall will not charge, discharge, or monitor solar, grid, battery, home statistics.
+
+    _Please can someone add the http status code for this endpoint when it successfully stops without errors._
+  security:
+    - bearerAuth: []
+  responses:
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
+    '500':
+      $ref: '../../spec.yaml#/components/responses/InternalServerError'

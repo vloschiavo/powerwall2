@@ -1,0 +1,251 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Tesla Powerwall 2 - Local Gateway API Documentation
+  description: |
+    ## A community documented list of the endpoints available on the Tesla Powerwall 2
+
+    <span style="color:red">_It does take a few seconds for the documentation to load all of the definitions._</span>
+
+    ### Contributing
+
+    This documentation is a work in progress. If you find any endpoints that are not documented, or are out of date, please contribute a
+      pull request on the [GitHub repository](https://github.com/vloschiavo/powerwall2).  Not all of the endpoints in the README.md have
+      been converted over to OpenAPI spec.  Endponts removed from [README.md.workingcopy](README.md.workingcopy) have been converted over
+      and those remaining in README.md.workingcopy have not been converted over yet.  Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
+      more information on how to contribute.
+
+    ### How to use the Swagger UI Try it out feature against your own Powerwall
+
+    Please see [USING-SWAGGER-TRY-IT-OUT.md](USING-SWAGGER-TRY-IT-OUT.md) for more information on how to use the Swagger UI Try it out feature against your own Powerwall.
+
+servers:
+  - url: https://{hostname}/api
+    variables:
+      hostname:
+        default: powerwall
+        description: the hostname of your Tesla Powerwall 2
+tags:
+  - name: default
+    description: Endpoints that have been documented
+  - name: Undocumented
+    description: Endpoints that have not been documented yet
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    Accepted:
+      description: |
+        Accepted
+
+        The request has been accepted for processing, but the processing has not been completed.
+    NoContent:
+      description: |
+        No content
+
+        Mostly seen on delete endpoints where there is nothing for the API to return.
+    BadRequest:
+      description: |
+        Bad Request
+
+        The request was malformed or invalid.
+    Unauthorized:
+      description: |
+        Unauthorized
+
+        The Authorization Bearer Token header has not been set to a correct token value.
+    Forbidden:
+      description: |
+        Forbidden
+
+        User does not have adequate access rights
+    NotFound:
+      description: The specified resource was not found
+    BadGateway:
+      description: |
+        Bad Gateway
+
+        Common response for when the Powerwall is stopped and a request has been made to an endpoint for data.
+    ExpectationFailed:
+      description: |
+        Expectation Failed
+    InternalServerError:
+      description: |
+        Internal Server Error
+paths:
+  /{e}:
+    $ref: "./paths/e.yaml"
+  /auth/toggle/login:
+    $ref: "./paths/auth/toggle/login.yaml"
+  /auth/toggle/start:
+    $ref: "./paths/auth/toggle/start.yaml"
+  /auth/toggle/supported:
+    $ref: "./paths/auth/toggle/supported.yaml"
+  /autoconfig/cancel:
+    $ref: "./paths/autoconfig/cancel.yaml"
+  /autoconfig/retry:
+    $ref: "./paths/autoconfig/retry.yaml"
+  /autoconfig/run:
+    $ref: "./paths/autoconfig/run.yaml"
+  /autoconfig/status:
+    $ref: "./paths/autoconfig/status.yaml"
+  /config:
+    $ref: "./paths/config.yaml"
+  /config/completed:
+    $ref: "./paths/config/completed.yaml"
+  /customer:
+    $ref: "./paths/customer.yaml"
+  /customer/registration:
+    $ref: "./paths/customer/registration.yaml"
+  /customer/registration/legal:
+    $ref: "./paths/customer/registration/legal.yaml"
+  /devices/vitals:
+    $ref: "./paths/devices/vitals.yaml"
+  /generators:
+    $ref: "./paths/generators.yaml"
+  /generators/disconnect_types:
+    $ref: "./paths/generators/disconnect_types.yaml"
+  /installer:
+    $ref: "./paths/installer.yaml"
+  /installer/companies:
+    $ref: "./paths/installer/companies.yaml"
+  /legal/radio:
+    $ref: "./paths/legal/radio.yaml"
+  /logging:
+    $ref: "./paths/logging.yaml"
+  /login/Basic:
+    $ref: "./paths/login/basic.yaml"
+  /logout:
+    $ref: "./paths/logout.yaml"
+  /meters:
+    $ref: "./paths/meters.yaml"
+  /meters/{e}/ct_config:
+    $ref: "./paths/meters/e/ct_config.yaml"
+  /meters/{e}/cts:
+    $ref: "./paths/meters/e/cts.yaml"
+  /meters/{e}/invert_cts:
+    $ref: "./paths/meters/e/invert_cts.yaml"
+  /meters/{i}/commission:
+    $ref: "./paths/meters/i/commission.yaml"
+  /meters/{o.serial}/cts:
+    $ref: "./paths/meters/o.serial/cts.yaml"
+  /meters/aggregates:
+    $ref: "./paths/meters/aggregates.yaml"
+  /meters/detect_wired_meters:
+    $ref: "./paths/meters/detect_wired_meters.yaml"
+  /meters/inverter_meter_readings:
+    $ref: "./paths/meters/inverter_meter_readings.yaml"
+  /meters/readings:
+    $ref: "./paths/meters/readings.yaml"
+  /meters/site:
+    $ref: "./paths/meters/site.yaml"
+  /meters/solar:
+    $ref: "./paths/meters/solar.yaml"
+  /meters/status:
+    $ref: "./paths/meters/status.yaml"
+  /meters/verify:
+    $ref: "./paths/meters/verify.yaml"
+  /networks:
+    $ref: "./paths/networks.yaml"
+  /networks/{e}/disconnect:
+    $ref: "./paths/networks/e/disconnect.yaml"
+  /networks/access_points:
+    $ref: "./paths/networks/access_points.yaml"
+  /networks/client_protocols:
+    $ref: "./paths/networks/client_protocols.yaml"
+  /networks/connect:
+    $ref: "./paths/networks/connect.yaml"
+  /networks/enable_{e}:
+    $ref: "./paths/networks/enable_e.yaml"
+  /networks/request_scan_wifi:
+    $ref: "./paths/networks/request_scan_wifi.yaml"
+  /operation:
+    $ref: "./paths/operation.yaml"
+  /password/change:
+    $ref: "./paths/password/change.yaml"
+  /password/generate:
+    $ref: "./paths/password/generate.yaml"
+  /password/reset:
+    $ref: "./paths/password/reset.yaml"
+  /powerwalls:
+    $ref: "./paths/powerwalls.yaml"
+  /powerwalls/enable_inverter_solar_meter_readings:
+    $ref: "./paths/powerwalls/enable_inverter_solar_meter_readings.yaml"
+  /powerwalls/phase_detection:
+    $ref: "./paths/powerwalls/phase_detection.yaml"
+  /powerwalls/phase_usages:
+    $ref: "./paths/powerwalls/phase_usages.yaml"
+  /powerwalls/pvi_power_status:
+    $ref: "./paths/powerwalls/pvi_power_status.yaml"
+  /powerwalls/pvi_sub_package_numbers:
+    $ref: "./paths/powerwalls/pvi_sub_package_numbers.yaml"
+  /powerwalls/scan:
+    $ref: "./paths/powerwalls/scan.yaml"
+  /powerwalls/status:
+    $ref: "./paths/powerwalls/status.yaml"
+  /powerwalls/update:
+    $ref: "./paths/powerwalls/update.yaml"
+  /site_info:
+    $ref: "./paths/site_info.yaml"
+  /site_info/export_mode:
+    $ref: "./paths/site_info/export_mode.yaml"
+  /site_info/extra_programs:
+    $ref: "./paths/site_info/extra_programs.yaml"
+  /site_info/grid_code:
+    $ref: "./paths/site_info/grid_code.yaml"
+  /site_info/grid_regions:
+    $ref: "./paths/site_info/grid_regions.yaml"
+  /site_info/offgrid:
+    $ref: "./paths/site_info/offgrid.yaml"
+  /site_info/site_name:
+    $ref: "./paths/site_info/site_name.yaml"
+  /site_info/timezone:
+    $ref: "./paths/site_info/timezone.yaml"
+  /sitemaster:
+    $ref: "./paths/sitemaster.yaml"
+  /sitemaster/run:
+    $ref: "./paths/sitemaster/run.yaml"
+  /sitemaster/run_for_commissioning:
+    $ref: "./paths/sitemaster/run_for_commissioning.yaml"
+  /sitemaster/stop:
+    $ref: "./paths/sitemaster/stop.yaml"
+  /solar_powerwall/reset:
+    $ref: "./paths/solar_powerwall/reset.yaml"
+  /solars:
+    $ref: "./paths/solars.yaml"
+  /solars/brands:
+    $ref: "./paths/solars/brands.yaml"
+  /solars/brands/{e}:
+    $ref: "./paths/solars/brands/e.yaml"
+  /status:
+    $ref: "./paths/status.yaml"
+  /synchrometer/ct_voltage_references:
+    $ref: "./paths/synchrometer/ct_voltage_references.yaml"
+  /synchrometer/ct_voltage_references/options:
+    $ref: "./paths/synchrometer/ct_voltage_references/options.yaml"
+  /system/networks/conn_tests:
+    $ref: "./paths/system/networks/conn_tests.yaml"
+  /system/testing:
+    $ref: "./paths/system/testing.yaml"
+  /system/testing/PINV_TEST:
+    $ref: "./paths/system/testing/PINV_TEST.yaml"
+  /system/update:
+    $ref: "./paths/system/update.yaml"
+  /system/update/status:
+    $ref: "./paths/system/update/status.yaml"
+  /system/update/urgency:
+    $ref: "./paths/system/update/urgency.yaml"
+  /system_status:
+    $ref: "./paths/system_status.yaml"
+  /system_status/grid_faults:
+    $ref: "./paths/system_status/grid_faults.yaml"
+  /system_status/grid_status:
+    $ref: "./paths/system_status/grid_status.yaml"
+  /system_status/soe:
+    $ref: "./paths/system_status/soe.yaml"
+  /troubleshooting/problems:
+    $ref: "./paths/troubleshooting/problems.yaml"
+  /v2/islanding/mode:
+    $ref: "./paths/v2/islanding/mode.yaml"

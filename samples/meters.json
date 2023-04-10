@@ -1,0 +1,42 @@
+[
+    {
+        "serial": "<<METER_SERIAL>>",
+        "short_id": "12345",
+        "type": "neurio_tcp",
+        "connected": true,
+        "cts": [
+            {
+                "type": "solar",
+                "valid": [
+                    false,
+                    false,
+                    false,
+                    true
+                ],
+                "inverted": [
+                    false,
+                    false,
+                    false,
+                    false
+                ]
+            },
+            {
+                "type": "site",
+                "valid": [
+                    true,
+                    true,
+                    false,
+                    false
+                ],
+                "inverted": [
+                    false,
+                    false,
+                    false,
+                    false
+                ]
+            }
+        ],
+        "ip_address": "PWRview-12345",
+        "mac": "00-11-22-33-44-55"
+    }
+]

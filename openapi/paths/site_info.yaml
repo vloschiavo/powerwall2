@@ -1,0 +1,24 @@
+get:
+  summary: Information about the site
+  description: |
+    Includes data about the grid connection
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/site_info response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/site_info.json'
+            example2:
+              summary: Example 2
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/site_info.json'
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

@@ -1,0 +1,18 @@
+get:
+  description: |
+    Undocumented
+
+    Authentication not required.
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/legal/radio response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example2:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/legal.radio.json"

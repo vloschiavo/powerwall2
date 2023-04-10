@@ -1,0 +1,13 @@
+get:
+  summary: Log out of the Tesla Powerwall API
+  description: |
+    To log out of the Tesla Powerwall, call the logout endpoint with the Authorization Bearer Token and the Powerwall 
+      will invalidate the token.
+
+    This endpoint does not validate that a Authorization Bearer Token header has been specified or that the token
+     is a valid token...
+  security:
+    - bearerAuth: []
+  responses:
+    '204':
+      $ref: '../spec.yaml#/components/responses/NoContent'

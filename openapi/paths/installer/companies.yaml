@@ -1,0 +1,26 @@
+get:
+  summary: List all Powerwall installers
+  description: |
+    A worldwide list of Powerwall installers.
+
+    WARNING: Using the try it now button will cause your browser tab to hang for a good 10 seconds!
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/installer/companies response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/installer.companies.json'
+            example2:
+              summary: Example 2 - this may cause your browser tab to slow down and/or crash!
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/installer.companies.json'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

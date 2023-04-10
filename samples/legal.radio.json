@@ -1,0 +1,14 @@
+[
+    {
+        "manufacturer": "Telit",
+        "model": "HE910-D",
+        "fcc_id": "<<FCC_ID>>",
+        "ic_id": "<<IC_ID>>"
+    },
+    {
+        "manufacturer": "Redpine",
+        "model": "RS9113DB",
+        "fcc_id": "<<FCC_ID>>",
+        "ic_id": "<<IC_ID>>"
+    }
+]

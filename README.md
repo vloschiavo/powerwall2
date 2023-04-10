@@ -103,7 +103,7 @@ ___
 
 ### Alternative API documentation in the form of OpenAPI Spec
 
-An alternative to the below README form of documenting the APIs can be seen in [openapi](https://github.com/vloschiavo/powerwall2/tree/openapi/openapi) branch, folder.  OpenAPI spec is a machine-readable format that can be used to generate documentation, client libraries, and more.
+An alternative to the below README form of documenting the APIs can be seen in [openapi](openapi) folder.  OpenAPI spec is a machine-readable format that can be used to generate documentation, client libraries, and more.
 
 You can also view the OpenAPI spec using the Swagger viewer by going to https://vloschiavo.github.io/powerwall2/openapi/
 
@@ -119,6 +119,8 @@ Disadvantages of OpenAPI spec:
 
 - Not as human-readable as the README format
 - Not as easy to contribute to as the README format
+
+---
 
 ### Base Endpoint
 
@@ -386,7 +388,7 @@ possible values of "state" property, according to the code:
 
 possible values of "status" property according to the code:
 
--   "ignoring", // possibly some uninterruptable action is in progress?  
+-   "ignoring", // possibly some uninterruptible action is in progress?  
     
 -   "error",  
     
@@ -398,7 +400,7 @@ possible values of "status" property according to the code:
 Use case:  One user is making this request to check new firmware available, and run the upgrade, approximately 30 minutes before switching to discharging (self_consumption mode with 5% reserve). Assumption is - we better upgrade firmware while battery is in standby mode, rather then letting gateway upgrade itself later, because it will stop battery possibly during peak hours for an upgrade. He noticed his gateway has self-upgraded during peak hours, resulting around 15 minutes stop of battery, which was an unpleasant surprise and extra cost. So, his idea was to force a new firmware check (and upgrade) when battery is not used:
 
   
--   7:15am  check for new fimware and run an upgrade if firmware is available  
+-   7:15am  check for new firmware and run an upgrade if firmware is available  
     
 -   7:55am  - start discharging (self_consumption, 5% reserve)  
     

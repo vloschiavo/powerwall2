@@ -1,0 +1,18 @@
+get:
+  description: |
+    Undocumented
+
+    Authorization not required.
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/auth/toggle/supported response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/auth.toggle.supported.json'

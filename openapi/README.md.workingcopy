@@ -1,0 +1,29 @@
+Also need to research:
+
+POST /api/logging
+{
+	level: ???,
+	log: ???
+}
+
+
+#### _POST /api/customer/registration/legal_ ####
+"Content-Type": "application/json"
+response:
+```
+{
+	marketing: ???,
+	privacy_notice: ???,
+	limited_warranty: ???,
+	grid_services: ???
+}
+```
+
+
+#### _POST /api/meters/ABC1234567890/verify_ ####
+
+"Content-Type": "application/json"
+request's body: {"short_id":"12345","serial":" ABC1234567890 "}
+
+
+---

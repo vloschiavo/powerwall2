@@ -1,0 +1,18 @@
+{
+    "name": "Network connection",
+    "category": "Network",
+    "disruptive": false,
+    "inputs": null,
+    "checks": [
+        {
+            "name": "Network device",
+            "status": "running",
+            "start_time": "2023-03-31T15:42:15.448910471+01:00",
+            "end_time": null,
+            "results": {},
+            "debug": {},
+            "checks": null
+        }
+    ],
+    "alert": false
+}

@@ -1,0 +1,31 @@
+get:
+  summary: Whether the Powerwall is on or off grid
+  description: |
+    Determine if the Grid is up or down.
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/system_status/grid_status response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Grid is up
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system_status.grid_status.json'
+            griddown:
+              summary: Grid is down
+              value:
+                grid_status: SystemIslandedActive
+            gridrestorednotinsync:
+              summary: Grid is restored by not yet in sync
+              value:
+                grid_status: SystemTransitionToGrid
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
+    '502':
+      $ref: '../../spec.yaml#/components/responses/BadGateway'

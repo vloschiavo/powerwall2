@@ -1,0 +1,12 @@
+get:
+  summary: Starts the Powerwall(s) and Gateway
+  description: Use this endpoint after stopping the Powerwall+Gateway to restart it
+  security:
+    - bearerAuth: []
+  responses:
+    '202':
+      $ref: '../../spec.yaml#/components/responses/Accepted'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

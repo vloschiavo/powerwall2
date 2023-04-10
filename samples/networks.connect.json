@@ -1,0 +1,10 @@
+{
+    "networkName": "<<WIFI_SSID>>",
+    "interface": "WifiType",
+    "username": "",
+    "password": "<<WIFI_PASSWORD>>",
+    "securityType": "WPA2_Personal",
+    "network_name": "<<WIFI_SSID>>",
+    "security_type": "WPA2_Personal",
+    "dns_servers": []
+}

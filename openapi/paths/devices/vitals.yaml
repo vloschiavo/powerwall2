@@ -1,0 +1,29 @@
+get:
+  summary: Protocol Buffers (aka. protobuf) encoded device metrics
+  description: |
+    Returns data in the form of a *protobuf* payload.  It includes all devices including metrics for string data. 
+    
+    Without the proto schema, the `protoc` tool can decode the raw file (some information will be missing without the schema):
+
+    ```bash
+    protoc --decode_raw < vitals
+    ```
+
+    The output represents the data in `{ ... }` groupings with number prefixing and key values in hex, strings or 1/0 boolean. Thanks to
+      @brianhealey we have a working [tesla.proto](https://raw.githubusercontent.com/vloschiavo/powerwall2/master/tesla.proto) file.  This can
+      be used to decode the *protobuf* payload (e.g. `protoc --python_out=. tesla.proto`).
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/devices/vitals response
+      content:
+        application/octet-stream:
+          examples:
+            example1:
+              summary: A decoded output example
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-devices-vitals.json'
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

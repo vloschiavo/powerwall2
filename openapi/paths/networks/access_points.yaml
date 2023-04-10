@@ -1,0 +1,20 @@
+get:
+  summary: List Wifi networks
+  description: Returns a list of the Wifi networks the Gateway is able to see.
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/networks/access_points response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/networks.access_points.json"
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

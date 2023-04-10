@@ -1,0 +1,29 @@
+get:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/meters/readings response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/meters.readings.json'
+            example2:
+              summary: Example 2
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/meters.readings.json"
+            example3:
+              summary: Failed lookup of Neurio
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/meters.readings.err.json"
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
+    '502':
+      $ref: '../../spec.yaml#/components/responses/BadGateway'

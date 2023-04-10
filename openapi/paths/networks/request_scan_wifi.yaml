@@ -1,0 +1,12 @@
+post:
+  summary: Scan for Wifi networks
+  description: Requests the Gateway scan for Wifi networks
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: post:/networks/request_scan_wifi response
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

@@ -1,0 +1,31 @@
+get:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/system/testing response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system.testing.json'
+            example2:
+              summary: Example 2
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/system.testing.json"
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
+delete:
+  description: Undocumented
+  tags:
+    - Undocumented
+  responses:
+    '204':
+      description: delete:/system/testing response

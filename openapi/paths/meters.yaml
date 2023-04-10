@@ -1,0 +1,47 @@
+get:
+  summary: List meters
+  description: Returns a list of the meters that can be queried by calling get:/meters/<meter_type>, e.g. get:/meters/solar
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/meters response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/meters.json'
+            example2:
+              summary: Example 2
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/meters.json"
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'
+post:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'
+delete:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '204':
+      description: delete:/meters response
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

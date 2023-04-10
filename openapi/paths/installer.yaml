@@ -1,0 +1,34 @@
+get:
+  summary: Your Powerwall Installer's details
+  description: Details of the company that did the installation of the Powerwall as well as your customer ID in their system.  This can be configured in the Wizard.
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/installer response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/installer.json'
+            example2:
+              summary: Example 2
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/installer.json"
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'
+post:
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

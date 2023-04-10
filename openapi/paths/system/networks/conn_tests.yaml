@@ -1,0 +1,42 @@
+get:
+  summary: Network connectivity test results
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: get:/system/networks/conn_tests response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1 - While connection test is running
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/system.networks.conn_tests.get.1.json"
+            example2:
+              summary: Example 2 - After connection test is complete
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/system.networks.conn_tests.get.2.json"
+    '401':
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'
+post:
+  summary: Network connectivity test
+  description: Starts the test that checks whether the Powerwall has access to the local network and internet.
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: post:/system/networks/conn_tests response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            response:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/system.networks.conn_tests.post.json"
+    '401':
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'

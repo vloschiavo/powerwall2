@@ -1,0 +1,49 @@
+post:
+  summary: Connect to Wifi network
+  description: Requests the Gateway connect to the specified Wifi network
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - networkName
+            - interface
+            - username
+            - password
+            - securityType
+            - network_name
+            - security_type
+            - dns_servers
+          properties:
+            networkName:
+              type: string
+            interface:
+              type: string
+            username:
+              type: string
+            password:
+              type: string
+            securityType:
+              type: string
+            network_name:
+              type: string
+            security_type:
+              type: string
+            dns_servers:
+              type: array
+              items: 
+                type: string
+        examples:
+          example1:
+            externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/networks.connect.json"
+  responses:
+    '200':
+      description: post:/networks/connect response
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'

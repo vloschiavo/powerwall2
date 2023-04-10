@@ -1,0 +1,106 @@
+get:
+  summary: Get the Powerwall mode and reserve percentage
+  description: Undocumented
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/operation response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/operation.json'
+            example2:
+              summary: Example 2
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/operation.json'
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'
+post:
+  summary: Change the Powerwall Mode and Reserve Percentage
+  description: |
+    _Note 1: Making changes to the Powerwalls via the Mobile application can take some time to go into effect.  There's a rumor that states
+      that the changes happen around 30 minutes past the hour. (Probably based on a cron job in Tesla's servers)._
+
+    _Note 2: Setting a value is not sufficient to make the change.  You must "save" or "commit" the configuration to have it go into effect.
+      See  the _Config Completed_ section below._
+
+    _Note 3: Once a value is changed and committed it is immediately in effect._
+
+    The example request would set the battery mode to "Self-powered" and a "Reserve for Power Outages" to 20% (app value). 
+
+    Valid Modes:
+    1. `self_consumption`
+    2. `backup`
+    3. `autonomous` (aka Time of Use (TOU) as reported by dlieu on the teslamotorsclub.com forums)
+    4. `scheduler`  aka Aggregation - This seems like it is not supported now. 
+
+    The JavaScript constant in the code of mobile client for Android has the following options:
+
+    ```
+    OperationModes = 
+    {SELF_CONSUMPTION: "self_consumption",
+    TIME_OF_USE: "autonomous",
+    BACKUP: "backup",
+    AGGREGATION: "scheduler"}
+    ```
+
+    There also is an option to set the max PV Export power in kW.  I'm not 100% sure what that does but I could guess (Time of use?). Mine is currently set to null (probably because time of use isn't enabled on my system yet (as of April 2018).  You can omit this key/value pair from the POST.
+
+    `{max_pv_export_power_kW: null, mode: "self_consumption", backup_reserve_percent: 24}`
+
+    Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
+
+    ___**Tested values:**___
+
+    | APP Setting | API Setting |
+    | :-------------: | :-------------: |
+    | 5%	| 10%		| 
+    | 16%	| 20%		|
+    | 16%	| 20.6%		|
+    | 20%	| 24%		|
+    | 21%	| 24.6% 	|
+    | 30%	| 33%		|
+    | 100%	| 100%		|
+
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - mode
+            - backup_reserve_percent
+          properties:
+            mode:
+              type: string
+            backup_reserve_percent:
+              type: number
+          example:
+            mode: self_consumption
+            backup_reserve_percent: 24.6
+  responses:
+    '200':
+      description: post:/operation response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/operation.post.1.json'
+    '401':
+      $ref: '../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../spec.yaml#/components/responses/Forbidden'

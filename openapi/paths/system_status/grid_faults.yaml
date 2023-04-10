@@ -1,0 +1,28 @@
+get:
+  description: |
+    Not sure what this does...does it list the recent grid failure dates/times?
+  security:
+    - bearerAuth: []
+  tags:
+    - Undocumented
+  responses:
+    '200':
+      description: get:/system_status/grid_faults response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            gridfault:
+              summary: Recent fault
+              externaValue: 'https://raw.githubusercontent.com/vls29/powerwall2/openapi/samples/system_status.grid_faults.json'
+            nofaults:
+              summary: No recent faults
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system_status.grid_status.json'
+
+    '401':
+      $ref: '../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../spec.yaml#/components/responses/Forbidden'
+    '502':
+      $ref: '../../spec.yaml#/components/responses/BadGateway'

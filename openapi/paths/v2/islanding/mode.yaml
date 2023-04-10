@@ -1,0 +1,52 @@
+post:
+  summary: Switch between on-grid and off-grid mode
+  description: |
+    Sets whether the powerwall is on or off grid.  Change the value in the POSTed data to change to off-grid (`intentional_reconnect_failsafe`) or on-grid (`backup`).
+
+    **Switching to off-grid mode:** Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemIslandedActive"` once the system is in off-grid mode.
+
+    **Switch to on-grid mode:** Note that subsequent calls to [/api/system_status/grid_status/](#get-apisystem_statusgrid_status) will return `grid_status: "SystemGridConnected"` once the system is back in on-grid mode.
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - island_mode
+          properties:
+            island_mode:
+              type: string
+          example:
+            island_mode: intentional_reconnect_failsafe
+        examples:
+          example1:
+            summary: Example 1 - Switch to off-grid mode
+            value:
+              island_mode: intentional_reconnect_failsafe
+          example2:
+            summary: Example 2 - Switch to on-grid mode
+            value:
+              island_mode: backup
+  responses:
+    '200':
+      description: post:/v2/islanding/mode response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1 - Switch to off-grid mode
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/v2.islanding.mode.off-grid.json'
+            example2:
+              summary: Example 2 - Switch to on-grid mode
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/v2.islanding.mode.on-grid.json'
+    '400':
+      $ref: '../../../spec.yaml#/components/responses/BadRequest'
+    '401':
+      $ref: '../../../spec.yaml#/components/responses/Unauthorized'
+    '403':
+      $ref: '../../../spec.yaml#/components/responses/Forbidden'
