@@ -111,7 +111,7 @@ Advantages of OpenAPI spec:
 
 - Industry standard format for documenting APIs
 - Machine-readable format
-- Can be used to client libraries
+- Can be used to generate client libraries
 - Swagger UI presents the spec in an easy to read format
 - With the right setup, you can use the Swagger UI to test the API endpoints against your own Powerwall
 
