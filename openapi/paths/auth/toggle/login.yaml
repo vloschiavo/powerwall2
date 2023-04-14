@@ -3,7 +3,7 @@ delete:
   tags:
     - Undocumented
   responses:
-    '204':
+    '200':
       description: delete:/auth/toggle/login response
     '404':
       $ref: '../../../spec.yaml#/components/responses/NotFound'

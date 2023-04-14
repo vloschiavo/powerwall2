@@ -2,3 +2,6 @@ post:
   description: Undocumented
   tags:
     - Undocumented
+  responses:
+    '202':
+      $ref: '../../spec.yaml#/components/responses/Accepted'

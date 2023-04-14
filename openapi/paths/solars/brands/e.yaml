@@ -3,7 +3,7 @@ get:
   description: |
     Responds with the inverters the particular brand produces/sells.
 
-    Can get a brand name from get:/solars/brands.
+    Can get a brand name from `get:/solars/brands`.
   security:
     - bearerAuth: []
   parameters:
