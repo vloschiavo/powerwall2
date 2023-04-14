@@ -4,4 +4,4 @@ post:
     - Undocumented
   responses:
     '202':
-      $ref: '../../spec.yaml#/components/responses/Accepted'
+      $ref: '../../../spec.yaml#/components/responses/Accepted'
