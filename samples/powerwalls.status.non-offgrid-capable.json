@@ -1,0 +1,12 @@
+{
+    "enumerating": false,
+    "updating": false,
+    "checking_if_offgrid": false,
+    "running_phase_detection": false,
+    "phase_detection_last_error": "phase detection not run",
+    "bubble_shedding": false,
+    "on_grid_check_error": "on grid check not run",
+    "grid_qualifying": false,
+    "grid_code_validating": false,
+    "phase_detection_not_available": true
+}

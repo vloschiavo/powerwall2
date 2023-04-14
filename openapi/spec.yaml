@@ -74,6 +74,9 @@ components:
     InternalServerError:
       description: |
         Internal Server Error
+    ServiceUnavailable:
+      description: |
+        Service Unavailable
 paths:
   /{e}:
     $ref: "./paths/e.yaml"

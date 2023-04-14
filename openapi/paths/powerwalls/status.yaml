@@ -18,6 +18,9 @@ get:
             example2:
               summary: Example 2 - Powerwall in stopped state
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/stopped/powerwalls.status.json"
+            example3:
+              summary: Example 3 - Powerwall with no off-grid capability
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/powerwalls.status.non-offgrid-capable.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

@@ -12,11 +12,13 @@ get:
       content:
         application/json:
           schema:
-            type: object
+            type: array
+            items:
+              type: string
           examples:
             example1:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/solars.brands.json"
+              externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/solars.brands.json'
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

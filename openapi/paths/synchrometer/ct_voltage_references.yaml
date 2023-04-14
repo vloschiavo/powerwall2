@@ -5,6 +5,8 @@ post:
   tags:
     - Undocumented
   responses:
+    '400':
+      $ref: '../../spec.yaml#/components/responses/BadRequest'
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':

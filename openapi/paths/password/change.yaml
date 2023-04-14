@@ -1,4 +1,43 @@
 post:
-  description: Undocumented
-  tags:
-    - Undocumented
+  summary: Change your password
+  description: |
+    Change your Tesla Powerwall login password.
+
+    Does not require authentication.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - old_password
+            - new_password
+          properties:
+            old_password:
+              type: string
+            new_password:
+              type: string
+            toggled_pw:
+              type: boolean
+        examples:
+          example1:
+            externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/password.change.request.json"
+  responses:
+    '200':
+      description: post:/password/change response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/password.change.response.json"
+    '400':
+      $ref: '../../spec.yaml#/components/responses/BadRequest'
+    '500':
+      $ref: '../../spec.yaml#/components/responses/InternalServerError'

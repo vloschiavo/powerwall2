@@ -9,3 +9,5 @@ get:
       $ref: '../../../spec.yaml#/components/responses/Unauthorized'
     '403':
       $ref: '../../../spec.yaml#/components/responses/Forbidden'
+    '503':
+      $ref: '../../../spec.yaml#/components/responses/ServiceUnavailable'
