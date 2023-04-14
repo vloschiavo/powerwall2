@@ -14,7 +14,7 @@ get:
           examples:
             example1:
               summary: Example 1
-              externalValue: "https://raw.githubusercontent.com/vls29/powerwall2/openapi-more-endpoints/samples/powerwalls.pvi_sub_package_numbers.json"
+              externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/powerwalls.pvi_sub_package_numbers.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':
