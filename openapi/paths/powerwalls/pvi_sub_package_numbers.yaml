@@ -5,6 +5,16 @@ get:
   tags:
     - Undocumented
   responses:
+    '200':
+      description: get:/powerwalls/pvi_sub_package_numbers response
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            example1:
+              summary: Example 1
+              externalValue: "https://raw.githubusercontent.com/vls29/powerwall2/openapi-more-endpoints/samples/powerwalls.pvi_sub_package_numbers.json"
     '401':
       $ref: '../../spec.yaml#/components/responses/Unauthorized'
     '403':
