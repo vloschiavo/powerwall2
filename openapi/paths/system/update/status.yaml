@@ -34,9 +34,9 @@ get:
 
     Southern California Edison has TOU plan with the following details:
 
-    - 8am-2pm,  8pm-10pm  - offpeak
+    - 8am-2pm,  8pm-10pm  - off-peak
     - 2pm-8pm  - peak
-    - 10pm-8am  - super offpeak
+    - 10pm-8am  - super off-peak
   security:
     - bearerAuth: []
   responses:

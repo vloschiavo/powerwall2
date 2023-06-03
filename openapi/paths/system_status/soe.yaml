@@ -11,6 +11,12 @@ get:
         application/json:
           schema:
             type: object
+            properties:
+              percentage:
+                type: number
+                format: double
+                description: The percentage of charge in the Powerwall(s).
+                example: 100
           examples:
             response:
               externalValue: 'https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/21.44-foogod/running/system_status.soe.json'

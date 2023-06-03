@@ -37,6 +37,24 @@ post:
         application/json:
           schema:
             type: object
+            properties:
+              email:
+                type: string
+              firstname:
+                type: string
+              lastname:
+                type: string
+              roles:
+                type: array
+                items: 
+                  type: string
+              token:
+                type: string
+              provider:
+                type: string
+              loginTime:
+                type: string
+                format: date-time
           examples:
             response:
               externalValue: "https://raw.githubusercontent.com/vloschiavo/powerwall2/master/samples/api-login-basic.json"
