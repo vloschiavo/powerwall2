@@ -11,7 +11,7 @@ info:
 
     This documentation is a work in progress. If you find any endpoints that are not documented, or are out of date, please contribute a
       pull request on the [GitHub repository](https://github.com/vloschiavo/powerwall2).  Not all of the endpoints in the README.md have
-      been converted over to OpenAPI spec.  Endponts removed from [README.md.workingcopy](README.md.workingcopy) have been converted over
+      been converted over to OpenAPI spec.  Endpoints removed from [README.md.workingcopy](README.md.workingcopy) have been converted over
       and those remaining in README.md.workingcopy have not been converted over yet.  Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
       more information on how to contribute.
 
@@ -77,6 +77,62 @@ components:
     ServiceUnavailable:
       description: |
         Service Unavailable
+  schemas:
+    MetersAggregatesMeter:
+      type: object
+      properties:
+        last_communication_time:
+          type: string
+          format: date-time
+        instant_power:
+          type: number
+          format: double
+        instant_reactive_power:
+          type: number
+          format: double
+        instant_apparent_power:
+          type: number
+          format: double
+        frequency:
+          type: number
+          format: double
+        energy_exported:
+          type: number
+          format: double
+        energy_imported:
+          type: number
+          format: double
+        instant_average_voltage:
+          type: number
+          format: double
+        instant_average_current:
+          type: number
+          format: double
+        i_a_current:
+          type: number
+          format: double
+        i_b_current:
+          type: number
+          format: double
+        i_c_current:
+          type: number
+          format: double
+        last_phase_voltage_communication_time:
+          type: string
+          format: date-time
+        last_phase_power_communication_time:
+          type: string
+          format: date-time
+        last_phase_energy_communication_time:
+          type: string
+          format: date-time
+        timeout:
+          type: number
+        num_meters_aggregated:
+          type: number
+        instant_total_current:
+          type: number
+          format: double
 paths:
   /{e}:
     $ref: "./paths/e.yaml"

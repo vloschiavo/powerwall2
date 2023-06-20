@@ -1,13 +1,13 @@
 ## How to use the Swagger UI Try it out feature against your own Powerwall
 
-**NOTE**: _the below does require technical knowledge of how to use nginx or the equivilent reverse proxy._
+**NOTE**: _the below does require technical knowledge of how to use nginx or the equivalent reverse proxy._
 
 One of the advantages of the Swagger UI is that you can use the "Try it out" button to test the endpoints against your own Powerwall.
 
 To use the Swagger UI to make requests to your Powerwall, you will need a reverse proxy that can route requests to your Powerwall.
-    The reverse proxy is required because the Swagger UI will make reuqests to your from a different origin than your Powerwall hostname
+    The reverse proxy is required because the Swagger UI will make requests to your from a different origin than your Powerwall hostname
     [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).  Using a reverse proxy enables you to add additional headers,
-    required to fullfill the CORS request requirements.
+    required to fulfill the CORS request requirements.
 
 The following is an example of a reverse proxy configuration that will work with the Swagger UI.  This example uses nginx, but you
     can use any reverse proxy that supports CORS.

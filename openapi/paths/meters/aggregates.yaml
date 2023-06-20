@@ -41,6 +41,15 @@ get:
         application/json:
           schema:
             type: object
+            properties:
+              site:
+                $ref: '../../spec.yaml#/components/schemas/MetersAggregatesMeter'
+              battery:
+                $ref: '../../spec.yaml#/components/schemas/MetersAggregatesMeter'
+              load:
+                $ref: '../../spec.yaml#/components/schemas/MetersAggregatesMeter'
+              solar:
+                $ref: '../../spec.yaml#/components/schemas/MetersAggregatesMeter'
           examples:
             response:
               summary: Example 1
