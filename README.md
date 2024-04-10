@@ -21,6 +21,7 @@ The following projects are known to be using portions of this API, and may be us
 - [tesla_powerwall](https://github.com/jrester/tesla_powerwall) client library for Python
 - [go-powerwall](https://github.com/foogod/go-powerwall) client library for Go
 - [Powerwall exporter for Prometheus](https://github.com/foogod/powerwall_exporter) (uses the `go-powerwall` library)
+- [powerwall-to-pvoutput-uploader](https://github.com/VirtualWolf/powerwall-to-pvoutput-uploader) sends solar panel and battery data from the Powerwall to [pvoutput.org](https://pvoutput.org)
 
 ## Getting Started ##
 
