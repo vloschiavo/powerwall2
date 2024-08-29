@@ -521,7 +521,7 @@ If you do not have a custom password, your password will be the last 5 digits of
 
 In the request body, username can be set to "customer", the password is the last 5 characters of your Gateway serial number (or your custom password) and email, if included, can be left as an empty string.
 
-Here is an example login using a serial number of T123456789.  The password is S+Serial number: T1234.
+Here is an example login using a serial number of T123456789.  The password is: 56789.
 
 Request: 
 
@@ -529,7 +529,7 @@ Request:
 curl --cacert cacert.pem -s -i \
     -X POST \
 	-H "Content-Type: application/json" \
-	-d '{"username":"customer","password":"T1234"}' \
+	-d '{"username":"customer","password":"56789"}' \
 	https://powerwall/api/login/Basic
 ```
 
@@ -563,7 +563,7 @@ Windows Example Request:
 curl -s -i \
     -X POST \
 	-H "Content-Type: application/json" \
-	-d "{\"username\":\"customer\",\"password\":\"T1234\"}" \
+	-d "{\"username\":\"customer\",\"password\":\"56789\"}" \
 	https://192.168.xxx.xxx/api/login/Basic
 ```
 
