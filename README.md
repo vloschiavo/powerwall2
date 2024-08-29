@@ -446,6 +446,8 @@ Useful here: Gateway Version:  "version":"1.40.2\n"
 
 #### _GET /api/logout_ ####
 
+_View the OpenAPI spec for this endpoint here https://vloschiavo.github.io/powerwall2/openapi/#/default/get_logout_
+
 The Gateway Web UI uses this url to logout of the wizard.  I assume you can also use this to expire an auth token...(some testing is required).
 _This is untested. Question for the community: Does this still work? Soliciting for pull requests! :)_
 
@@ -511,21 +513,41 @@ __*** I wouldn't be surprised if less than 1% of the below still works in versio
 **Login**
 #### _POST /api/login/Basic_ ####
 
-Note: _This section needs updating: Does this work?_
+_View the OpenAPI spec for this endpoint here https://vloschiavo.github.io/powerwall2/openapi/#/default/post_login_Basic_
 
-**Authentication example:**
-Note: Getting an authentication token will stop the powerwall.  It won't charge, discharge, or collect stats on v1.15+.  Therefore you should re-enable the powerwall after getting a token.  
-See: the _/api/sitemaster/run_ section above.
+To login to the Tesla Powerwall API, you will need either to know your Gateway serial number or your custom password.
 
-Here is an example login using a blank username (none needed) and a serial number of T123456789.  The password is S+Serial number: ST123456789.
+If you do not have a custom password, your password will be the last 5 digits of your Gateway serial number. If you don't know your Gateway serial number, you can get it from the Tesla app by clicking on settings, My Home Info and it will be listed under "Powerwall Gateway".
+
+In the request body, username can be set to "customer", the password is the last 5 characters of your Gateway serial number (or your custom password) and email, if included, can be left as an empty string.
+
+Here is an example login using a serial number of T123456789.  The password is S+Serial number: T1234.
 
 Request: 
 
-`curl --cacert cacert.pem -s -i -X POST -H "Content-Type: application/json" -d '{"username":"","password":"ST123456789","force_sm_off":false}' https://powerwall/api/login/Basic`
+```shell
+curl --cacert cacert.pem -s -i \
+    -X POST \
+	-H "Content-Type: application/json" \
+	-d '{"username":"customer","password":"T1234"}' \
+	https://powerwall/api/login/Basic
+```
 
 Response: 
 
-`{"email":null,"firstname":"Tesla","lastname":"Energy","roles":["Provider_Engineer"],"token":"OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4tTz57EziltPYsdtjU_DJ08tJqaWbWjTuI3fa_8QW32ED5zg1A==","provider":"Basic"}`
+```json
+{
+	"email": "",
+	"firstname": "Tesla",
+	"lastname": "Energy",
+	"roles": [
+		"Home_Owner"
+	],
+	"token": "OgiGHjoNvwx17SRIaYFIOWPJSaKBYwmMGc5K4...qaWbWjTuI3fa_8QW32ED5zg1A==",
+	"provider": "Basic",
+	"loginTime": "2023-03-25T13:10:48.9029581+01:00"
+}
+```
 
 Save the token for use with the below calls.
 
@@ -537,7 +559,13 @@ In windows, the above example works by:
 
 Windows Example Request: 
 
-`curl -s -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"\",\"password\":\"ST123456789\",\"force_sm_off\":false}" https://192.168.xxx.xxx/api/login/Basic`
+```shell
+curl -s -i \
+    -X POST \
+	-H "Content-Type: application/json" \
+	-d "{\"username\":\"customer\",\"password\":\"T1234\"}" \
+	https://192.168.xxx.xxx/api/login/Basic
+```
 
 
 ---
