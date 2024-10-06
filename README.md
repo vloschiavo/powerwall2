@@ -614,19 +614,11 @@ There also is an option to set the max PV Export power in kW.  I'm not 100% sure
 
 `{max_pv_export_power_kW: null, mode: "self_consumption", backup_reserve_percent: 24}`
 
-Note the difference in the app value (20%) versus the value we set via the local API (24%).  The difference is likely proportional until you reach 100%:
+Note the difference in the app value (20%) versus the value we set via the local API (24%). You can use these formulas for the conversion:
 
-___**Tested values:**___
+From app value to API value: $$\frac{19}{20}x+5$$
 
-| APP Setting | API Setting |
-| :-------------: |:-------------:|
-| 5%	| 10%		| 
-| 16%	| 20%		|
-| 16%	| 20.6%		|
-| 20%	| 24%		|
-| 21%	| 24.6% 	|
-| 30%	| 33%		|
-| 100%	| 100%		|
+From API value to app value: $$\frac{20}{19}x-\frac{100}{19}$$
 
 
 ---
